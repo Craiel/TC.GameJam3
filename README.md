@@ -1,3 +1,12 @@
+## Required Software
+- Unity 5
+- Gimp (http://www.gimp.org/)
+- Git (http://git-scm.com/)
+
+## Optional Software
+- SourceTree (http://www.sourcetreeapp.com/)
+
+
 ## Command notes
 How to serve repository:
 
