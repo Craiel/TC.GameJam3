@@ -1,11 +1,12 @@
 ## Required Software
-- Unity 5
-- Gimp (http://www.gimp.org/)
-- Git (http://git-scm.com/)
+- [Unity 5](https://unity3d.com/)
+- [Gimp](http://www.gimp.org/)
+- [Git](http://git-scm.com/)
+- [MyPaint](http://mypaint.intilinux.com/)
+- [Blender](http://www.blender.org/)
 
 ## Optional Software
-- SourceTree (http://www.sourcetreeapp.com/)
-
+- [SourceTree](http://www.sourcetreeapp.com/)
 
 ## Command notes
 How to serve repository:
