@@ -6,6 +6,7 @@
 [Bb]uild
 [Ll]ibrary/
 Library/
+UnityVS/
 sysinfo.txt
  
 # ===================================== #
@@ -31,3 +32,7 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 [Tt]humbs.db
+*.sln
+*.suo
+*.userprefs
+UnityProject/TCGameJam3DungeonCrawler/Assets/UnityVS.meta
