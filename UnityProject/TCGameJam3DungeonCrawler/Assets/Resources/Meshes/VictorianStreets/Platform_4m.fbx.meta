@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f721af25a166c0545b8b78a72422a73e
-timeCreated: 1430532066
+guid: 1b4e559befcd74347856223db5a01ccc
+timeCreated: 1430531519
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -10,6 +10,8 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube.025
+    4300002: VictorianBiome.HighPlatform.4m
+    6400000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -31,7 +33,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

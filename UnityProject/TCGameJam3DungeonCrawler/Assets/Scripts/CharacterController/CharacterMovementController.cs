@@ -47,8 +47,6 @@ public class CharacterMovementController : MonoBehaviour
         HandleInput();
 
         this.characterController.Move(this.currentVelocity * Time.deltaTime);
-
-        Debug.Log("Velocity: " + this.currentVelocity);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -68,10 +66,6 @@ public class CharacterMovementController : MonoBehaviour
     private void HandleInput()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        if(Mathf.Abs(horizontalInput) < 0.01f)
-        {
-            horizontalInput = 0f;
-        }
 
         if(this.characterController.isGrounded)
         {
@@ -94,22 +88,14 @@ public class CharacterMovementController : MonoBehaviour
     }
 
     private void ApplyGroundFriction()
-    {   
+    {
         if (this.currentVelocity.x > 0)
         {
-            this.currentVelocity.x -= this.groundFriction * Time.deltaTime;
-            if(this.currentVelocity.x < 0)
-            {
-                this.currentVelocity.x = 0;
-            }
+            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, 0, this.currentVelocity.x - this.groundFriction * Time.deltaTime);
         }
         else if (this.currentVelocity.x < 0)
         {
-            this.currentVelocity.x += this.groundFriction * Time.deltaTime;
-            if (this.currentVelocity.x > 0)
-            {
-                this.currentVelocity.x = 0;
-            }
+            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, this.currentVelocity.x + this.groundFriction * Time.deltaTime, 0f);
         }
     }
 }
