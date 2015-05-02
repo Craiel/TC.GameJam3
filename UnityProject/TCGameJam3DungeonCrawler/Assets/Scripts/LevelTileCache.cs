@@ -39,13 +39,13 @@
         {
             System.Diagnostics.Trace.Assert(!this.tiles.Contains(tile));
 
-            Debug.Log("Registering Tile " + tile.TileData.Id);
+            Debug.Log("Registering Tile " + tile.TileData.id);
             this.tiles.Add(tile);
         }
 
         public void Unregister(ILevelTile tile)
         {
-            Debug.Log("Unregistering Tile " + tile.TileData.Id);
+            Debug.Log("Unregistering Tile " + tile.TileData.id);
             this.tiles.Remove(tile);
         }
 

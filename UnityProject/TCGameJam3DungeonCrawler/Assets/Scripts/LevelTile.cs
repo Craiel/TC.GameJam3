@@ -52,12 +52,12 @@
                 return false;
             }
 
-            return typed.TileData.Id == this.TileData.Id;
+            return typed.TileData.id == this.TileData.id;
         }
 
         public override int GetHashCode()
         {
-            return this.TileData.Id;
+            return this.TileData.id;
         }
 
         public ReadOnlyCollection<ILevelTileConnection> Connections
