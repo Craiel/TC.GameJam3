@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts
 {
+    using System;
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class GameLoadout : MonoBehaviour
@@ -10,6 +12,11 @@
             {
                 Application.LoadLevel("GameplayFirstPass");
             }
+        }
+
+        public void SetPlayerWeapons(List<Type> weapons)
+        {
+
         }
     }
 }
