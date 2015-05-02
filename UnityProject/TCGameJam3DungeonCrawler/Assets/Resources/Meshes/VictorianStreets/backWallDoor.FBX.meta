@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e5b99481b6005a24295b9457333d6996
-timeCreated: 1430552102
+guid: 34d8e1f7c3948d940b97d529d7b77716
+timeCreated: 1430558404
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: backWallColumnLow
+    4300000: backWallDoor
     9500000: //RootNode
   materials:
     importMaterials: 1
