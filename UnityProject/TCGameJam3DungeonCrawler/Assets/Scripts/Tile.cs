@@ -4,12 +4,12 @@
 
     public class Tile : MonoBehaviour
     {
-        public int Id { get; set; }
+        public int id;
 
-        public int Biome { get; set; }
+        public int biome;
 
-        public float Rarity { get; set; }
+        public float rarity;
 
-        public bool CanTileWithItself { get; set; }
+        public bool canTileWithItself;
     }
 }
