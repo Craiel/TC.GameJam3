@@ -42,7 +42,7 @@
             }
 
             // Initialize the root and make it the active segment for now
-            this.rootSegment = new LevelSegment(LevelTileCache.Instance.PickTile(null))
+            this.rootSegment = new LevelSegment(LevelTileCache.Instance.PickTileById(0))
                                    {
                                        Position = new Vector2(0, 0)
                                    };
@@ -122,8 +122,6 @@
             }
             else
             {
-                //Vector3 absoluteSource = closestConnection.Source.ConnectionData.transform.position;
-                //Vector3 absoluteTarget = closestConnection.Target.ConnectionData.transform.position;
                 // Find the current absolute connection point positions
                 Vector2? absoluteSource = segment.Tile.GetConnectionPointPosition(segment.GetObject(), closestConnection.Source.Id);
                 Vector2? absoluteTarget = segment.Tile.GetConnectionPointPosition(newSegment.GetObject(), closestConnection.Target.Id);
