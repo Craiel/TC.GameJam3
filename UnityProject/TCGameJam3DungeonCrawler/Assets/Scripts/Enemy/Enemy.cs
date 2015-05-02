@@ -1,52 +1,55 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets.Scripts;
 
 [RequireComponent(typeof(CharacterController))]
-public class Enemy : MonoBehaviour
+public abstract class Enemy : Actor
 {
-    private Transform _transform;
-
-    private Vector3 velocity;
-
-    private Assets.Scripts.Enemy.Range range { get; set; }
-    private Assets.Scripts.Enemy.Color color { get; set; }
-
-    public int health;
-    public bool colliding;
-    public float speed;
-    private Vector3 _pos;
-    private int _getMoving;
-
-    public CharacterController enemyController;
-
-    // Update is called once per frame
-    void Start()
+    public enum State
     {
-        _pos = this.transform.position;
-        
+        Idle,
+        Attacking
     }
-    void Update()
-    {
+    private State currentState = State.Idle;
 
-        colliding = this.enemyController.SimpleMove(new Vector3(speed, 0, 0));
-        if (!colliding)
-        {
-            speed = speed * -1;
-        }
-        if(this.transform.position.x == _pos.x)
-        {
-            Debug.Log("Stayed still");
-            _getMoving++;
-        }
-        if(_getMoving >=50)
-        {
-            speed = speed * -1;
-        }
+    protected Player player;
+
+    public virtual void Init(Player player)
+    {
+        this.player = player;
     }
 
-    public void onHit(DamageType dmg, Assets.Scripts.Enemy.Color col)
+    protected abstract bool CanDetectPlayer();
+    protected abstract void Attack();
+    protected abstract void Idle();
+
+    protected virtual void Update()
     {
-        //dmg = base * nvl((% * Max),1) 
+        UpdateState();
+        ResolveAction();
+    }
+
+    private void UpdateState()
+    {
+        bool canDetectPlayer = CanDetectPlayer();
+        if (this.currentState == State.Idle && canDetectPlayer)
+        {
+            this.currentState = State.Attacking;
+        }
+        else if (this.currentState == State.Attacking && !canDetectPlayer)
+        {
+            this.currentState = State.Idle;
+        }   
+    }
+
+    private void ResolveAction()
+    {
+        if(this.currentState == State.Idle)
+        {
+            Idle();
+        }
+        else if(this.currentState == State.Attacking)
+        {
+            Attack();
+        }
     }
 }
