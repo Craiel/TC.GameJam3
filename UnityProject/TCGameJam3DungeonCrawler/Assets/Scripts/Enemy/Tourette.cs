@@ -1,72 +1,87 @@
-﻿using UnityEngine;
-using System.Collections;
-using Assets;
+﻿namespace Assets.Scripts.Enemy
+{
+    using UnityEngine;
 
-public class Tourette : MonoBehaviour {
-	public  Assets.Scripts.Enemy.Color color;
+    public class Tourette : MonoBehaviour
+    {
+        public Assets.Scripts.Enemy.PowerColor color;
 
-	public int baseDamage;
-	public int fireRange;
-	public int aggroRange;
-	public int rateOfFire;
-	public int rotationSpeedCoefficient;
+        public int baseDamage;
 
-	public Transform target;
+        public int fireRange;
 
-	private Transform aimBone;
-	private Transform fireRotationBone;
+        public int aggroRange;
 
-	// Use this for initialization
-	void Start () {
-		// Sequence to Bone.012 - 0, 3
-		aimBone = transform.GetChild (0).GetChild (3);
-		fireRotationBone = aimBone.GetChild (0);
+        public int rateOfFire;
 
-		System.Diagnostics.Trace.Assert (fireRange < aggroRange);
-	}
+        public int rotationSpeedCoefficient;
 
-	private Transform aggro() {
-		if ((aimBone.transform.position - target.position).magnitude < aggroRange)
-			return target;
-		else
-			return null;
-	}
+        public Transform target;
 
-	private void fire() {
-		// ??? Particles, summon bullets?
-	}
+        private Transform aimBone;
 
-	private void spinTheBarrel() {
-		fireRotationBone.Rotate (0, fireRotationBone.rotation.y + rateOfFire, 0);
-	}
+        private Transform fireRotationBone;
 
-	private void aimAt(Transform target) {
-		Vector3 dir = target.position - transform.position;
-		dir.Normalize ();
-		//aimBone.RotateAround (aimBone.transform.position, new Vector3 (0, 1, 0), 10.0f * Vector3.Dot (new Vector3(0,0,1), dir));
-		Debug.Log ("My position: " + aimBone.position + ", my target's position: " + target.position + ", direction I want to look at: " + dir.normalized);
-//		aimBone.rotation.eulerAngles - 
-		// FIGURE THIS SHIT OUT!
-		aimBone.RotateAround (aimBone.position, dir, 1.0f);
-	}
+        // Use this for initialization
+        private void Start()
+        {
+            // Sequence to Bone.012 - 0, 3
+            aimBone = transform.GetChild(0).GetChild(3);
+            fireRotationBone = aimBone.GetChild(0);
 
-	private bool inFireRange(Transform target) {
-		return false;
-	}
+            System.Diagnostics.Trace.Assert(fireRange < aggroRange);
+        }
 
-	private bool aimingAt(Transform target) {
-		return false;
-	}
+        private Transform aggro()
+        {
+            if ((aimBone.transform.position - target.position).magnitude < aggroRange) return target;
+            else return null;
+        }
 
-	// Update is called once per frame
-	void Update () {
-		Transform aggroTarget = aggro ();
+        private void fire()
+        {
+            // ??? Particles, summon bullets?
+        }
 
-		if (aggroTarget != null) {
-			aimAt(aggroTarget);
-			spinTheBarrel();
-			if(inFireRange(aggroTarget) && aimingAt(aggroTarget))
-				fire();
-		}
-	}
+        private void spinTheBarrel()
+        {
+            fireRotationBone.Rotate(0, fireRotationBone.rotation.y + rateOfFire, 0);
+        }
+
+        private void aimAt(Transform target)
+        {
+            Vector3 dir = target.position - transform.position;
+            dir.Normalize();
+            //aimBone.RotateAround (aimBone.transform.position, new Vector3 (0, 1, 0), 10.0f * Vector3.Dot (new Vector3(0,0,1), dir));
+            Debug.Log(
+                "My position: " + aimBone.position + ", my target's position: " + target.position
+                + ", direction I want to look at: " + dir.normalized);
+            //		aimBone.rotation.eulerAngles - 
+            // FIGURE THIS SHIT OUT!
+            aimBone.RotateAround(aimBone.position, dir, 1.0f);
+        }
+
+        private bool inFireRange(Transform target)
+        {
+            return false;
+        }
+
+        private bool aimingAt(Transform target)
+        {
+            return false;
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            Transform aggroTarget = aggro();
+
+            if (aggroTarget != null)
+            {
+                aimAt(aggroTarget);
+                spinTheBarrel();
+                if (inFireRange(aggroTarget) && aimingAt(aggroTarget)) fire();
+            }
+        }
+    }
 }
