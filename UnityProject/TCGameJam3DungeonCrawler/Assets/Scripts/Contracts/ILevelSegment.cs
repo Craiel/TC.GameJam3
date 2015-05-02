@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using Assets.Scripts.Level;
+
     using UnityEngine;
 
     public interface ILevelSegment
@@ -25,5 +27,7 @@
         bool Contains(Vector2 value);
 
         IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction);
+
+        GameObject GetObject();
     }
 }

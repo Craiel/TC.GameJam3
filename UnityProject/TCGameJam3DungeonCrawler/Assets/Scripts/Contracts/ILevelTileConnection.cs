@@ -1,10 +1,12 @@
 ﻿namespace Assets.Scripts.Contracts
 {
+    using Assets.Scripts.Level;
+
     using UnityEngine;
 
     public interface ILevelTileConnection
     {
-        ConnectionPoint ConnectionData { get; }
+        string Id { get; set; }
 
         LevelSegmentDirection Direction { get; set; }
 
