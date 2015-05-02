@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ConnectionPoint.cs" />
+    <Compile Include="Assets\Scripts\Room.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Prefabs\RemoveOnceContentsAreAdded.txt" />
