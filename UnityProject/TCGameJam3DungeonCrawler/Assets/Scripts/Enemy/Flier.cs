@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Flier : Enemy
+public class Flier : BaseEnemy
 {
     [SerializeField]
     private float maxSpeed;
