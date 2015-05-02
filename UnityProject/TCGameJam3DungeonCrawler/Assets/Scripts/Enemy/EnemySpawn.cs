@@ -6,7 +6,7 @@ public class EnemySpawn : MonoBehaviour
 	public List<Assets.Scripts.Enemy.Range> range;
 	public List<Assets.Scripts.Enemy.Color> color;
     public List<float> spawnChance;
-    public float respawnTime;
+    public List<float> respawnTime;
 
     private void OnDrawGizmos()
     {

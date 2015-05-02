@@ -185,4 +185,8 @@ public class CharacterMovementController : MonoBehaviour
             }
         }
     }
+    void onDestory()
+    {
+        Debug.Log("Player Died");
+    }
 }
