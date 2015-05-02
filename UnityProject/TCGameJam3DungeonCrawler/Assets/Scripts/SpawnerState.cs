@@ -60,42 +60,11 @@
                 this.host.SpawnEnemy(this);
                 return;
             }
-
-            this.host.Spawn(this);
-
-            Debug.Log("Attempting SPAWN!");
-            // Spawn a new instance
-            /*IList<SpawnedEntity> spawnList = spawner.GetNextObject();
-            foreach (SpawnedEntity entity in spawnList)
+            
+            if (this.group.CanSpawn)
             {
-                if (entity == null)
-                {
-                    continue;
-                }
-
-                SpawnedEntity instance;
-                if (entity is BaseEnemy)
-                {
-                    instance = (BaseEnemy)Instantiate(entity, spawner.transform.position, spawner.transform.rotation);
-                    ((BaseEnemy)instance).Init(this.player);
-                }
-                else
-                {
-                    instance = (SpawnedEntity)Instantiate(entity, spawner.transform.position, spawner.transform.rotation);
-                }
-
-                Debug.Log("Spawning new Entity!");
-                if (instance.LifeSpawn != null)
-                {
-                    this.spawnedEntityLifespan.Add(instance, instance.LifeSpawn.Value);
-                }
-
-                this.spawnedEntities[spawner.Group].Add(instance);
-                this.spawnedInstanceCount[spawner.Group]++;
+                this.host.Spawn(this);
             }
-
-            // Set the delay
-            this.spawnDelay[spawner] = spawner.interval;*/
         }
 
         // -------------------------------------------------------------------
