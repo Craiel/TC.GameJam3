@@ -25,9 +25,17 @@ public class CharacterMovementController : MonoBehaviour
     [SerializeField]
     private float groundFriction;
 
+    [SerializeField]
+    private float jumpCutSpeedLimit;
+
+    [SerializeField]
+    private float minimumJumpTriggerHeight;
+
     private Vector3 currentVelocity;
 
     private CharacterController characterController;
+
+    private bool hasCharacterRequestedJumpWithinRange;
 
     private void Start()
     {
@@ -69,19 +77,39 @@ public class CharacterMovementController : MonoBehaviour
 
         if(this.characterController.isGrounded)
         {
-            if(Input.GetButton("Jump"))
+            if (this.hasCharacterRequestedJumpWithinRange || Input.GetButtonDown("Jump"))
             {
                 this.currentVelocity.y = this.jumpImpulseForce;
+                this.hasCharacterRequestedJumpWithinRange = false;
             }
+        }
+        else
+        {
+            RaycastHit hitInfo;
 
-            if (horizontalInput == 0f)
+            if(!Input.GetButton("Jump"))
             {
-                ApplyGroundFriction();
+                if(this.currentVelocity.y > this.jumpCutSpeedLimit)
+                {
+                    this.currentVelocity.y = this.jumpCutSpeedLimit;
+                }
+            }
+            else if(Physics.Raycast(new Ray(this.transform.position, -this.transform.up), this.minimumJumpTriggerHeight, LayerMask.NameToLayer("Default")))
+            {   
+                this.hasCharacterRequestedJumpWithinRange = true;
             }
         }
 
-        this.currentVelocity += new Vector3(horizontalInput * horizontalMovementSpeed * Time.deltaTime, 0, 0);
-        float maxHorizontalSpeed = this.characterController.isGrounded ? this.maxGroundSpeed : this.maxAirHorizontalSpeed;
+        if ((horizontalInput == 0f && this.characterController.isGrounded) || Mathf.Sign(horizontalInput) != Mathf.Sign(this.currentVelocity.x))
+        {
+            ApplyGroundFriction();
+        }
+
+        float horizontalAcceleration = horizontalInput * horizontalMovementSpeed * Time.deltaTime;
+
+        this.currentVelocity += new Vector3(horizontalAcceleration, 0, 0);
+        //float maxHorizontalSpeed = this.characterController.isGrounded ? this.maxGroundSpeed : this.maxAirHorizontalSpeed;
+        float maxHorizontalSpeed = this.maxGroundSpeed;
         this.currentVelocity = new Vector3(Mathf.Clamp(this.currentVelocity.x, -maxHorizontalSpeed, maxHorizontalSpeed),
                                            Mathf.Clamp(this.currentVelocity.y, -this.maxVerticalSpeed, this.maxVerticalSpeed),
                                            0f);
