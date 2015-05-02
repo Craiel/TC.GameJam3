@@ -113,8 +113,8 @@
                 Debug.LogWarning(
                     string.Format(
                         "No Connection between room {0} and {1}",
-                        segment.Tile.TileData.Id,
-                        newSegment.Tile.TileData.Id));
+                        segment.Tile.TileData.id,
+                        newSegment.Tile.TileData.id));
 
                 newSegment.Position = segment.Position + new Vector2(segment.Width + LevelMargin, 0);
             }
