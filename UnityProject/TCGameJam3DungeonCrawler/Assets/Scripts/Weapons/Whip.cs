@@ -8,8 +8,8 @@ public class Whip : Weapon
 
     }
 
-    protected override void AttackImpl(int totalDamage, Vector3 direction)
+    protected override void AttackImpl(int baseDamage, int redDamage, int greenDamage, int blueDamage, Vector3 direction)
     {
-
+      
     }
 }
