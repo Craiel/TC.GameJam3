@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7d464550044252441bca13e341170b50
-timeCreated: 1430531495
+guid: df7f61d0b1c31af408a14f69b11a7997
+timeCreated: 1430558405
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: TrashBag
-    6400000: //RootNode
+    4300000: backWallExtruded
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -33,7 +32,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
