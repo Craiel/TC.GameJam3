@@ -11,6 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Cube.026
     4300002: VictorianBiome.HighPlatform.2m
+    4300004: Platform_2m
     6400000: //RootNode
   materials:
     importMaterials: 1
