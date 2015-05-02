@@ -1,7 +1,5 @@
 ﻿namespace Assets.Scripts
 {
-    using System;
-
     using Assets.Scripts.Contracts;
 
     using UnityEngine;
@@ -10,16 +8,16 @@
 
     public class LevelTile : ILevelTile
     {
-        private readonly Object resource;
+        private readonly GameObject prefab;
 
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
-        public LevelTile(Object resource)
+        public LevelTile(GameObject prefab)
         {
-            System.Diagnostics.Trace.Assert(resource != null);
+            System.Diagnostics.Trace.Assert(prefab != null);
 
-            this.resource = resource;
+            this.prefab = prefab;
 
             this.UpdateProperties();
         }
@@ -33,13 +31,12 @@
         public bool CanTileWithItself { get; private set; }
         public float Rarity { get; private set; }
 
-        public Vector3? Rotation { get; set; }
-        public float RotationAngle { get; set; }
-
-        public Bounds Bounds { get; private set; }
         public float Width { get; private set; }
         public float Height { get; private set; }
 
+        public Vector2? Rotation { get; set; }
+        public float RotationAngle { get; set; }
+        
         public override bool Equals(object obj)
         {
             var typed = obj as LevelTile;
@@ -58,7 +55,7 @@
 
         public GameObject GetInstance()
         {
-            var instance = Object.Instantiate(this.resource) as GameObject;
+            var instance = Object.Instantiate(this.prefab);
             System.Diagnostics.Trace.Assert(instance != null);
 
             if (this.Rotation != null)
@@ -75,16 +72,14 @@
         private void UpdateProperties()
         {
             // Create a temporary instance to update the properties
-            //  Maybe we can get around this?
+            //  Maybe we can get around this? The prefab has no bounds since it's not visible
             var tempInstance = this.GetInstance();
             try
             {
                 // Update the rest of the shebang
-                this.Bounds = this.GetMaxBounds(tempInstance);
-
-                // Only care about the x axis for now but we save both
-                this.Width = this.Bounds.max.x - this.Bounds.min.x;
-                this.Height = this.Bounds.max.y - this.Bounds.min.y;
+                Bounds bounds = this.GetMaxBounds(tempInstance);
+                this.Width = bounds.size.x;
+                this.Height = bounds.size.y;
             }
             finally 
             {
@@ -94,10 +89,14 @@
 
         private Bounds GetMaxBounds(GameObject source)
         {
-            var bounds = new Bounds(source.transform.position, Vector3.zero);
+            var origin = new Vector3(source.transform.position.x, source.transform.position.y, 0);
+            var bounds = new Bounds(origin, Vector3.zero);
             foreach (Renderer r in source.GetComponentsInChildren<Renderer>())
             {
-                bounds.Encapsulate(r.bounds);
+                var mutedBounds = new Bounds(
+                    new Vector3(r.bounds.center.x, r.bounds.center.y, 0),
+                    new Vector3(r.bounds.size.x, r.bounds.size.y));
+                bounds.Encapsulate(mutedBounds);
             }
 
             return bounds;

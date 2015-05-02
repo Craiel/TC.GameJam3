@@ -33,6 +33,8 @@
             }
         }
 
+        public bool PrefabsScanned { get; private set; }
+
         public void Register(ILevelTile tile)
         {
             System.Diagnostics.Trace.Assert(!this.tiles.Contains(tile));
@@ -53,6 +55,30 @@
 
             var pick = Random.Range(0, this.tiles.Count);
             return this.tiles[pick];
+        }
+
+        public void RescanPrefabs()
+        {
+            Object[] resources = Resources.LoadAll("Prefabs");
+            foreach (Object resource in resources)
+            {
+                var typed = resource as GameObject;
+                if (typed == null)
+                {
+                    continue;
+                }
+
+                var tileComponent = typed.GetComponent<Tile>();
+                if (tileComponent == null)
+                {
+                    continue;
+                }
+
+                var tile = new LevelTile(typed);
+                this.Register(tile);
+            }
+
+            this.PrefabsScanned = true;
         }
     }
 }

@@ -4,21 +4,20 @@
 
     public interface ILevelSegment
     {
-        bool CanGoLeft { get; set; }
-        bool CanGoRight { get; set; }
-        bool CanGoUp { get; set; }
-        bool CanGoDown { get; set; }
+        Vector2 Position { get; }
 
-        Vector3 Position { get; }
-
-        Bounds Bounds { get; }
-
-        ILevelSegment Left { get; set; }
-        ILevelSegment Right { get; set; }
-        ILevelSegment Up { get; set; }
-        ILevelSegment Down { get; set; }
-
+        float Width { get; }
+        float Height { get; }
+        
         void Show();
         void Hide();
+
+        bool GetCanExtend(LevelSegmentDirection direction);
+        void SetCanExtend(LevelSegmentDirection direction, bool value);
+
+        ILevelSegment GetNeighbor(LevelSegmentDirection direction);
+        void SetNeighbor(LevelSegmentDirection direction, ILevelSegment segment);
+
+        bool Contains(Vector2 value);
     }
 }
