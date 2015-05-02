@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CharacterController\CharacterMovementController.cs" />
      <Compile Include="Assets\Scripts\ConnectionPoint.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <None Include="Assets\Resources\Prefabs\RemoveOnceContentsAreAdded.txt" />
