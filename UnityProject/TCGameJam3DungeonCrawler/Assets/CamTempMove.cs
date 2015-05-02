@@ -11,11 +11,12 @@ public class CamTempMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float xAxisValue = Input.GetAxis("Horizontal");
-        float zAxisValue = Input.GetAxis("Vertical");
+        float yAxisValue = Input.GetAxis("Vertical");
+        float zAxisValue = Input.GetAxis("zAxis");
 	    var mult = 0.5f;
         if (Camera.current != null)
         {
-            Camera.current.transform.Translate(new Vector3(xAxisValue * mult, 0.0f, zAxisValue * mult));
+            Camera.current.transform.Translate(new Vector3(xAxisValue * mult, yAxisValue * mult, zAxisValue * mult));
         }
 	}
 }
