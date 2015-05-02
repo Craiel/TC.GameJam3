@@ -21,6 +21,9 @@ public abstract class Weapon : MonoBehaviour
 
     private Vector3 pointingDirection;
 
+    protected abstract void PointWeaponImpl(Vector3 direction);
+    protected abstract void AttackImpl(int totalDamage, Vector3 direction);
+
     private void Update()
     {
         if(this.hasPointingDirection)
@@ -30,6 +33,7 @@ public abstract class Weapon : MonoBehaviour
             Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
             this.pointingDirection = (cursorWorldPosition - this.transform.position).normalized;
+            PointWeaponImpl(this.pointingDirection);
         }
 
         if(this.currentCooldownTime > 0)
@@ -66,6 +70,4 @@ public abstract class Weapon : MonoBehaviour
     {
         return energy;
     }
-
-    protected abstract void AttackImpl(int totalDamage, Vector3 direction);
 }
