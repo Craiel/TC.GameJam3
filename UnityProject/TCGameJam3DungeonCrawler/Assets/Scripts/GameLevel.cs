@@ -4,15 +4,12 @@
     using System.Collections.Generic;
 
     using Assets.Scripts.Contracts;
+    using Assets.Scripts.Level;
 
     using UnityEngine;
 
-    public class Level : MonoBehaviour, ILevel
+    public class GameLevel : MonoBehaviour, IGameLevel
     {
-        private const float GenerationRange = 4;
-
-        private const float LevelMargin = 1.0f;
-
         private readonly IList<ILevelSegment> segments;
 
         private ILevelSegment rootSegment;
@@ -26,7 +23,7 @@
         // -------------------------------------------------------------------
         // Constructor
         // -------------------------------------------------------------------
-        public Level()
+        public GameLevel()
         {
             this.segments = new List<ILevelSegment>();
         }
@@ -90,21 +87,15 @@
                     this.activeSegment.Position.y,
                     10.0f);
                 this.debugActiveSegmentIndicator.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
-                
+
+                this.CollapseSegment(LevelSegmentDirection.Left, this.activeSegment, Constants.TileCollapseRange);
+                this.CollapseSegment(LevelSegmentDirection.Right, this.activeSegment, Constants.TileCollapseRange);
+
                 // For testing we only extend right for now...
-                ILevelSegment center = this.activeSegment;
-                for (var i = 0; i < GenerationRange; i++)
-                {
-                    this.ExtendSegment(LevelSegmentDirection.Right, center);
-                    center = center.GetNeighbor(LevelSegmentDirection.Right);
-                }
+                this.ExtendSegment(LevelSegmentDirection.Right, this.activeSegment);
+                this.ExtendSegment(LevelSegmentDirection.Left, this.activeSegment);
             }
         }
-
-        /*private void CollapseSegmentLeft(ILevelSegment segment)
-        {
-            if(segment.Left)
-        }*/
 
         private void ApplySegmentConnectionMap(LevelConnectionMap closestConnection, ILevelSegment segment, ILevelSegment newSegment)
         {
@@ -118,7 +109,7 @@
                         segment.Tile.TileData.id,
                         newSegment.Tile.TileData.id));
 
-                newSegment.Position = segment.Position + new Vector2(segment.Width + LevelMargin, 0);
+                newSegment.Position = segment.Position + new Vector2(segment.Width + Constants.InvalidConnectorLevelMargin, 0);
             }
             else
             {
@@ -151,6 +142,38 @@
                 newSegment.Position = segment.Position + new Vector2(segment.Width, 0) - offset;
             }
         }
+
+        private void ExtendSegment(LevelSegmentDirection direction, ILevelSegment root)
+        {
+            ILevelSegment center = root;
+            for (var i = 0; i < Constants.TileGenerationRange; i++)
+            {
+                if (center == null)
+                {
+                    break;
+                }
+
+                this.DoExtendSegment(direction, center);
+                center = center.GetNeighbor(direction);
+            }    
+        }
+
+        private void CollapseSegment(LevelSegmentDirection direction, ILevelSegment segment, int minDepth, int currentDepth = 0)
+        {
+            ILevelSegment neighbor = segment.GetNeighbor(direction);
+            if (neighbor != null)
+            {
+                currentDepth++;
+                this.CollapseSegment(direction, neighbor, minDepth, currentDepth);
+                currentDepth--;
+            }
+
+            if (currentDepth > minDepth)
+            {
+                segment.Hide();
+            }
+        }
+
         private void ExtendSegmentLeft(LevelSegmentDirection direction, ILevelSegment segment, ILevelSegment newSegment)
         {
             LevelConnectionMap closestConnection = this.LocateClosestConnection(segment, direction, newSegment, LevelSegmentDirection.Right);
@@ -165,9 +188,18 @@
             newSegment.SetNeighbor(LevelSegmentDirection.Left, segment);
         }
 
-        private void ExtendSegment(LevelSegmentDirection direction, ILevelSegment segment)
+        private void DoExtendSegment(LevelSegmentDirection direction, ILevelSegment segment)
         {
-            if (segment.GetNeighbor(direction) == null && segment.GetCanExtend(direction))
+            System.Diagnostics.Trace.Assert(segment != null);
+            ILevelSegment neighbor = segment.GetNeighbor(direction);
+            if (neighbor != null)
+            {
+                // Reactivate the neighbor instead of making a new one
+                neighbor.Show();
+                return;
+            }
+
+            if (segment.GetCanExtend(direction))
             {
                 // Todo: do the shift for the connection points
                 ILevelTile tile = LevelTileCache.Instance.PickTile(segment.Tile);

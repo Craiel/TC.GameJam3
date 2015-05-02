@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Level
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -79,7 +79,10 @@
 
         public void Show()
         {
-            System.Diagnostics.Trace.Assert(this.activeObject == null);
+            if (this.activeObject != null)
+            {
+                return;
+            }
 
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
@@ -105,7 +108,10 @@
 
         public void Hide()
         {
-            System.Diagnostics.Trace.Assert(this.activeObject != null);
+            if (this.activeObject == null)
+            {
+                return;
+            }
 
             // Show the connectors for debugging
             foreach (GameObject debugObject in this.connectorDebugObjects)

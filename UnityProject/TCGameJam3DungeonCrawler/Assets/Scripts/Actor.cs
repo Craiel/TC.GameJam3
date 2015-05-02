@@ -6,9 +6,6 @@ public abstract class Actor : MonoBehaviour
     [SerializeField]
     private int totalHitPoints;
 
-    [SerializeField]
-    Assets.Scripts.Enemy.Color color = Assets.Scripts.Enemy.Color.None;
-
     protected CharacterController characterController;
 
     public int HitPoints { get; private set; }
@@ -22,17 +19,9 @@ public abstract class Actor : MonoBehaviour
         HitPoints = this.totalHitPoints;
     }
 
-    public void TakeDamage(int baseDamage, int redDamage = 0, int greenDamage = 0, int blueDamage = 0)
+    public virtual void TakeDamage(int baseDamage, int redDamage = 0, int greenDamage = 0, int blueDamage = 0)
     {
-        int totalDamage = baseDamage;
-        if (color == Assets.Scripts.Enemy.Color.Red)
-            totalDamage += redDamage;
-        if (color == Assets.Scripts.Enemy.Color.Green)
-            totalDamage += greenDamage;
-        if (color == Assets.Scripts.Enemy.Color.Blue)
-            totalDamage += blueDamage;
-
-        HitPoints -= totalDamage;
+        HitPoints -= baseDamage;
         if (HitPoints <= 0)
         {
             Die();

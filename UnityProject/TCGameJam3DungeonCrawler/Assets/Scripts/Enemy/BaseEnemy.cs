@@ -2,17 +2,21 @@
 using Assets.Scripts;
 
 [RequireComponent(typeof(CharacterController))]
-public abstract class Enemy : Actor
+public abstract class BaseEnemy : Actor
 {
     public enum State
     {
         Idle,
         Attacking
     }
+
     private State currentState = State.Idle;
 
-    protected Player player;
+    [SerializeField]
+    Assets.Scripts.Enemy.PowerColor color = Assets.Scripts.Enemy.PowerColor.None;
 
+    protected Player player;
+    
     public virtual void Init(Player player)
     {
         this.player = player;
@@ -51,5 +55,18 @@ public abstract class Enemy : Actor
         {
             Attack();
         }
+    }
+
+    public override void TakeDamage(int baseDamage, int redDamage = 0, int greenDamage = 0, int blueDamage = 0)
+    {
+        int totalDamage = baseDamage;
+        if (color == Assets.Scripts.Enemy.PowerColor.Red)
+            totalDamage += redDamage;
+        if (color == Assets.Scripts.Enemy.PowerColor.Green)
+            totalDamage += greenDamage;
+        if (color == Assets.Scripts.Enemy.PowerColor.Blue)
+            totalDamage += blueDamage;
+
+        base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts.Contracts
 {
+    using Assets.Scripts.Level;
+
     using UnityEngine;
 
     public interface ILevelTileConnection
