@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Room : MonoBehaviour
+public class Tile : MonoBehaviour
 {
     public int biome;
     public float rarity;
