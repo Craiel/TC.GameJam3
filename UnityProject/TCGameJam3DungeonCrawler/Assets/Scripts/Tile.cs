@@ -12,6 +12,8 @@
 
         public int spawnEnemyLimitTotal;
 
+        public int spawnInstanceLimitTotal;
+
         public float rarity;
 
         public bool canTileWithItself;

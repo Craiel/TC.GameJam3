@@ -4,6 +4,6 @@
 
     public class SpawnedEntity : MonoBehaviour
     {
-        public float? LifeSpan;
+        public float lifeSpan;
     }
 }

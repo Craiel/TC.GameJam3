@@ -12,7 +12,7 @@
 
         private readonly IDictionary<string, SpawnerState> activeSpawners; 
 
-        private GameLevel level;
+        private readonly GameLevel level;
 
         public Player player;
 
@@ -23,6 +23,8 @@
         {
             this.activeSpawners = new Dictionary<string, SpawnerState>();
             this.spawnerGroups = new Dictionary<long, SpawnerStateGroup>();
+
+            this.level = new GameLevel(this);
         }
 
         // -------------------------------------------------------------------
@@ -30,7 +32,6 @@
         // -------------------------------------------------------------------
         public void Start()
         {
-            this.level = new GameLevel(this);
             this.level.Start();
         }
 

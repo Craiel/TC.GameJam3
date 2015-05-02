@@ -20,10 +20,7 @@ public abstract class BaseEnemy : Actor
     
     [SerializeField]
     Assets.Scripts.Enemy.PowerColor color = Assets.Scripts.Enemy.PowerColor.None;
-
-    [SerializeField]
-    private GameObject currentPlayer;
-
+    
     private float currentAttackCooldown;
 
     protected Player player;
@@ -45,7 +42,10 @@ public abstract class BaseEnemy : Actor
             this.currentAttackCooldown -= Time.deltaTime;
         }
 
-        this.player = currentPlayer.GetComponent<Player>();
+        if (this.player == null)
+        {
+            return;
+        }
 
         float distanceToPlayer = (this.player.transform.position - this.transform.position).magnitude;
         if(distanceToPlayer <= RELEVANT_ACTION_RANGE)

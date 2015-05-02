@@ -27,6 +27,7 @@
             this.InstanceLimitActive = segment.Tile.TileData.spawnInstanceLimitActive;
 
             this.EnemyLimitTotal = segment.Tile.TileData.spawnEnemyLimitTotal;
+            this.InstanceLimitTotal = segment.Tile.TileData.spawnInstanceLimitTotal;
         }
 
         // -------------------------------------------------------------------
@@ -37,6 +38,7 @@
         public int InstanceLimitActive { get; set; }
 
         public int EnemyLimitTotal { get; set; }
+        public int InstanceLimitTotal { get; set; }
 
         public int SpawnedEnemyCount { get; set; }
         public int SpawnedInstanceCount { get; set; }
@@ -48,6 +50,21 @@
                 // Check if we can spawn another instance
                 if (this.entities.Count >= this.InstanceLimitActive
                     || this.SpawnedEnemyCount >= this.EnemyLimitTotal)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public bool CanSpawn
+        {
+            get
+            {
+                // Check if we can spawn another instance
+                if (this.entities.Count >= this.InstanceLimitActive
+                    || this.SpawnedInstanceCount > this.InstanceLimitTotal)
                 {
                     return false;
                 }
@@ -78,7 +95,7 @@
             foreach (SpawnedEntity entity in this.entitiesBySpawner[spawnerId])
             {
                 this.entities.Remove(entity);
-                Object.Destroy(entity);
+                Object.Destroy(entity.gameObject);
             }
 
             this.entitiesBySpawner.Remove(spawnerId);
@@ -120,6 +137,7 @@
                 }
 
                 this.entityLifespan.Remove(entity);
+                Object.Destroy(entity.gameObject);
             }
         }
 
@@ -132,7 +150,7 @@
 
             foreach (SpawnedEntity entity in this.entities)
             {
-                Object.Destroy(entity);
+                Object.Destroy(entity.gameObject);
             }
         }
 
@@ -148,9 +166,9 @@
 
             this.entitiesBySpawner[source.Id].Add(instance);
 
-            if (instance.LifeSpan != null)
+            if (instance.lifeSpan > 0)
             {
-                this.entityLifespan.Add(instance, instance.LifeSpan.Value);
+                this.entityLifespan.Add(instance, instance.lifeSpan);
             }
         }
 
