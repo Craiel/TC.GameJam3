@@ -55,15 +55,6 @@ public class CharacterMovementController : MonoBehaviour
             (this.characterController.collisionFlags & CollisionFlags.Below) != 0)
         {
             this.currentVelocity.y = 0f;
-
-            if(this.currentVelocity.x > 0)
-            {
-                this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, 0, this.currentVelocity.x - this.groundFriction * Time.deltaTime);
-            }
-            else if(this.currentVelocity.x < 0)
-            {
-                this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, this.currentVelocity.x + this.groundFriction * Time.deltaTime, 0f);
-            }
         }
         
         if ((this.characterController.collisionFlags & CollisionFlags.Sides) != 0)
@@ -74,17 +65,37 @@ public class CharacterMovementController : MonoBehaviour
 
     private void HandleInput()
     {
-        if(this.characterController.isGrounded && Input.GetButton("Jump"))
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        if(this.characterController.isGrounded)
         {
-            this.currentVelocity.y = this.jumpImpulseForce;
+            if(Input.GetButton("Jump"))
+            {
+                this.currentVelocity.y = this.jumpImpulseForce;
+            }
+
+            if (horizontalInput == 0f)
+            {
+                ApplyGroundFriction();
+            }
         }
 
-        this.currentVelocity += new Vector3(Input.GetAxis("Horizontal") * horizontalMovementSpeed * Time.deltaTime, 0, 0);
-
+        this.currentVelocity += new Vector3(horizontalInput * horizontalMovementSpeed * Time.deltaTime, 0, 0);
         float maxHorizontalSpeed = this.characterController.isGrounded ? this.maxGroundSpeed : this.maxAirHorizontalSpeed;
-
         this.currentVelocity = new Vector3(Mathf.Clamp(this.currentVelocity.x, -maxHorizontalSpeed, maxHorizontalSpeed),
                                            Mathf.Clamp(this.currentVelocity.y, -this.maxVerticalSpeed, this.maxVerticalSpeed),
                                            0f);
+    }
+
+    private void ApplyGroundFriction()
+    {
+        if (this.currentVelocity.x > 0)
+        {
+            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, 0, this.currentVelocity.x - this.groundFriction * Time.deltaTime);
+        }
+        else if (this.currentVelocity.x < 0)
+        {
+            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, this.currentVelocity.x + this.groundFriction * Time.deltaTime, 0f);
+        }
     }
 }
