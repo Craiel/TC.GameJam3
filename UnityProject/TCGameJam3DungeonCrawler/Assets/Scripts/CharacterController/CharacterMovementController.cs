@@ -47,8 +47,6 @@ public class CharacterMovementController : MonoBehaviour
         HandleInput();
 
         this.characterController.Move(this.currentVelocity * Time.deltaTime);
-
-        Debug.Log("Velocity: " + this.currentVelocity);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
