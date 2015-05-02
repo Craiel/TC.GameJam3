@@ -1,5 +1,8 @@
 ﻿namespace Assets.Scripts
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
     using Assets.Scripts.Contracts;
 
     using UnityEngine;
@@ -10,6 +13,8 @@
     {
         private readonly GameObject prefab;
 
+        private readonly List<ILevelTileConnection> connections;
+
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
@@ -19,23 +24,25 @@
 
             this.prefab = prefab;
 
+            this.connections = new List<ILevelTileConnection>();
+
             this.UpdateProperties();
+
+            System.Diagnostics.Trace.Assert(this.TileData != null, "Tile was not defined after property update!");
         }
 
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
-        public int Id { get; private set; }
-        public int Biome { get; private set; }
-
-        public bool CanTileWithItself { get; private set; }
-        public float Rarity { get; private set; }
-
+        public Tile TileData { get; private set; }
+        
         public float Width { get; private set; }
         public float Height { get; private set; }
 
         public Vector2? Rotation { get; set; }
         public float RotationAngle { get; set; }
+
+        public Bounds Bounds { get; private set; }
         
         public override bool Equals(object obj)
         {
@@ -45,12 +52,20 @@
                 return false;
             }
 
-            return typed.Id == this.Id;
+            return typed.TileData.Id == this.TileData.Id;
         }
 
         public override int GetHashCode()
         {
-            return this.Id;
+            return this.TileData.Id;
+        }
+
+        public ReadOnlyCollection<ILevelTileConnection> Connections
+        {
+            get
+            {
+                return this.connections.AsReadOnly();
+            }
         }
 
         public GameObject GetInstance()
@@ -77,9 +92,14 @@
             try
             {
                 // Update the rest of the shebang
-                Bounds bounds = this.GetMaxBounds(tempInstance);
-                this.Width = bounds.size.x;
-                this.Height = bounds.size.y;
+                this.Bounds = this.GetMaxBounds(tempInstance);
+                this.Width = this.Bounds.size.x;
+                this.Height = this.Bounds.size.y;
+
+                this.TileData = this.prefab.GetComponent<Tile>();
+
+                ConnectionPoint[] connectionPoints = tempInstance.GetComponentsInChildren<ConnectionPoint>();
+                this.ProcessConnectionPoints(connectionPoints);
             }
             finally 
             {
@@ -87,19 +107,53 @@
             }
         }
 
+        private void ProcessConnectionPoints(ConnectionPoint[] points)
+        {
+            if (points == null || points.Length <= 0)
+            {
+                return;
+            }
+
+            foreach (ConnectionPoint point in points)
+            {
+                var connection = new LevelTileConnection(point)
+                                     {
+                                         Position =
+                                             new Vector2(
+                                             point.transform.position.x,
+                                             point.transform.position.y)
+                                     };
+
+                if (point.IsVertical)
+                {
+                    connection.Direction = connection.Position.y > this.Bounds.center.y
+                                               ? LevelSegmentDirection.Up
+                                               : LevelSegmentDirection.Down;
+                }
+                else
+                {
+                    connection.Direction = connection.Position.x > this.Bounds.center.x
+                                               ? LevelSegmentDirection.Right
+                                               : LevelSegmentDirection.Left;
+                }
+                
+                this.connections.Add(connection);
+            }
+        }
+
         private Bounds GetMaxBounds(GameObject source)
         {
             var origin = new Vector3(source.transform.position.x, source.transform.position.y, 0);
-            var bounds = new Bounds(origin, Vector3.zero);
+            var mutedBounds = new Bounds(origin, Vector3.zero);
             foreach (Renderer r in source.GetComponentsInChildren<Renderer>())
             {
-                var mutedBounds = new Bounds(
+                var mutedChildBounds = new Bounds(
                     new Vector3(r.bounds.center.x, r.bounds.center.y, 0),
                     new Vector3(r.bounds.size.x, r.bounds.size.y));
-                bounds.Encapsulate(mutedBounds);
+                mutedBounds.Encapsulate(mutedChildBounds);
             }
 
-            return bounds;
+            return mutedBounds;
         }
     }
 }

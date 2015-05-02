@@ -11,6 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: VictorianBiome.StreetPlatform.8m.002
     4300002: VictorianBiome.StreetPlatform.2m
+    4300004: Street_2m
     6400000: //RootNode
   materials:
     importMaterials: 1
