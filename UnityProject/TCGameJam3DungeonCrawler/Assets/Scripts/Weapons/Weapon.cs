@@ -21,51 +21,55 @@ public abstract class Weapon : MonoBehaviour
 
     private Vector3 pointingDirection;
 
+    public bool HasPointingDirection { get { return this.hasPointingDirection; } }
+
     protected abstract void PointWeaponImpl(Vector3 direction);
     protected abstract void AttackImpl(int totalDamage, Vector3 direction);
 
-    private void Update()
+    protected virtual void Update()
     {
-        if(this.hasPointingDirection)
+        if(this.currentCooldownTime > 0)
+        {
+            this.currentCooldownTime -= Time.deltaTime;
+        }
+    }
+
+    public void PointWeapon()
+    {
+        if (this.hasPointingDirection)
         {
             Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float distance;
-            if(xyPlane.Raycast(cameraRay, out distance))
+            if (xyPlane.Raycast(cameraRay, out distance))
             {
                 Vector3 position = cameraRay.GetPoint(distance);
                 this.pointingDirection = (position - this.transform.position).normalized;
                 PointWeaponImpl(this.pointingDirection);
             }
         }
-
-        if(this.currentCooldownTime > 0)
-        {
-            this.currentCooldownTime -= Time.deltaTime;
-        }
-
-        if(Input.GetMouseButtonDown(0) && this.currentCooldownTime <= 0f)
-        {
-            Attack();
-            this.currentCooldownTime = this.cooldownTime;
-        }
     }
 
-    private void Attack()
+    public void Attack()
     {
-        int damage = this.baseDamage;
-        if (this.energy > 0)
+        if (this.currentCooldownTime <= 0f)
         {
-            damage += GetEnergyDamage(this.energy);
-        }
+            int damage = this.baseDamage;
+            if (this.energy > 0)
+            {
+                damage += GetEnergyDamage(this.energy);
+            }
 
-        AttackImpl(damage, pointingDirection);
+            AttackImpl(damage, pointingDirection);
 
-        this.energy -= this.energyConsumedOnAttack;
-        if (this.energy < 0)
-        {
-            this.energy = 0;
+            this.energy -= this.energyConsumedOnAttack;
+            if (this.energy < 0)
+            {
+                this.energy = 0;
+            }
+    
+            this.currentCooldownTime = this.cooldownTime;
         }
     }
 

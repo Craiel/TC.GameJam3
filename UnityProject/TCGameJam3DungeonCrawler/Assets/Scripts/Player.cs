@@ -2,26 +2,50 @@
 {
     using UnityEngine;
 
-    public class Player : MonoBehaviour
+    public class Player : Actor
     {
-        public string name;
-        public int health;
+        [SerializeField]
+        private Weapon crossbow;
 
-        public Weapon primaryWeapon;
-        public Weapon secondaryWeapon;
+        [SerializeField]
+        private Weapon whip;
 
-        // -------------------------------------------------------------------
-        // Public
-        // -------------------------------------------------------------------
-        public void Start()
+        [SerializeField]
+        private Weapon axe;
+
+        private Weapon[] weaponLoadout = new Weapon[2];
+        private int activeWeaponIndex;
+
+        private bool hasWeaponLoadout;
+
+        public void SetWeaponLoadout(Weapon primaryWeapon, Weapon secondaryWeapon)
         {
+            System.Diagnostics.Trace.Assert(primaryWeapon != secondaryWeapon);
+
+            weaponLoadout[0] = primaryWeapon;
+            weaponLoadout[1] = secondaryWeapon;
+            activeWeaponIndex = 0;
+            hasWeaponLoadout = true;
         }
 
-        // -------------------------------------------------------------------
-        // Private
-        // -------------------------------------------------------------------
         private void Update()
         {
+            if(!hasWeaponLoadout)
+            {
+                return;
+            }
+
+            Weapon activeWeapon = weaponLoadout[activeWeaponIndex];
+            activeWeapon.PointWeapon();
+
+            if(Input.GetMouseButtonDown(1))
+            {
+                activeWeaponIndex = 1 - activeWeaponIndex;
+            }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                activeWeapon.Attack();
+            }
         }
     }
 }

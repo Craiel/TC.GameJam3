@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using Assets.Scripts.Level;
+
     using UnityEngine;
 
     public interface ILevelSegment
