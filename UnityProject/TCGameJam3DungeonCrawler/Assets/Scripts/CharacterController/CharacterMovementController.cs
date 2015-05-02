@@ -89,13 +89,21 @@ public class CharacterMovementController : MonoBehaviour
 
     private void ApplyGroundFriction()
     {
-        if (this.currentVelocity.x > 0)
+        if (this.currentVelocity.x > 0f)
         {
-            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, 0, this.currentVelocity.x - this.groundFriction * Time.deltaTime);
+            this.currentVelocity.x -= this.groundFriction * Time.deltaTime;
+            if(this.currentVelocity.x < 0f)
+            {
+                this.currentVelocity.x = 0f;
+            }
         }
         else if (this.currentVelocity.x < 0)
         {
-            this.currentVelocity.x = Mathf.Clamp(this.currentVelocity.x, this.currentVelocity.x + this.groundFriction * Time.deltaTime, 0f);
+            this.currentVelocity.x += this.groundFriction * Time.deltaTime;
+            if (this.currentVelocity.x > 0f)
+            {
+                this.currentVelocity.x = 0f;
+            }
         }
     }
 }

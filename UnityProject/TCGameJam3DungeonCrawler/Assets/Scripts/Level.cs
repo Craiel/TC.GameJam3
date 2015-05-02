@@ -1,5 +1,6 @@
 ﻿namespace Assets.Scripts
 {
+    using System;
     using System.Collections.Generic;
 
     using Assets.Scripts.Contracts;
@@ -9,14 +10,12 @@
     public class Level : MonoBehaviour, ILevel
     {
         private const float GenerationRange = 4;
-        private const int MaxInstances = 100;
 
         private readonly IList<ILevelSegment> segments;
 
         private ILevelSegment rootSegment;
         private ILevelSegment activeSegment;
-        private Vector3? currentPosition;
-        private Bounds generatedBounds = new Bounds();
+        private Vector2? currentPosition;
 
         private GameObject debugIndicator;
 
@@ -33,11 +32,18 @@
         // -------------------------------------------------------------------
         public void Start()
         {
-            var testTile = new LevelTile(Resources.Load("Prefabs/Room_1"));
-            LevelTileCache.Instance.Register(testTile);
+            if (!LevelTileCache.Instance.PrefabsScanned)
+            {
+                LevelTileCache.Instance.RescanPrefabs();
+            }
 
             // Initialize the root and make it the active segment for now
-            this.rootSegment = new LevelSegment(testTile) { CanGoDown = false, CanGoLeft = false, CanGoUp = false };
+            this.rootSegment = new LevelSegment(LevelTileCache.Instance.PickTile())
+                                   {
+                                       Position = new Vector2(0, 0)
+                                   };
+            this.rootSegment.SetCanExtend(LevelSegmentDirection.Right, true);
+
             this.activeSegment = this.rootSegment;
             this.activeSegment.Show();
 
@@ -63,59 +69,86 @@
 
             this.UpdateActiveSegment();
 
-            // Check if we need to generate tiles within range
-            float generationDistance = this.currentPosition.Value.x + GenerationRange;
-            /*while (this.generatedBounds.max.x < generationDistance)
+            // For testing we only extend right for now...
+            ILevelSegment center = this.activeSegment;
+            for (var i = 0; i < GenerationRange; i++)
             {
-                if (this.segments.Count > MaxInstances)
-                {
-                    break;
-                }
-
-                // Keep piling up the room
-                ILevelTile tile = LevelTileCache.Instance.PickTile();
-                var instance = tile.GetInstance();
-                instance.transform.position += new Vector3(this.generatedBounds.max.x, 0, 0);
-                Vector3 tileMaxBounds = new Vector3(
-                    instance.transform.position.x + tile.Width,
-                    instance.transform.position.y + tile.Height);
-                this.generatedBounds.Encapsulate(tileMaxBounds);
-                this.segments.Add(instance);
-            }*/
+                this.ExtendSegment(LevelSegmentDirection.Right, center);
+                center = center.GetNeighbor(LevelSegmentDirection.Right);
+            }
         }
 
+        /*private void CollapseSegmentLeft(ILevelSegment segment)
+        {
+            if(segment.Left)
+        }*/
+
+        private void ExtendSegment(LevelSegmentDirection direction, ILevelSegment segment)
+        {
+            if (segment.GetNeighbor(direction) == null && segment.GetCanExtend(direction))
+            {
+                // Todo: do the shift for the connection points
+                ILevelTile tile = LevelTileCache.Instance.PickTile();
+                var newSegment = new LevelSegment(tile);
+
+                switch (direction)
+                {
+                        case LevelSegmentDirection.Left:
+                        {
+                            newSegment.Position = segment.Position - new Vector2(segment.Width, 0);
+                            newSegment.SetNeighbor(LevelSegmentDirection.Right, segment);
+                            break;
+                        }
+                        case LevelSegmentDirection.Right:
+                        {
+                            newSegment.Position = segment.Position + new Vector2(segment.Width, 0);
+                            newSegment.SetNeighbor(LevelSegmentDirection.Left, segment);
+                            break;
+                        }
+                        case LevelSegmentDirection.Up:
+                        {
+                            newSegment.Position = segment.Position + new Vector2(0, segment.Height);
+                            newSegment.SetNeighbor(LevelSegmentDirection.Down, segment);
+                            break;
+                        }
+                        case LevelSegmentDirection.Down:
+                        {
+                            newSegment.Position = segment.Position - new Vector2(0, segment.Height);
+                            newSegment.SetNeighbor(LevelSegmentDirection.Up, segment);
+                            break;
+                        }
+                }
+                newSegment.Show();
+                segment.SetNeighbor(direction, newSegment);
+                this.segments.Add(newSegment);
+            }
+        }
+        
         private void UpdateActiveSegment()
         {
             System.Diagnostics.Trace.Assert(this.currentPosition != null);
 
-            if (this.activeSegment.Bounds.Contains(this.currentPosition.Value))
+            if (this.activeSegment.Contains(this.currentPosition.Value))
             {
                 return;
             }
 
-            if (this.activeSegment.Left != null && this.activeSegment.Left.Bounds.Contains(this.currentPosition.Value))
+            foreach (LevelSegmentDirection direction in Enum.GetValues(typeof(LevelSegmentDirection)))
             {
-                this.activeSegment = this.activeSegment.Left;
-                return;
+                ILevelSegment segment = this.activeSegment.GetNeighbor(direction);
+                if (segment != null && segment.Contains(this.currentPosition.Value))
+                {
+                    this.activeSegment = segment;
+                    return;
+                }
             }
-
-            if (this.activeSegment.Right != null && this.activeSegment.Right.Bounds.Contains(this.currentPosition.Value))
-            {
-                this.activeSegment = this.activeSegment.Right;
-            }
-
-            if (this.activeSegment.Up != null && this.activeSegment.Up.Bounds.Contains(this.currentPosition.Value))
-            {
-                this.activeSegment = this.activeSegment.Up;
-            }
-
-            if (this.activeSegment.Down != null && this.activeSegment.Down.Bounds.Contains(this.currentPosition.Value))
-            {
-                this.activeSegment = this.activeSegment.Down;
-            }
-
+            
             // Todo: Snap back into the active segment for now
-            Camera.current.transform.position = this.activeSegment.Position;
+            Camera.current.transform.position = new Vector3(
+                this.activeSegment.Position.x,
+                this.activeSegment.Position.y,
+                Camera.current.transform.position.z);
+
             this.currentPosition = this.activeSegment.Position;
         }
     }
