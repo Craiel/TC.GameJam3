@@ -13,10 +13,8 @@
         float Width { get; }
         float Height { get; }
 
-        Vector3? Rotation { get; set; }
+        Vector2? Rotation { get; set; }
         float RotationAngle { get; set; }
-
-        Bounds Bounds { get; }
 
         GameObject GetInstance();
     }
