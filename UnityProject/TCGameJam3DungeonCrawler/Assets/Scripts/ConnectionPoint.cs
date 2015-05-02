@@ -4,6 +4,8 @@
     
     public class ConnectionPoint : MonoBehaviour
     {
-        public bool IsVertical { get; set; }
+        public string id;
+
+        public bool isVertical;
     }
 }
