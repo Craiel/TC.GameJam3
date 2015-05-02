@@ -62,7 +62,7 @@
 
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
-            this.activeObject.transform.position = this.Position;
+            this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
 
             foreach (ILevelTileConnection connection in this.tile.Connections)
             {

@@ -108,6 +108,8 @@
 
         private void ApplySegmentConnectionMap(LevelConnectionMap closestConnection, ILevelSegment segment, ILevelSegment newSegment)
         {
+            newSegment.Position = segment.Position + new Vector2(segment.Width, 0);
+
             if (closestConnection == null)
             {
                 Debug.LogWarning(
@@ -120,7 +122,16 @@
             }
             else
             {
-                var yOffset = closestConnection.Source.Position.y - closestConnection.Target.Position.y;
+                float yOffset;
+                if (closestConnection.Target.Position.y > closestConnection.Source.Position.y)
+                {
+                    yOffset = -(closestConnection.Target.Position.y - closestConnection.Source.Position.y);
+                }
+                else
+                {
+                    yOffset = closestConnection.Source.Position.y - closestConnection.Target.Position.y;
+                }
+
                 newSegment.Position = segment.Position + new Vector2(segment.Width, yOffset);
             }
         }
@@ -192,7 +203,7 @@
             {
                 foreach (ILevelTileConnection targetConnection in targetConnections)
                 {
-                    float distance = Vector2.Distance(sourceConnection.Position, targetConnection.Position);
+                    float distance = sourceConnection.Position.y - targetConnection.Position.y;
                     if (currentDistance == null || currentDistance > distance)
                     {
                         currentDistance = distance;

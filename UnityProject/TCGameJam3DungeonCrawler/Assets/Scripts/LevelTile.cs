@@ -5,6 +5,8 @@
 
     using Assets.Scripts.Contracts;
 
+    using UnityEditor.Sprites;
+
     using UnityEngine;
 
     using Object = UnityEngine.Object;
@@ -89,6 +91,7 @@
             // Create a temporary instance to update the properties
             //  Maybe we can get around this? The prefab has no bounds since it's not visible
             var tempInstance = this.GetInstance();
+            tempInstance.transform.position = new Vector3(0, 0, 0);
             try
             {
                 // Update the rest of the shebang
