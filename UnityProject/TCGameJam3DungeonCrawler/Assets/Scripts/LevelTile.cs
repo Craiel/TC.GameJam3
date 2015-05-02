@@ -4,13 +4,9 @@
     using System.Collections.ObjectModel;
 
     using Assets.Scripts.Contracts;
-
-    using UnityEditor.Sprites;
-
+    
     using UnityEngine;
-
-    using Object = UnityEngine.Object;
-
+    
     public class LevelTile : ILevelTile
     {
         private readonly GameObject prefab;
@@ -83,6 +79,20 @@
             return instance;
         }
 
+        public Vector2? GetConnectionPointPosition(GameObject instance, string id)
+        {
+            ConnectionPoint[] points = instance.GetComponentsInChildren<ConnectionPoint>();
+            foreach (ConnectionPoint point in points)
+            {
+                if (point.id.Equals(id))
+                {
+                    return point.transform.position;
+                }
+            }
+
+            return null;
+        }
+
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
@@ -119,15 +129,16 @@
 
             foreach (ConnectionPoint point in points)
             {
-                var connection = new LevelTileConnection(point)
+                var connection = new LevelTileConnection
                                      {
+                                         Id = point.id,
                                          Position =
                                              new Vector2(
                                              point.transform.position.x,
                                              point.transform.position.y)
                                      };
 
-                if (point.IsVertical)
+                if (point.isVertical)
                 {
                     connection.Direction = connection.Position.y > this.Bounds.center.y
                                                ? LevelSegmentDirection.Up

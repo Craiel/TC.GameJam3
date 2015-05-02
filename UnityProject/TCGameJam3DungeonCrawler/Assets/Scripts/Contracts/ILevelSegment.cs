@@ -25,5 +25,7 @@
         bool Contains(Vector2 value);
 
         IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction);
+
+        GameObject GetObject();
     }
 }
