@@ -1,26 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public enum enemyTypes
-    {
-        Close,
-        Medium,
-        Long,
-        Random
-    }
-    public enum enemyColors
-    {
-        Red,
-        Blue,
-        Green,
-        Random
-    }
-    public List<enemyTypes> enemyType;
-    public List<enemyColors> enemyColor;
-    public List<float> enemySpawnChance;
+	public List<Assets.Scripts.Enemy.Range> range;
+	public List<Assets.Scripts.Enemy.Color> color;
+    public List<float> spawnChance;
     public float respawnTime;
 
     private void OnDrawGizmos()
