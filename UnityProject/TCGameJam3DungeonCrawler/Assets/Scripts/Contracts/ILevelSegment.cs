@@ -1,10 +1,14 @@
 ﻿namespace Assets.Scripts.Contracts
 {
+    using System.Collections.Generic;
+
     using UnityEngine;
 
     public interface ILevelSegment
     {
-        Vector2 Position { get; }
+        ILevelTile Tile { get; }
+
+        Vector2 Position { get; set; }
 
         float Width { get; }
         float Height { get; }
@@ -19,5 +23,7 @@
         void SetNeighbor(LevelSegmentDirection direction, ILevelSegment segment);
 
         bool Contains(Vector2 value);
+
+        IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction);
     }
 }
