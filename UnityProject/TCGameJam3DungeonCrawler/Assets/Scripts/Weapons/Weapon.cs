@@ -28,12 +28,16 @@ public abstract class Weapon : MonoBehaviour
     {
         if(this.hasPointingDirection)
         {
-            Vector3 mousePosition = Input.mousePosition;
-            mousePosition.z = -Camera.main.transform.position.z;
-            Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            this.pointingDirection = (cursorWorldPosition - this.transform.position).normalized;
-            PointWeaponImpl(this.pointingDirection);
+            float distance;
+            if(xyPlane.Raycast(cameraRay, out distance))
+            {
+                Vector3 position = cameraRay.GetPoint(distance);
+                this.pointingDirection = (position - this.transform.position).normalized;
+                PointWeaponImpl(this.pointingDirection);
+            }
         }
 
         if(this.currentCooldownTime > 0)
