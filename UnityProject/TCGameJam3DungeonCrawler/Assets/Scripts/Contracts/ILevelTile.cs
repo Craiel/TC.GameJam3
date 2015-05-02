@@ -19,5 +19,7 @@
         ReadOnlyCollection<ILevelTileConnection> Connections { get; }
 
         GameObject GetInstance();
+
+        Vector2? GetConnectionPointPosition(GameObject instance, string id);
     }
 }

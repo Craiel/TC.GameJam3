@@ -21,6 +21,8 @@
         private GameObject debugActiveSegmentIndicatorBL;
         private GameObject debugActiveSegmentIndicatorTR;
 
+        private Vector2 position;
+
         // -------------------------------------------------------------------
         // Constructor
         // -------------------------------------------------------------------
@@ -51,7 +53,26 @@
             }
         }
 
-        public Vector2 Position { get; set; }
+        public Vector2 Position
+        {
+            get
+            {
+                return this.position;
+            }
+
+            set
+            {
+                if (this.position != value)
+                {
+                    this.position = value;
+                    if(this.activeObject != null)
+                    {
+                        this.Hide();
+                        this.Show();
+                    }
+                }
+            }
+        }
 
         public float Width { get; private set; }
         public float Height { get; private set; }
@@ -62,7 +83,7 @@
 
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
-            this.activeObject.transform.position = this.Position;
+            this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
 
             foreach (ILevelTileConnection connection in this.tile.Connections)
             {
@@ -159,6 +180,13 @@
         public IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction)
         {
             return this.tile.Connections.Where(x => x.Direction == direction).ToList();
+        }
+
+        public GameObject GetObject()
+        {
+            System.Diagnostics.Trace.Assert(this.activeObject != null);
+
+            return this.activeObject;
         }
     }
 }
