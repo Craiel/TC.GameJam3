@@ -13,8 +13,7 @@ namespace Assets.Scripts.Enemy {
 	{
 				Close,
 				Medium,
-				Long,
-				RandomRange // Special value used by spawn
+				Long
 	}
 }
 

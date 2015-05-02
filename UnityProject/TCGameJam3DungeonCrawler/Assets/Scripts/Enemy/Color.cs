@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
-namespace Assets.Scripts.Enemy 
+namespace Assets.Scripts.Enemy
 {
-	public enum Color
-	{
-		Red,
-		Blue,
-		Green,
-		RandomColor // Special value used by Andy
-	}
+    public enum Color
+    {
+        Red,
+        Blue,
+        Green,
+        None
+    }
 }
 

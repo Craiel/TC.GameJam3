@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour
 
     private Vector3 velocity;
 
-    private EnemySpawn.enemyTypes type { get; set; }
-    private EnemySpawn.enemyColors color { get; set; }
+    private Assets.Scripts.Enemy.Range range { get; set; }
+    private Assets.Scripts.Enemy.Color color { get; set; }
 
     public int health;
     public bool colliding;
@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void onHit(DamageType dmg, DamageColor col)
+    public void onHit(DamageType dmg, Assets.Scripts.Enemy.Color col)
     {
         //dmg = base * nvl((% * Max),1) 
     }
