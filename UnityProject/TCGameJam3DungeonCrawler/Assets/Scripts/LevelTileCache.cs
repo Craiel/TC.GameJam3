@@ -49,12 +49,22 @@
             this.tiles.Remove(tile);
         }
 
-        public ILevelTile PickTile()
+        public ILevelTile PickTile(ILevelTile nextTo)
         {
             System.Diagnostics.Trace.Assert(this.tiles.Count > 0, "No tiles registered yet");
 
-            var pick = Random.Range(0, this.tiles.Count);
-            return this.tiles[pick];
+            ILevelTile pick = null;
+            while (pick == null)
+            {
+                int pickIndex = Random.Range(0, this.tiles.Count);
+                pick = this.tiles[pickIndex];
+                if (nextTo != null && nextTo.TileData.id == pick.TileData.id && !pick.TileData.canTileWithItself)
+                {
+                    pick = null;
+                }
+            }
+            
+            return pick;
         }
 
         public void RescanPrefabs()

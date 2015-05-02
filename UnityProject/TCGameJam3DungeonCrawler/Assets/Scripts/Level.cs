@@ -42,7 +42,7 @@
             }
 
             // Initialize the root and make it the active segment for now
-            this.rootSegment = new LevelSegment(LevelTileCache.Instance.PickTile())
+            this.rootSegment = new LevelSegment(LevelTileCache.Instance.PickTile(null))
                                    {
                                        Position = new Vector2(0, 0)
                                    };
@@ -108,6 +108,8 @@
 
         private void ApplySegmentConnectionMap(LevelConnectionMap closestConnection, ILevelSegment segment, ILevelSegment newSegment)
         {
+            newSegment.Position = segment.Position + new Vector2(segment.Width, 0);
+
             if (closestConnection == null)
             {
                 Debug.LogWarning(
@@ -120,8 +122,35 @@
             }
             else
             {
-                var yOffset = closestConnection.Source.Position.y - closestConnection.Target.Position.y;
-                newSegment.Position = segment.Position + new Vector2(segment.Width, yOffset);
+                //Vector3 absoluteSource = closestConnection.Source.ConnectionData.transform.position;
+                //Vector3 absoluteTarget = closestConnection.Target.ConnectionData.transform.position;
+                // Find the current absolute connection point positions
+                Vector2? absoluteSource = segment.Tile.GetConnectionPointPosition(segment.GetObject(), closestConnection.Source.Id);
+                Vector2? absoluteTarget = segment.Tile.GetConnectionPointPosition(newSegment.GetObject(), closestConnection.Target.Id);
+
+                System.Diagnostics.Trace.Assert(absoluteSource != null);
+                System.Diagnostics.Trace.Assert(absoluteTarget != null);
+
+                Vector2 offset = new Vector2();
+                if (absoluteSource.Value.x > absoluteTarget.Value.x)
+                {
+                    offset.x = -(absoluteSource.Value.x - absoluteTarget.Value.x);
+                }
+                else
+                {
+                    offset.x = absoluteTarget.Value.x - absoluteSource.Value.x;
+                }
+
+                if (absoluteSource.Value.y > absoluteTarget.Value.y)
+                {
+                    offset.y = -(absoluteSource.Value.y - absoluteTarget.Value.y);
+                }
+                else
+                {
+                    offset.y = absoluteTarget.Value.y - absoluteSource.Value.y;
+                }
+
+                newSegment.Position = segment.Position + new Vector2(segment.Width, 0) - offset;
             }
         }
         private void ExtendSegmentLeft(LevelSegmentDirection direction, ILevelSegment segment, ILevelSegment newSegment)
@@ -143,8 +172,11 @@
             if (segment.GetNeighbor(direction) == null && segment.GetCanExtend(direction))
             {
                 // Todo: do the shift for the connection points
-                ILevelTile tile = LevelTileCache.Instance.PickTile();
+                ILevelTile tile = LevelTileCache.Instance.PickTile(segment.Tile);
                 var newSegment = new LevelSegment(tile);
+
+                // Important to show the segment before we do positioning!
+                newSegment.Show();
 
                 switch (direction)
                 {
@@ -170,7 +202,7 @@
                             throw new NotImplementedException();
                         }
                 }
-                newSegment.Show();
+                
                 segment.SetNeighbor(direction, newSegment);
                 this.segments.Add(newSegment);
             }
@@ -192,7 +224,7 @@
             {
                 foreach (ILevelTileConnection targetConnection in targetConnections)
                 {
-                    float distance = Vector2.Distance(sourceConnection.Position, targetConnection.Position);
+                    float distance = sourceConnection.Position.y - targetConnection.Position.y;
                     if (currentDistance == null || currentDistance > distance)
                     {
                         currentDistance = distance;
