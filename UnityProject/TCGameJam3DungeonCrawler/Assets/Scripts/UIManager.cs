@@ -15,29 +15,29 @@ public class UIManager : MonoBehaviour
 
     private int weaponsSelected;
 
-    private List<Type> weaponTypes;
+    private List<Type> weaponTypes = new List<Type>();
 
-    void Awake()
+    void Start()
     {
-        weaponTypes = new List<Type>(2);
     }
 
     public void WeaponSelect(string trigger)
     {
+        Debug.Log("triggered weapon select");
         //Have room, trigger animation, update weaponsSelect and save which ones. 
-        if(weaponsSelected < 2)
+        if (weaponsSelected < 2)
         {
-            switch(trigger)
+            switch (trigger)
             {
                 case "chainTrg":
                     ChainAnimator.SetTrigger(trigger);
                     weaponsSelected++;
-                    //t.Add(typeof(Chain));
+                    weaponTypes.Add(typeof(Whip));
                     break;
                 case "axeTrg":
                     AxeAnimator.SetTrigger(trigger);
                     weaponsSelected++;
-                    weaponTypes.Add(typeof(Crossbow));
+                    weaponTypes.Add(typeof(Axe));
                     break;
                 case "crossbowTrg":
                     CrossbowAnimator.SetTrigger(trigger);
@@ -46,15 +46,16 @@ public class UIManager : MonoBehaviour
                     break;
 
             }
-            
+
         }
         if (weaponsSelected == 2)
         {
             Debug.Log("You Picked Everything!");
+            Debug.Log("count of types: " + weaponTypes.Count);
             //GameLoadout a = new GameLoadout();
-            //a.SetPlayerWeapons(weaponTypes);
+            gameLoadout.SetPlayerWeapons(weaponTypes);
         }
-            
+
 
     }
 }

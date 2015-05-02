@@ -16,7 +16,7 @@
 
         public void SetPlayerWeapons(List<Type> weapons)
         {
-
+            Debug.Log("SetPlayerWeapons handled");
         }
     }
 }
