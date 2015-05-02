@@ -25,7 +25,6 @@ public class EnemySpawn : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawCube(this.transform.position,new Vector3(1,2,1));
         Gizmos.DrawWireCube(this.transform.position, new Vector3(1, 2, 1));
     }
 }
