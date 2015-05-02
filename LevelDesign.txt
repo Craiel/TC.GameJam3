@@ -1,0 +1,3 @@
+Level Design Notes:
+Normal Jump Height: +3y
+Hard Jump: +15x +2y
