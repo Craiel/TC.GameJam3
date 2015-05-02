@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class ConnectionPoint : MonoBehaviour
+﻿namespace Assets.Scripts
 {
-    public bool selfConnect;
-
+    using UnityEngine;
+    
+    public class ConnectionPoint : MonoBehaviour
+    {
+        public bool IsVertical { get; set; }
+    }
 }
