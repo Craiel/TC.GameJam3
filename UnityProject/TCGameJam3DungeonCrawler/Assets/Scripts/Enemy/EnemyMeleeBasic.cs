@@ -4,17 +4,22 @@
 
     public class EnemyMeleeBasic : BaseEnemy
     {
-        protected override bool CanDetectPlayer()
+        protected override void Idle()
         {
-            return true;
+            this.transform.Rotate(new Vector3(0, 1, 0), 0.1f);
+        }
+
+        protected override void Patrol()
+        {
+            this.transform.Rotate(new Vector3(0, 1, 0), 0.1f);
+        }
+
+        protected override void Chase()
+        {
+            this.transform.Rotate(new Vector3(0, 1, 0), 0.1f);
         }
 
         protected override void Attack()
-        {
-            return;
-        }
-
-        protected override void Idle()
         {
             this.transform.Rotate(new Vector3(0, 1, 0), 0.1f);
         }

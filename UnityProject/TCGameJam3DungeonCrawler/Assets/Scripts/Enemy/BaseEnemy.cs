@@ -4,14 +4,22 @@ using Assets.Scripts;
 [RequireComponent(typeof(CharacterController))]
 public abstract class BaseEnemy : Actor
 {
-    public enum State
-    {
-        Idle,
-        Attacking
-    }
+    private const float RELEVANT_ACTION_RANGE = 50f;
 
-    private State currentState = State.Idle;
+    [SerializeField]
+    protected int attackDamage;
 
+    [SerializeField]
+    protected float attackCooldown;
+
+    [SerializeField]
+    private float detectionRange;
+    
+    [SerializeField]
+    private float attackRange;
+
+    private float currentAttackCooldown;
+    
     [SerializeField]
     Assets.Scripts.Enemy.PowerColor color = Assets.Scripts.Enemy.PowerColor.None;
 
@@ -22,38 +30,41 @@ public abstract class BaseEnemy : Actor
         this.player = player;
     }
 
-    protected abstract bool CanDetectPlayer();
-    protected abstract void Attack();
     protected abstract void Idle();
-
+    protected abstract void Patrol();
+    protected abstract void Chase();
+    protected abstract void Attack();
+    
     protected virtual void Update()
     {
-        UpdateState();
-        ResolveAction();
-    }
-
-    private void UpdateState()
-    {
-        bool canDetectPlayer = CanDetectPlayer();
-        if (this.currentState == State.Idle && canDetectPlayer)
+        if (this.currentAttackCooldown > 0)
         {
-            this.currentState = State.Attacking;
+            this.currentAttackCooldown -= Time.deltaTime;
         }
-        else if (this.currentState == State.Attacking && !canDetectPlayer)
-        {
-            this.currentState = State.Idle;
-        }   
-    }
 
-    private void ResolveAction()
-    {
-        if(this.currentState == State.Idle)
+        float distanceToPlayer = (this.player.transform.position - this.transform.position).magnitude;
+        if(distanceToPlayer <= RELEVANT_ACTION_RANGE)
+        {
+            if(distanceToPlayer <= this.detectionRange)
+            {
+                if (distanceToPlayer <= this.attackRange && this.currentAttackCooldown < 0)
+                {
+                    Attack();
+                    this.currentAttackCooldown = this.attackCooldown;
+                }
+                else
+                {
+                    Chase();
+                }
+            }
+            else
+            {
+                Patrol();
+            }
+        }
+        else
         {
             Idle();
-        }
-        else if(this.currentState == State.Attacking)
-        {
-            Attack();
         }
     }
 
