@@ -4,7 +4,7 @@ using Assets.Scripts;
 [RequireComponent(typeof(CharacterController))]
 public abstract class BaseEnemy : Actor
 {
-    private const float RELEVANT_ACTION_RANGE = 50f;
+    private const float RELEVANT_ACTION_RANGE = 20f;
 
     [SerializeField]
     protected int attackDamage;
@@ -17,11 +17,14 @@ public abstract class BaseEnemy : Actor
     
     [SerializeField]
     private float attackRange;
-
-    private float currentAttackCooldown;
     
     [SerializeField]
     Assets.Scripts.Enemy.PowerColor color = Assets.Scripts.Enemy.PowerColor.None;
+
+    [SerializeField]
+    private GameObject currentPlayer;
+
+    private float currentAttackCooldown;
 
     protected Player player;
     
@@ -42,12 +45,18 @@ public abstract class BaseEnemy : Actor
             this.currentAttackCooldown -= Time.deltaTime;
         }
 
+        this.player = currentPlayer.GetComponent<Player>();
+
         float distanceToPlayer = (this.player.transform.position - this.transform.position).magnitude;
         if(distanceToPlayer <= RELEVANT_ACTION_RANGE)
         {
             if(distanceToPlayer <= this.detectionRange)
             {
-                if (distanceToPlayer <= this.attackRange && this.currentAttackCooldown < 0)
+                RaycastHit hitInfo;
+               
+                if (distanceToPlayer <= this.attackRange && this.currentAttackCooldown <= 0 &&
+                    Physics.Raycast(new Ray(this.transform.position, (this.player.transform.position - this.transform.position).normalized), out hitInfo) &&
+                    hitInfo.collider.gameObject == this.player.gameObject)
                 {
                     Attack();
                     this.currentAttackCooldown = this.attackCooldown;
