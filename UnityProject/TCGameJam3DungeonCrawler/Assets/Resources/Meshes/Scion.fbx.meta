@@ -55,6 +55,13 @@ ModelImporter:
     400048: UpperLeg.R
     4300000: Scion.LoPoly
     7400000: ScionArmature|ScionPoseLib
+    7400002: Idle
+    7400004: Running
+    7400006: Attack
+    7400008: ScionArmature|Attack
+    7400010: ScionArmature|Idle
+    7400012: ScionArmature|Running
+    7400014: ScionArmature|ScionPoses
     9500000: //RootNode
     13700000: Scion.LoPoly
   materials:

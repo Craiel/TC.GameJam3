@@ -38,6 +38,8 @@ public abstract class BaseEnemy : Actor
                 case 2: this.color = PowerColor.Blue; break;
             }
         }
+
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, CharacterMovementController.zAxis);
     }
 
     protected abstract void Idle();
@@ -96,6 +98,8 @@ public abstract class BaseEnemy : Actor
             totalDamage += greenDamage;
         if (color == PowerColor.Blue)
             totalDamage += blueDamage;
+
+        Debug.Log("TAKE DAMAGE : " + totalDamage);
 
         base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
     }
