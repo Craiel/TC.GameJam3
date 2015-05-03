@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: f2ee235440615e84993bdc4c0f5440da
+timeCreated: 1430689858
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Chain
+    100004: //RootNode
+    100006: ChainBone.001
+    100008: ChainBone.002
+    100010: ChainBone.003
+    100012: ChainBone.004
+    100014: ChainBone.005
+    100016: ChainBone.006
+    100018: ChainBone.007
+    100020: ChainBone.008
+    100022: ChainBone.009
+    100024: ChainBone.010
+    100026: ChainBone.011
+    100028: ChainBone.012
+    100030: ChainBone.013
+    100032: ChainBone.014
+    100034: ChainBone.015
+    100036: ChainBone.016
+    100038: ChainBone.017
+    100040: ChainBone.018
+    100042: ChainBone.019
+    100044: ChainBone.020
+    100046: ChainBone.021
+    100048: ChainBone.022
+    100050: ChainBone.023
+    100052: ChainBone.024
+    100054: ChainBone.025
+    100056: ChainBone.026
+    100058: ChainBone.027
+    100060: ChainBone.028
+    100062: ChainBone.029
+    100064: ChainBone.030
+    100066: ChainBone.031
+    100068: ChainEnd
+    100070: ChainEnd_end
+    100072: ChainHandle
+    400000: Armature
+    400002: Chain
+    400004: //RootNode
+    400006: ChainBone.001
+    400008: ChainBone.002
+    400010: ChainBone.003
+    400012: ChainBone.004
+    400014: ChainBone.005
+    400016: ChainBone.006
+    400018: ChainBone.007
+    400020: ChainBone.008
+    400022: ChainBone.009
+    400024: ChainBone.010
+    400026: ChainBone.011
+    400028: ChainBone.012
+    400030: ChainBone.013
+    400032: ChainBone.014
+    400034: ChainBone.015
+    400036: ChainBone.016
+    400038: ChainBone.017
+    400040: ChainBone.018
+    400042: ChainBone.019
+    400044: ChainBone.020
+    400046: ChainBone.021
+    400048: ChainBone.022
+    400050: ChainBone.023
+    400052: ChainBone.024
+    400054: ChainBone.025
+    400056: ChainBone.026
+    400058: ChainBone.027
+    400060: ChainBone.028
+    400062: ChainBone.029
+    400064: ChainBone.030
+    400066: ChainBone.031
+    400068: ChainEnd
+    400070: ChainEnd_end
+    400072: ChainHandle
+    4300000: Chain
+    7400000: Idle
+    7400002: Attack
+    7400004: Armature|Attack
+    7400006: Armature|Idle
+    7400008: Armature|Idle.001
+    7400010: Armature|PoseLib
+    9500000: //RootNode
+    13700000: Chain
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
