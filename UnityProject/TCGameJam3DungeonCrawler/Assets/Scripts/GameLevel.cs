@@ -62,9 +62,9 @@
 
         public void Update()
         {
-            if (this.game.camera != null)
+            if (this.game.cameraObjectCauseUnityIsStupidWithNaming != null)
             {
-                this.currentPosition = this.game.camera.transform.position;
+                this.currentPosition = this.game.cameraObjectCauseUnityIsStupidWithNaming.transform.position;
             }
 
             if (this.currentPosition == null)
@@ -287,6 +287,11 @@
             }
 
             return currentMap;
+        }
+
+        private void ActivateSegment(ILevelSegment segment)
+        {
+            
         }
         
         private void UpdateActiveSegment()
