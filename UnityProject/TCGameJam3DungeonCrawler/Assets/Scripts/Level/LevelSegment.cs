@@ -4,6 +4,7 @@
     using System.Linq;
 
     using Assets.Scripts.Contracts;
+    using Assets.Scripts.Spawning;
 
     using UnityEngine;
 
@@ -18,10 +19,13 @@
 
         private readonly ILevelTile tile;
 
+        private GameObject boundaryObject;
         private GameObject activeObject;
 
         private readonly IList<GameObject> connectorDebugObjects;
-        private readonly IList<GameObject> backgroundObjects; 
+        private readonly IList<GameObject> backgroundObjects;
+
+        private GameObject boundary;
 
         private GameObject debugActiveSegmentIndicatorBL;
         private GameObject debugActiveSegmentIndicatorTR;
@@ -43,6 +47,8 @@
             this.Width = tile.Width;
             this.Height = tile.Height;
 
+            this.boundaryObject = Resources.Load("Prefabs/LevelBoundaryBlock") as GameObject;
+            
             this.canExtend = new Dictionary<LevelSegmentDirection, bool>();
             this.neighbors = new Dictionary<LevelSegmentDirection, ILevelSegment>();
 
@@ -230,6 +236,13 @@
                 return;
             }
 
+            Vector2 topRight = new Vector2(
+                this.tile.Bounds.max.x + this.Position.x,
+                this.tile.Bounds.max.y + this.Position.y);
+            Vector2 bottomLeft = new Vector2(
+                this.tile.Bounds.min.x + this.Position.x,
+                this.tile.Bounds.min.y + this.Position.y);
+
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
             this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
@@ -256,19 +269,29 @@
                 this.connectorDebugObjects.Add(debugObject);
             }
 
+            if (this.boundaryObject != null)
+            {
+                float halfWidth = this.tile.Bounds.size.x / 2;
+                this.boundary = Object.Instantiate(this.boundaryObject);
+                this.boundary.transform.position = new Vector2(bottomLeft.x + halfWidth, bottomLeft.y - Constants.LevelBoundaryDistance);
+                this.boundary.transform.localScale = new Vector3(this.tile.Bounds.size.x + 10, 1, 10);
+                this.boundary.name = this.activeObject.name + "_BOUNDS";
+                //this.boundary.transform.SetParent(this.backgroundRoot.transform);
+            }
+
             // Background
             this.RebuildBackground();
 
             this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
             this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorTR.transform.position = new Vector3(this.tile.Bounds.min.x + this.Position.x, this.tile.Bounds.min.y + this.Position.y);
+            this.debugActiveSegmentIndicatorTR.transform.position = topRight;
             this.debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
 
             this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
             this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorBL.transform.position = new Vector3(this.tile.Bounds.max.x + this.Position.x, this.tile.Bounds.max.y + this.Position.y);
+            this.debugActiveSegmentIndicatorBL.transform.position = bottomLeft;
             this.debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
         }
 
@@ -340,6 +363,11 @@
 
             Object.Destroy(this.debugRoot);
             Object.Destroy(this.backgroundRoot);
+
+            if (this.boundary != null)
+            {
+                Object.Destroy(this.boundary);
+            }
         }
 
         private LevelSegmentDirection GetActualDirection(LevelSegmentDirection desiredDirection)

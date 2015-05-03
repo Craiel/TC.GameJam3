@@ -5,6 +5,7 @@
 
     using Assets.Scripts.Contracts;
     using Assets.Scripts.Level;
+    using Assets.Scripts.Spawning;
 
     using UnityEngine;
 
@@ -61,9 +62,9 @@
 
         public void Update()
         {
-            if (Camera.current != null)
+            if (this.game.camera != null)
             {
-                this.currentPosition = Camera.current.transform.position;
+                this.currentPosition = this.game.camera.transform.position;
             }
 
             if (this.currentPosition == null)

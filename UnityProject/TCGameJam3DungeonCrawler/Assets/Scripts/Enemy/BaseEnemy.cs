@@ -19,7 +19,7 @@ public abstract class BaseEnemy : Actor
     private float attackRange;
     
     [SerializeField]
-    Assets.Scripts.Enemy.PowerColor color = Assets.Scripts.Enemy.PowerColor.None;
+    PowerColor color = PowerColor.None;
     
     private float currentAttackCooldown;
 
@@ -29,13 +29,13 @@ public abstract class BaseEnemy : Actor
     {
         this.player = player;
 
-        if(this.color == Assets.Scripts.Enemy.PowerColor.Any)
+        if(this.color == PowerColor.Any)
         {
             switch (Random.Range(0, 3))
             {
-                case 0: this.color = Assets.Scripts.Enemy.PowerColor.Red; break;
-                case 1: this.color = Assets.Scripts.Enemy.PowerColor.Green; break;
-                case 2: this.color = Assets.Scripts.Enemy.PowerColor.Blue; break;
+                case 0: this.color = PowerColor.Red; break;
+                case 1: this.color = PowerColor.Green; break;
+                case 2: this.color = PowerColor.Blue; break;
             }
         }
     }
@@ -90,11 +90,11 @@ public abstract class BaseEnemy : Actor
     public override void TakeDamage(int baseDamage, int redDamage = 0, int greenDamage = 0, int blueDamage = 0)
     {
         int totalDamage = baseDamage;
-        if (color == Assets.Scripts.Enemy.PowerColor.Red)
+        if (color == PowerColor.Red)
             totalDamage += redDamage;
-        if (color == Assets.Scripts.Enemy.PowerColor.Green)
+        if (color == PowerColor.Green)
             totalDamage += greenDamage;
-        if (color == Assets.Scripts.Enemy.PowerColor.Blue)
+        if (color == PowerColor.Blue)
             totalDamage += blueDamage;
 
         base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
@@ -105,9 +105,9 @@ public abstract class BaseEnemy : Actor
         string prefabOrbName = "";
         switch(this.color)
         {
-            case Assets.Scripts.Enemy.PowerColor.Red: prefabOrbName = "RedEnergyOrb"; break;
-            case Assets.Scripts.Enemy.PowerColor.Green: prefabOrbName = "GreenEnergyOrb"; break;
-            case Assets.Scripts.Enemy.PowerColor.Blue: prefabOrbName = "BlueEnergyOrb"; break;
+            case PowerColor.Red: prefabOrbName = "RedEnergyOrb"; break;
+            case PowerColor.Green: prefabOrbName = "GreenEnergyOrb"; break;
+            case PowerColor.Blue: prefabOrbName = "BlueEnergyOrb"; break;
         }
         
         if(!string.IsNullOrEmpty(prefabOrbName))

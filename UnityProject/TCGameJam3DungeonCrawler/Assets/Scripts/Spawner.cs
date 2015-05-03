@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Spawning
 {
     using System;
     using System.Collections.Generic;
@@ -19,10 +19,7 @@
         public List<SpawnedEntity> spawnList;
 
         public float interval;
-
-        public int instanceLimitActive;
-        public int instanceLimitTotal;
-
+        
         public SpawnMode mode;
 
         public string AbsoluteId { get; set; }

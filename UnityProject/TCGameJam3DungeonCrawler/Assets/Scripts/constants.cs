@@ -6,5 +6,7 @@
         public const int TileCollapseRange = 8;
 
         public const float InvalidConnectorLevelMargin = 1.0f;
+
+        public const float LevelBoundaryDistance = 40.0f;
     }
 }
