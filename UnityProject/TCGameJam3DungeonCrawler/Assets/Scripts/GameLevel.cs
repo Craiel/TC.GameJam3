@@ -327,6 +327,12 @@
         {
             if (this.currentSegment == segment)
             {
+                if (this.currentSegment != null)
+                {
+                    System.Diagnostics.Trace.Assert(this.currentPosition != null);
+                    this.currentSegment.UpdateEvents(this.currentPosition.Value);
+                }
+
                 return;
             }
 
