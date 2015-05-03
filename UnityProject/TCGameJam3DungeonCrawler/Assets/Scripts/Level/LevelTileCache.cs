@@ -64,6 +64,12 @@
             {
                 int pickIndex = Random.Range(1, this.tiles.Count);
                 pick = this.tiles[pickIndex];
+                if (!pick.TileData.isEnabled)
+                {
+                    pick = null;
+                    continue;
+                }
+
                 if (nextTo != null && nextTo.TileData.id == pick.TileData.id && !pick.TileData.canTileWithItself)
                 {
                     pick = null;
