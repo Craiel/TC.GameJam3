@@ -4,7 +4,7 @@
 
     public class Tourette : MonoBehaviour
     {
-        public Assets.Scripts.Enemy.PowerColor color;
+        public PowerColor color;
 
         public int baseDamage;
 

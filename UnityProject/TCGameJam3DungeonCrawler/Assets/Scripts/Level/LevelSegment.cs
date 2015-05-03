@@ -4,6 +4,7 @@
     using System.Linq;
 
     using Assets.Scripts.Contracts;
+    using Assets.Scripts.Spawning;
 
     using UnityEngine;
 
@@ -18,6 +19,7 @@
 
         private readonly ILevelTile tile;
 
+        private GameObject boundaryObject;
         private GameObject activeObject;
 
         private readonly IList<GameObject> connectorDebugObjects;
@@ -43,6 +45,8 @@
             this.Width = tile.Width;
             this.Height = tile.Height;
 
+            this.boundaryObject = Resources.Load("Prefabs/LevelBoundaryBlock") as GameObject;
+            
             this.canExtend = new Dictionary<LevelSegmentDirection, bool>();
             this.neighbors = new Dictionary<LevelSegmentDirection, ILevelSegment>();
 

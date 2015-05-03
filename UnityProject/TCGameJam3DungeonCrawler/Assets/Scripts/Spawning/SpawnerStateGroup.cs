@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Spawning
 {
     using System;
     using System.Collections.Generic;

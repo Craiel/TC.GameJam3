@@ -5,6 +5,7 @@
 
     using Assets.Scripts.Contracts;
     using Assets.Scripts.Level;
+    using Assets.Scripts.Spawning;
 
     using UnityEngine;
 
