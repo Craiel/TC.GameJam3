@@ -59,7 +59,6 @@ public class KeyEvent : TileEvent
             var testBounds = this.LocalBounds;
             testBounds.Expand(-4.0f);
             testBounds = new Bounds((Vector2)testBounds.center, (Vector2)testBounds.size);
-            Debug.Log(position + " - " + testBounds);
             if (testBounds.Contains(position))
             {
                 Debug.Log("Locking Room " + this.SegmentId);
