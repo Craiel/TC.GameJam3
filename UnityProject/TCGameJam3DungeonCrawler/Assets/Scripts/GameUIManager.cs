@@ -18,7 +18,16 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField]
     private WeaponIndicatorUI weapon2;
-        
+
+    [SerializeField]
+    private Text redStream;
+
+    [SerializeField]
+    private Text greenStream;
+
+    [SerializeField]
+    private Text blueStream;
+    
     private int currentHealth;
 
     private bool hasSetLoadout;
