@@ -61,9 +61,9 @@
 
         public void Update()
         {
-            if (Camera.current != null)
+            if (this.game.camera != null)
             {
-                this.currentPosition = Camera.current.transform.position;
+                this.currentPosition = this.game.camera.transform.position;
             }
 
             if (this.currentPosition == null)

@@ -15,6 +15,7 @@
         private readonly GameLevel level;
 
         public Player player;
+        public Camera camera;
 
         // -------------------------------------------------------------------
         // Constructor
