@@ -55,13 +55,16 @@
             this.SetCurrentSegment(this.rootSegment);
             this.LoadSegment(this.rootSegment);
 
-            this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
-            GameObject.Destroy(this.debugIndicator.GetComponent<Collider>());
+            if (Debug.isDebugBuild)
+            {
+                this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
+                GameObject.Destroy(this.debugIndicator.GetComponent<Collider>());
 
-            this.debugActiveSegmentIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugActiveSegmentIndicator.GetComponent<Renderer>().material.color = Color.blue;
-            GameObject.Destroy(this.debugActiveSegmentIndicator.GetComponent<Collider>());
+                this.debugActiveSegmentIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                this.debugActiveSegmentIndicator.GetComponent<Renderer>().material.color = Color.blue;
+                GameObject.Destroy(this.debugActiveSegmentIndicator.GetComponent<Collider>());
+            }
         }
 
         public void Update()
@@ -97,28 +100,35 @@
                 return;
             }
 
-            this.debugIndicator.transform.position = new Vector3(this.currentPosition.Value.x, this.currentPosition.Value.y, 0);
+            if (Debug.isDebugBuild)
+            {
+                this.debugIndicator.transform.position = new Vector3(
+                    this.currentPosition.Value.x,
+                    this.currentPosition.Value.y,
+                    0);
+            }
 
             this.UpdateCurrentSegment();
 
             ILevelSegment current = this.GetCurrentSegment();
             if (current == null)
             {
-                this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = false;
+                if (Debug.isDebugBuild)
+                {
+                    this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = false;
+                }
             }
             else
             {
-                this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = true;
-                this.debugActiveSegmentIndicator.transform.position = new Vector3(
-                    current.GetAbsoluteBounds().center.x,
-                    current.GetAbsoluteBounds().center.y,
-                    10.0f);
+                if (Debug.isDebugBuild)
+                {
+                    this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = true;
+                    this.debugActiveSegmentIndicator.transform.position =
+                        new Vector3(current.GetAbsoluteBounds().center.x, current.GetAbsoluteBounds().center.y, 10.0f);
 
-                this.debugActiveSegmentIndicator.transform.localScale =
-                    new Vector3(
-                        current.GetAbsoluteBounds().size.x,
-                        current.GetAbsoluteBounds().size.y,
-                        1.0f);
+                    this.debugActiveSegmentIndicator.transform.localScale =
+                        new Vector3(current.GetAbsoluteBounds().size.x, current.GetAbsoluteBounds().size.y, 1.0f);
+                }
 
                 // Activate / Deactivate in both ways
                 this.ActivateSegment(LevelSegmentDirection.Right, current, Constants.TileActivationRange);
