@@ -1,6 +1,7 @@
 ﻿namespace Assets.Scripts.Level
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
 
     using Assets.Scripts.Contracts;
@@ -21,18 +22,12 @@
 
         private readonly GameObject boundaryObject;
 
-        private readonly IList<GameObject> connectorDebugObjects;
-        private readonly IList<GameObject> backgroundObjects;
+        private readonly IList<GameObject> visualChildren; 
 
         private readonly IList<TileEvent> eventObjects;
 
         private GameObject activeObject;
-
-        private GameObject boundary;
-
-        private GameObject debugActiveSegmentIndicatorBL;
-        private GameObject debugActiveSegmentIndicatorTR;
-
+        
         private GameObject debugRoot;
         private GameObject backgroundRoot;
 
@@ -64,8 +59,7 @@
             // Todo: take this from tile connector points
             this.SetCanExtend(LevelSegmentDirection.Right, true);
 
-            this.connectorDebugObjects = new List<GameObject>();
-            this.backgroundObjects = new List<GameObject>();
+            this.visualChildren = new Collection<GameObject>();
         }
 
         // -------------------------------------------------------------------
@@ -174,12 +168,12 @@
             {
                 if (this.position != value)
                 {
+                    Vector2 oldPosition = this.position;
                     this.position = value;
                     if(this.IsLoaded)
                     {
                         // Re-show to update all the debug markers etc
-                        this.Unload();
-                        this.Load();
+                        this.Move(this.position - oldPosition);
                     }
                 }
             }
@@ -341,32 +335,35 @@
                 debugObject.GetComponent<Renderer>().material.color = Color.red;
                 debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 debugObject.transform.SetParent(this.debugRoot.transform);
-                this.connectorDebugObjects.Add(debugObject);
+                this.visualChildren.Add(debugObject);
             }
 
             if (this.boundaryObject != null)
             {
-                this.boundary = Object.Instantiate(this.boundaryObject);
-                this.boundary.transform.position = new Vector2(absoluteBounds.min.x, absoluteBounds.min.y - Constants.LevelBoundaryDistance);
-                this.boundary.transform.localScale = new Vector3(this.tile.Bounds.size.x + 10, 1, 10);
-                this.boundary.name = this.activeObject.name + "_BOUNDS";
+                GameObject boundary = Object.Instantiate(this.boundaryObject);
+                boundary.transform.position = new Vector2(absoluteBounds.min.x, absoluteBounds.min.y - Constants.LevelBoundaryDistance);
+                boundary.transform.localScale = new Vector3(this.tile.Bounds.size.x + 10, 1, 10);
+                boundary.name = this.activeObject.name + "_BOUNDS";
+                this.visualChildren.Add(boundary);
                 //this.boundary.transform.SetParent(this.backgroundRoot.transform);
             }
 
             // Background
             this.RebuildBackground();
 
-            this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
-            this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorTR.transform.position = absoluteBounds.max;
-            this.debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
+            GameObject debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
+            debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
+            debugActiveSegmentIndicatorTR.transform.position = absoluteBounds.max;
+            debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
+            this.visualChildren.Add(debugActiveSegmentIndicatorTR);
 
-            this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
-            this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorBL.transform.position = absoluteBounds.min;
-            this.debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
+            GameObject debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
+            debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
+            debugActiveSegmentIndicatorBL.transform.position = absoluteBounds.min;
+            debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
+            this.visualChildren.Add(debugActiveSegmentIndicatorBL);
 
             this.eventObjects.Clear();
 
@@ -375,6 +372,16 @@
             {
                 this.eventObjects.Add(eventObject);
                 eventObject.OnLoad(this);
+            }
+        }
+
+        private void Move(Vector3 translation)
+        {
+            this.activeObject.transform.position += translation;
+
+            foreach (GameObject child in this.visualChildren)
+            {
+                child.transform.position += translation;
             }
         }
 
@@ -404,7 +411,7 @@
                     backTile.name = string.Format("bg_{0}x{1}", xPos, yPos);
                     backTile.transform.position = new Vector3(xPos, yPos, 3);
                     backTile.transform.SetParent(this.backgroundRoot.transform);
-                    this.backgroundObjects.Add(backTile);
+                    this.visualChildren.Add(backTile);
 
                     yPos += instanceBounds.size.y;
                 }
@@ -431,32 +438,19 @@
             this.eventObjects.Clear();
 
             // Show the connectors for debugging
-            foreach (GameObject debugObject in this.connectorDebugObjects)
+            foreach (GameObject child in this.visualChildren)
             {
-                Object.Destroy(debugObject);
+                Object.Destroy(child);
             }
-            this.connectorDebugObjects.Clear();
 
-            foreach (GameObject backgroundObject in this.backgroundObjects)
-            {
-                Object.Destroy(backgroundObject);
-            }
-            this.backgroundObjects.Clear();
-
+            this.visualChildren.Clear();
+            
             // Todo: Have to save the object's state
             Object.Destroy(this.activeObject);
             this.activeObject = null;
-
-            Object.Destroy(this.debugActiveSegmentIndicatorTR);
-            Object.Destroy(this.debugActiveSegmentIndicatorBL);
-
+            
             Object.Destroy(this.debugRoot);
             Object.Destroy(this.backgroundRoot);
-
-            if (this.boundary != null)
-            {
-                Object.Destroy(this.boundary);
-            }
         }
 
         private LevelSegmentDirection GetActualDirection(LevelSegmentDirection desiredDirection)
