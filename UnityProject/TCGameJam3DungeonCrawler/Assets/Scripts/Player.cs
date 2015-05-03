@@ -67,20 +67,20 @@
             {
                 return;
             }
-
-            /*
+                        
             Weapon activeWeapon = weaponLoadout[activeWeaponIndex];
             activeWeapon.PointWeapon();
 
             if(Input.GetMouseButtonDown(1))
             {
+                this.weaponLoadout[activeWeaponIndex].gameObject.SetActive(false);
                 activeWeaponIndex = 1 - activeWeaponIndex;
+                this.weaponLoadout[activeWeaponIndex].gameObject.SetActive(true);
             }
             else if (Input.GetMouseButtonDown(0))
             {
                 activeWeapon.Attack();
             }
-             * */
         }
 
         private void SetWeaponLoadout(Type primaryWeaponType, Type secondaryWeaponType)
@@ -88,6 +88,10 @@
             this.weaponLoadout[0] = GetWeapon(primaryWeaponType);
             this.weaponLoadout[1] = GetWeapon(secondaryWeaponType);
             activeWeaponIndex = 0;
+
+            this.weaponLoadout[0].gameObject.SetActive(true);
+            this.weaponLoadout[1].gameObject.SetActive(false);
+
             hasWeaponLoadout = true;
         }
 
