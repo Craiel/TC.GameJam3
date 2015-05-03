@@ -28,6 +28,16 @@ public abstract class BaseEnemy : Actor
     public virtual void Init(Player player)
     {
         this.player = player;
+
+        if(this.color == Assets.Scripts.Enemy.PowerColor.Any)
+        {
+            switch (Random.Range(0, 3))
+            {
+                case 0: this.color = Assets.Scripts.Enemy.PowerColor.Red; break;
+                case 1: this.color = Assets.Scripts.Enemy.PowerColor.Green; break;
+                case 2: this.color = Assets.Scripts.Enemy.PowerColor.Blue; break;
+            }
+        }
     }
 
     protected abstract void Idle();
@@ -88,5 +98,26 @@ public abstract class BaseEnemy : Actor
             totalDamage += blueDamage;
 
         base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
+    }
+
+    public override void Die()
+    {
+        string prefabOrbName = "";
+        switch(this.color)
+        {
+            case Assets.Scripts.Enemy.PowerColor.Red: prefabOrbName = "RedEnergyOrb"; break;
+            case Assets.Scripts.Enemy.PowerColor.Green: prefabOrbName = "GreenEnergyOrb"; break;
+            case Assets.Scripts.Enemy.PowerColor.Blue: prefabOrbName = "BlueEnergyOrb"; break;
+        }
+        
+        if(!string.IsNullOrEmpty(prefabOrbName))
+        {
+            GameObject orb = Instantiate(Resources.Load("Meshes/" + prefabOrbName)) as GameObject;
+
+            orb.transform.position = this.transform.position;
+        }
+
+        
+        base.Die();
     }
 }

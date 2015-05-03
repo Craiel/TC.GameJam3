@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMovementController : MonoBehaviour
@@ -93,7 +94,13 @@ public class CharacterMovementController : MonoBehaviour
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
-    { 
+    {
+        EnergyOrb orb = hit.gameObject.GetComponent<EnergyOrb>();
+        if(orb != null)
+        {
+            orb.DeliverPayload(GetComponent<Player>());
+        }
+
         if( (this.characterController.collisionFlags & CollisionFlags.Above) != 0 ||
             (this.characterController.collisionFlags & CollisionFlags.Below) != 0)
         {
