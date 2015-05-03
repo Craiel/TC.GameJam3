@@ -114,7 +114,7 @@
             }
             set
             {
-                if (this.isCurrent != value)
+                if (this.isActive != value)
                 {
                     if (value)
                     {
@@ -236,13 +236,8 @@
 
         public bool Contains(Vector2 value)
         {
-            var halfWidth = this.Width / 2;
-            //var halfHeight = this.Height / 2;
-
-            return value.x >= this.Position.x - halfWidth
-                && value.x <= this.Position.x + halfWidth
-                && value.y >= this.Position.y
-                && value.y <= this.Position.y + this.Height;
+            var bounds = new Bounds(this.position, this.tile.Bounds.size);
+            return bounds.Contains(value);
         }
 
         public IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction)

@@ -16,7 +16,6 @@
         private readonly GameLevel level;
 
         public Player player;
-        public Camera cameraObjectCauseUnityIsStupidWithNaming;
 
         // -------------------------------------------------------------------
         // Constructor
