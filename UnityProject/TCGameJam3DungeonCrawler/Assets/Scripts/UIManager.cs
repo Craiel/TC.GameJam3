@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,12 +14,29 @@ public class UIManager : MonoBehaviour
 
     public GameLoadout gameLoadout;
 
+    public Game game;
+
+    public Slider slider;
+
     private int weaponsSelected;
+    private int currentHealth;
 
     private List<Type> weaponTypes = new List<Type>();
 
     void Start()
     {
+        currentHealth = game.player.HitPoints;
+        slider.value = 1f;
+    }
+
+    void Update()
+    {
+        if(currentHealth != game.player.HitPoints)
+        {
+
+            slider.value = (float)game.player.HitPoints / game.player.TotalHitPoints;
+            currentHealth = game.player.HitPoints;
+        }
     }
 
     public void WeaponSelect(string trigger)

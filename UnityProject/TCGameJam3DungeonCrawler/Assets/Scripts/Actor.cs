@@ -7,13 +7,21 @@ public abstract class Actor : SpawnedEntity
 {
     [SerializeField]
     private int totalHitPoints;
-
+    
     protected CharacterController characterController;
 
     public int HitPoints { get; private set; }
 
     public delegate void ActorEvent(Actor actor);
     public event ActorEvent OnActorKilled = delegate { };
+
+    public int TotalHitPoints 
+    {
+        get
+        {
+            return totalHitPoints;
+        } 
+    }
 
     protected virtual void Awake()
     {

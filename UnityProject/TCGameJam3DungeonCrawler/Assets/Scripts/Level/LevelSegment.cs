@@ -19,6 +19,7 @@
         private GameObject activeObject;
 
         private readonly IList<GameObject> connectorDebugObjects;
+        private readonly IList<GameObject> backgroundObjects; 
 
         private GameObject debugActiveSegmentIndicatorBL;
         private GameObject debugActiveSegmentIndicatorTR;
@@ -44,6 +45,7 @@
             this.SetCanExtend(LevelSegmentDirection.Right, true);
 
             this.connectorDebugObjects = new List<GameObject>();
+            this.backgroundObjects = new List<GameObject>();
         }
 
         // -------------------------------------------------------------------
@@ -231,6 +233,9 @@
                 this.connectorDebugObjects.Add(debugObject);
             }
 
+            // Background
+            this.RebuildBackground();
+
             this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
             this.debugActiveSegmentIndicatorTR.transform.position = new Vector3(this.tile.Bounds.min.x + this.Position.x, this.tile.Bounds.min.y + this.Position.y);
@@ -238,6 +243,43 @@
             this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
             this.debugActiveSegmentIndicatorBL.transform.position = new Vector3(this.tile.Bounds.max.x + this.Position.x, this.tile.Bounds.max.y + this.Position.y);
+        }
+
+        private void RebuildBackground()
+        {
+            if (this.tile.TileData.background == null)
+            {
+                return;
+            }
+
+            float marginHorizontal = 40.0f;
+            float marginVertical = 10.0f;
+            GameObject instance = Object.Instantiate(this.tile.TileData.background);
+            Bounds backGroundBounds = this.tile.Bounds;
+            backGroundBounds.Expand(new Vector3(marginVertical * 2, marginHorizontal * 2));
+            var halfWidth = backGroundBounds.size.x / 2;
+
+            Bounds instanceBounds = Utils.GetMaxBounds(instance);
+            int tileX = 1 + (int)Mathf.Ceil(backGroundBounds.size.x / instanceBounds.size.x);
+            int tileY = 1 + (int)Mathf.Ceil(backGroundBounds.size.y / instanceBounds.size.y);
+
+            float xPos = this.position.x - halfWidth - marginVertical;
+            for (var x = 0; x < tileX; x++)
+            {
+                float yPos = this.position.y - marginHorizontal;
+                for (var y = 0; y < tileY; y++)
+                {
+                    var backTile = Object.Instantiate(this.tile.TileData.background);
+                    backTile.transform.position = new Vector3(xPos, yPos, 3);
+                    this.backgroundObjects.Add(backTile);
+
+                    yPos += instanceBounds.size.y;
+                }
+
+                 xPos += instanceBounds.size.x;
+            }
+
+            Object.Destroy(instance);
         }
 
         private void Deactivate()
@@ -253,6 +295,12 @@
                 Object.Destroy(debugObject);
             }
             this.connectorDebugObjects.Clear();
+
+            foreach (GameObject backgroundObject in this.backgroundObjects)
+            {
+                Object.Destroy(backgroundObject);
+            }
+            this.backgroundObjects.Clear();
 
             // Todo: Have to save the object's state
             Object.Destroy(this.activeObject);
