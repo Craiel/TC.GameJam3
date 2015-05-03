@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        BaseEnemy enemy = collision.gameObject.GetComponent<BaseEnemy>();
+        BaseEnemy enemy = collision.gameObject.GetComponentInParent<BaseEnemy>();
         if(enemy != null)
         {
             enemy.TakeDamage(this.baseDamage, this.redDamage, this.greenDamage, this.blueDamage);
