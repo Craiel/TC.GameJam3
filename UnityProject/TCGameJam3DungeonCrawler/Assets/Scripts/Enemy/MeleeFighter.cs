@@ -26,6 +26,7 @@ public class MeleeFighter : BaseEnemy
             this.currentVelocity.z = 0f;
             this.currentVelocity = ClampMaximum(this.currentVelocity, this.maxSpeed);
             this.characterController.SimpleMove(this.currentVelocity);
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, CharacterMovementController.zAxis);
         }
     }
 

@@ -29,6 +29,7 @@ public class Flier : BaseEnemy
             this.currentVelocity = ClampMaximum(this.currentVelocity, this.maxSpeed);
             this.meshPivot.transform.LookAt(this.meshPivot.transform.position + this.currentVelocity);
             this.characterController.Move(this.currentVelocity * Time.deltaTime);
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, CharacterMovementController.zAxis);
         }
     }
 

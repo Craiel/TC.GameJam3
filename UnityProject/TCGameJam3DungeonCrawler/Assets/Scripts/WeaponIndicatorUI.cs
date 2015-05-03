@@ -46,13 +46,9 @@ public class WeaponIndicatorUI : MonoBehaviour
         {
             this.image.texture = this.crossbow;
         }
-
         this.weapon = weapon;
-    }
-
-    public void SetSelected(bool isSelected)
-    {
-        this.selected.enabled = isSelected;
+        this.selected.enabled = this.weapon.IsActive;
+        this.isInitialized = true;
     }
 
     private void Update()
@@ -62,6 +58,11 @@ public class WeaponIndicatorUI : MonoBehaviour
             this.redBar.value = this.weapon.EnergyStreams[Assets.Scripts.PowerColor.Red] / Weapon.ENERGY_STREAM_MAX;
             this.greenBar.value = this.weapon.EnergyStreams[Assets.Scripts.PowerColor.Green] / Weapon.ENERGY_STREAM_MAX;
             this.blueBar.value = this.weapon.EnergyStreams[Assets.Scripts.PowerColor.Blue] / Weapon.ENERGY_STREAM_MAX;
+
+            if(this.weapon.IsActive != this.selected.enabled)
+            {
+                this.selected.enabled = this.weapon.IsActive;
+            }
         }
     }
 }
