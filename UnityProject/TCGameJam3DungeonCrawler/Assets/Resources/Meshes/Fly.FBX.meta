@@ -1,0 +1,454 @@
+fileFormatVersion: 2
+guid: c14ed5b14bff9714c84fe35c1cfd723a
+timeCreated: 1430677950
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Box001
+    100002: //RootNode
+    100004: FlyRig
+    100006: FlyRigFlyHead
+    100008: FlyRigTentacle11
+    100010: FlyRigTentacle110
+    100012: FlyRigTentacle111
+    100014: FlyRigTentacle112
+    100016: FlyRigTentacle113
+    100018: FlyRigTentacle114
+    100020: FlyRigTentacle115
+    100022: FlyRigTentacle116
+    100024: FlyRigTentacle117
+    100026: FlyRigTentacle118
+    100028: FlyRigTentacle119
+    100030: FlyRigTentacle12
+    100032: FlyRigTentacle120
+    100034: FlyRigTentacle13
+    100036: FlyRigTentacle14
+    100038: FlyRigTentacle15
+    100040: FlyRigTentacle16
+    100042: FlyRigTentacle17
+    100044: FlyRigTentacle18
+    100046: FlyRigTentacle19
+    100048: FlyRigTentacle21
+    100050: FlyRigTentacle210
+    100052: FlyRigTentacle211
+    100054: FlyRigTentacle212
+    100056: FlyRigTentacle213
+    100058: FlyRigTentacle214
+    100060: FlyRigTentacle215
+    100062: FlyRigTentacle216
+    100064: FlyRigTentacle217
+    100066: FlyRigTentacle218
+    100068: FlyRigTentacle219
+    100070: FlyRigTentacle22
+    100072: FlyRigTentacle220
+    100074: FlyRigTentacle23
+    100076: FlyRigTentacle24
+    100078: FlyRigTentacle25
+    100080: FlyRigTentacle26
+    100082: FlyRigTentacle27
+    100084: FlyRigTentacle28
+    100086: FlyRigTentacle29
+    100088: FlyRigTentacle31
+    100090: FlyRigTentacle310
+    100092: FlyRigTentacle311
+    100094: FlyRigTentacle312
+    100096: FlyRigTentacle313
+    100098: FlyRigTentacle314
+    100100: FlyRigTentacle315
+    100102: FlyRigTentacle316
+    100104: FlyRigTentacle317
+    100106: FlyRigTentacle318
+    100108: FlyRigTentacle319
+    100110: FlyRigTentacle32
+    100112: FlyRigTentacle320
+    100114: FlyRigTentacle33
+    100116: FlyRigTentacle34
+    100118: FlyRigTentacle35
+    100120: FlyRigTentacle36
+    100122: FlyRigTentacle37
+    100124: FlyRigTentacle38
+    100126: FlyRigTentacle39
+    100128: FlyRigTentacle41
+    100130: FlyRigTentacle41 1
+    100132: FlyRigTentacle410
+    100134: FlyRigTentacle411
+    100136: FlyRigTentacle412
+    100138: FlyRigTentacle413
+    100140: FlyRigTentacle414
+    100142: FlyRigTentacle415
+    100144: FlyRigTentacle416
+    100146: FlyRigTentacle417
+    100148: FlyRigTentacle418
+    100150: FlyRigTentacle419
+    100152: FlyRigTentacle42
+    100154: FlyRigTentacle42 1
+    100156: FlyRigTentacle420
+    100158: FlyRigTentacle43
+    100160: FlyRigTentacle43 1
+    100162: FlyRigTentacle44
+    100164: FlyRigTentacle44 1
+    100166: FlyRigTentacle45
+    100168: FlyRigTentacle45 1
+    100170: FlyRigTentacle46
+    100172: FlyRigTentacle47
+    100174: FlyRigTentacle48
+    100176: FlyRigTentacle49
+    400000: Box001
+    400002: //RootNode
+    400004: FlyRig
+    400006: FlyRigFlyHead
+    400008: FlyRigTentacle11
+    400010: FlyRigTentacle110
+    400012: FlyRigTentacle111
+    400014: FlyRigTentacle112
+    400016: FlyRigTentacle113
+    400018: FlyRigTentacle114
+    400020: FlyRigTentacle115
+    400022: FlyRigTentacle116
+    400024: FlyRigTentacle117
+    400026: FlyRigTentacle118
+    400028: FlyRigTentacle119
+    400030: FlyRigTentacle12
+    400032: FlyRigTentacle120
+    400034: FlyRigTentacle13
+    400036: FlyRigTentacle14
+    400038: FlyRigTentacle15
+    400040: FlyRigTentacle16
+    400042: FlyRigTentacle17
+    400044: FlyRigTentacle18
+    400046: FlyRigTentacle19
+    400048: FlyRigTentacle21
+    400050: FlyRigTentacle210
+    400052: FlyRigTentacle211
+    400054: FlyRigTentacle212
+    400056: FlyRigTentacle213
+    400058: FlyRigTentacle214
+    400060: FlyRigTentacle215
+    400062: FlyRigTentacle216
+    400064: FlyRigTentacle217
+    400066: FlyRigTentacle218
+    400068: FlyRigTentacle219
+    400070: FlyRigTentacle22
+    400072: FlyRigTentacle220
+    400074: FlyRigTentacle23
+    400076: FlyRigTentacle24
+    400078: FlyRigTentacle25
+    400080: FlyRigTentacle26
+    400082: FlyRigTentacle27
+    400084: FlyRigTentacle28
+    400086: FlyRigTentacle29
+    400088: FlyRigTentacle31
+    400090: FlyRigTentacle310
+    400092: FlyRigTentacle311
+    400094: FlyRigTentacle312
+    400096: FlyRigTentacle313
+    400098: FlyRigTentacle314
+    400100: FlyRigTentacle315
+    400102: FlyRigTentacle316
+    400104: FlyRigTentacle317
+    400106: FlyRigTentacle318
+    400108: FlyRigTentacle319
+    400110: FlyRigTentacle32
+    400112: FlyRigTentacle320
+    400114: FlyRigTentacle33
+    400116: FlyRigTentacle34
+    400118: FlyRigTentacle35
+    400120: FlyRigTentacle36
+    400122: FlyRigTentacle37
+    400124: FlyRigTentacle38
+    400126: FlyRigTentacle39
+    400128: FlyRigTentacle41
+    400130: FlyRigTentacle41 1
+    400132: FlyRigTentacle410
+    400134: FlyRigTentacle411
+    400136: FlyRigTentacle412
+    400138: FlyRigTentacle413
+    400140: FlyRigTentacle414
+    400142: FlyRigTentacle415
+    400144: FlyRigTentacle416
+    400146: FlyRigTentacle417
+    400148: FlyRigTentacle418
+    400150: FlyRigTentacle419
+    400152: FlyRigTentacle42
+    400154: FlyRigTentacle42 1
+    400156: FlyRigTentacle420
+    400158: FlyRigTentacle43
+    400160: FlyRigTentacle43 1
+    400162: FlyRigTentacle44
+    400164: FlyRigTentacle44 1
+    400166: FlyRigTentacle45
+    400168: FlyRigTentacle45 1
+    400170: FlyRigTentacle46
+    400172: FlyRigTentacle47
+    400174: FlyRigTentacle48
+    400176: FlyRigTentacle49
+    4300000: Box001
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Box001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Box001
+        weight: 1
+      - path: FlyRig
+        weight: 1
+      - path: FlyRigFlyHead
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115/FlyRigTentacle116
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115/FlyRigTentacle116/FlyRigTentacle117
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115/FlyRigTentacle116/FlyRigTentacle117/FlyRigTentacle118
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115/FlyRigTentacle116/FlyRigTentacle117/FlyRigTentacle118/FlyRigTentacle119
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle11/FlyRigTentacle12/FlyRigTentacle13/FlyRigTentacle14/FlyRigTentacle15/FlyRigTentacle16/FlyRigTentacle17/FlyRigTentacle18/FlyRigTentacle19/FlyRigTentacle110/FlyRigTentacle111/FlyRigTentacle112/FlyRigTentacle113/FlyRigTentacle114/FlyRigTentacle115/FlyRigTentacle116/FlyRigTentacle117/FlyRigTentacle118/FlyRigTentacle119/FlyRigTentacle120
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215/FlyRigTentacle216
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215/FlyRigTentacle216/FlyRigTentacle217
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215/FlyRigTentacle216/FlyRigTentacle217/FlyRigTentacle218
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215/FlyRigTentacle216/FlyRigTentacle217/FlyRigTentacle218/FlyRigTentacle219
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle21/FlyRigTentacle22/FlyRigTentacle23/FlyRigTentacle24/FlyRigTentacle25/FlyRigTentacle26/FlyRigTentacle27/FlyRigTentacle28/FlyRigTentacle29/FlyRigTentacle210/FlyRigTentacle211/FlyRigTentacle212/FlyRigTentacle213/FlyRigTentacle214/FlyRigTentacle215/FlyRigTentacle216/FlyRigTentacle217/FlyRigTentacle218/FlyRigTentacle219/FlyRigTentacle220
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315/FlyRigTentacle316
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315/FlyRigTentacle316/FlyRigTentacle317
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315/FlyRigTentacle316/FlyRigTentacle317/FlyRigTentacle318
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315/FlyRigTentacle316/FlyRigTentacle317/FlyRigTentacle318/FlyRigTentacle319
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle31/FlyRigTentacle32/FlyRigTentacle33/FlyRigTentacle34/FlyRigTentacle35/FlyRigTentacle36/FlyRigTentacle37/FlyRigTentacle38/FlyRigTentacle39/FlyRigTentacle310/FlyRigTentacle311/FlyRigTentacle312/FlyRigTentacle313/FlyRigTentacle314/FlyRigTentacle315/FlyRigTentacle316/FlyRigTentacle317/FlyRigTentacle318/FlyRigTentacle319/FlyRigTentacle320
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415/FlyRigTentacle416
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415/FlyRigTentacle416/FlyRigTentacle417
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415/FlyRigTentacle416/FlyRigTentacle417/FlyRigTentacle418
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415/FlyRigTentacle416/FlyRigTentacle417/FlyRigTentacle418/FlyRigTentacle419
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41/FlyRigTentacle42/FlyRigTentacle43/FlyRigTentacle44/FlyRigTentacle45/FlyRigTentacle46/FlyRigTentacle47/FlyRigTentacle48/FlyRigTentacle49/FlyRigTentacle410/FlyRigTentacle411/FlyRigTentacle412/FlyRigTentacle413/FlyRigTentacle414/FlyRigTentacle415/FlyRigTentacle416/FlyRigTentacle417/FlyRigTentacle418/FlyRigTentacle419/FlyRigTentacle420
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41 1
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41 1/FlyRigTentacle42 1
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41 1/FlyRigTentacle42 1/FlyRigTentacle43
+          1
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41 1/FlyRigTentacle42 1/FlyRigTentacle43
+          1/FlyRigTentacle44 1
+        weight: 1
+      - path: FlyRigFlyHead/FlyRigTentacle41 1/FlyRigTentacle42 1/FlyRigTentacle43
+          1/FlyRigTentacle44 1/FlyRigTentacle45 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,76 +1,62 @@
 fileFormatVersion: 2
-guid: 2f4593726ada2fe4fb09e98e5801ede6
-timeCreated: 1430595974
-licenseType: Free
+guid: 8655384fb92720049b40f781f2da1765
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Armature
-    100002: ControlBone
-    100004: Foot.L
-    100006: Foot.L_end
-    100008: Foot.R
-    100010: Foot.R_end
-    100012: Hand.L
-    100014: Hand.L_end
-    100016: Hand.R
-    100018: Hand.R_end
-    100020: Head
-    100022: Head_end
-    100024: LowerArm.L
-    100026: LowerArm.R
-    100028: LowerBack
-    100030: LowerLeg.L
-    100032: LowerLeg.R
-    100034: //RootNode
-    100036: ScionLoPoly
-    100038: ScionLoPoly_MeshPart0
-    100040: ScionLoPoly_MeshPart1
-    100042: Torso
-    100044: UpperArrn.L
-    100046: UpperArrn.R
-    100048: UpperBack
-    100050: UpperLeg.L
-    100052: UpperLeg.R
-    400000: Armature
-    400002: ControlBone
-    400004: Foot.L
-    400006: Foot.L_end
-    400008: Foot.R
-    400010: Foot.R_end
-    400012: Hand.L
-    400014: Hand.L_end
-    400016: Hand.R
-    400018: Hand.R_end
-    400020: Head
-    400022: Head_end
-    400024: LowerArm.L
-    400026: LowerArm.R
-    400028: LowerBack
-    400030: LowerLeg.L
-    400032: LowerLeg.R
-    400034: //RootNode
-    400036: ScionLoPoly
-    400038: ScionLoPoly_MeshPart0
-    400040: ScionLoPoly_MeshPart1
-    400042: Torso
-    400044: UpperArrn.L
-    400046: UpperArrn.R
-    400048: UpperBack
-    400050: UpperLeg.L
-    400052: UpperLeg.R
-    2300000: ScionLoPoly_MeshPart0
-    2300002: ScionLoPoly_MeshPart1
-    3300000: ScionLoPoly_MeshPart0
-    3300002: ScionLoPoly_MeshPart1
-    4300000: ScionLoPoly_MeshPart0
-    4300002: ScionLoPoly_MeshPart1
-    7400000: ArmatureAction
-    7400002: Armature|PoseLib
-    7400004: Armature|Running
+    100000: ControlBone
+    100002: Foot.L
+    100004: Foot.L_end
+    100006: Foot.R
+    100008: Foot.R_end
+    100010: Hand.L
+    100012: Hand.L_end
+    100014: Hand.R
+    100016: Hand.R_end
+    100018: Head
+    100020: Head_end
+    100022: LowerArm.L
+    100024: LowerArm.R
+    100026: LowerBack
+    100028: LowerLeg.L
+    100030: LowerLeg.R
+    100032: //RootNode
+    100034: Scion.LoPoly
+    100036: ScionArmature
+    100038: Torso
+    100040: UpperArrn.L
+    100042: UpperArrn.R
+    100044: UpperBack
+    100046: UpperLeg.L
+    100048: UpperLeg.R
+    400000: ControlBone
+    400002: Foot.L
+    400004: Foot.L_end
+    400006: Foot.R
+    400008: Foot.R_end
+    400010: Hand.L
+    400012: Hand.L_end
+    400014: Hand.R
+    400016: Hand.R_end
+    400018: Head
+    400020: Head_end
+    400022: LowerArm.L
+    400024: LowerArm.R
+    400026: LowerBack
+    400028: LowerLeg.L
+    400030: LowerLeg.R
+    400032: //RootNode
+    400034: Scion.LoPoly
+    400036: ScionArmature
+    400038: Torso
+    400040: UpperArrn.L
+    400042: UpperArrn.R
+    400044: UpperBack
+    400046: UpperLeg.L
+    400048: UpperLeg.R
+    4300000: Scion.LoPoly
+    7400000: ScionArmature|ScionPoseLib
     9500000: //RootNode
-    13700000: ScionLoPoly_MeshPart0
-    13700002: ScionLoPoly_MeshPart1
+    13700000: Scion.LoPoly
   materials:
     importMaterials: 1
     materialName: 0
@@ -90,7 +76,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

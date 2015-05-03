@@ -9,6 +9,9 @@ public class Flier : BaseEnemy
     [SerializeField]
     private float maxAcceleration;
 
+    [SerializeField]
+    private GameObject meshPivot;
+
     private Vector3 currentVelocity;
     private Vector3 currentAcceleration;
 
@@ -24,6 +27,7 @@ public class Flier : BaseEnemy
             this.currentVelocity += this.currentAcceleration * Time.deltaTime;
             this.currentVelocity.z = 0f;
             this.currentVelocity = ClampMaximum(this.currentVelocity, this.maxSpeed);
+            this.meshPivot.transform.LookAt(this.meshPivot.transform.position + this.currentVelocity);
             this.characterController.Move(this.currentVelocity * Time.deltaTime);
         }
     }
