@@ -89,10 +89,15 @@
             {
                 this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = true;
                 this.debugActiveSegmentIndicator.transform.position = new Vector3(
-                    current.Position.x,
-                    current.Position.y,
+                    current.GetAbsoluteBounds().center.x,
+                    current.GetAbsoluteBounds().center.y,
                     10.0f);
-                this.debugActiveSegmentIndicator.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
+
+                this.debugActiveSegmentIndicator.transform.localScale =
+                    new Vector3(
+                        current.GetAbsoluteBounds().size.x,
+                        current.GetAbsoluteBounds().size.y,
+                        1.0f);
 
                 // Activate / Deactivate in both ways
                 this.ActivateSegment(LevelSegmentDirection.Right, current, Constants.TileActivationRange);

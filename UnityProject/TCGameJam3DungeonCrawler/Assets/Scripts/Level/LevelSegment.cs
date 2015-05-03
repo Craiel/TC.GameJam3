@@ -236,8 +236,7 @@
 
         public bool Contains(Vector2 value)
         {
-            var bounds = new Bounds(this.position, this.tile.Bounds.size);
-            return bounds.Contains(value);
+            return this.GetAbsoluteBounds().Contains(value);
         }
 
         public IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction)
@@ -291,12 +290,20 @@
             return null;
         }
 
-        public void UpdateEvents(Vector2 position)
+        public void UpdateEvents(Vector2 currentPosition)
         {
             foreach(var eventObject in this.eventObjects) 
             {
-                eventObject.OnMoveInside(position);
+                eventObject.OnMoveInside(currentPosition);
             }
+        }
+
+        public Bounds GetAbsoluteBounds()
+        {
+            Vector3 center = new Vector2(
+                this.tile.Bounds.center.x + this.Position.x,
+                this.tile.Bounds.center.y + this.Position.y);
+            return new Bounds(center, this.tile.Bounds.size);
         }
 
         // -------------------------------------------------------------------
@@ -309,12 +316,7 @@
                 return;
             }
 
-            Vector2 topRight = new Vector2(
-                this.tile.Bounds.max.x + this.Position.x,
-                this.tile.Bounds.max.y + this.Position.y);
-            Vector2 bottomLeft = new Vector2(
-                this.tile.Bounds.min.x + this.Position.x,
-                this.tile.Bounds.min.y + this.Position.y);
+            var absoluteBounds = this.GetAbsoluteBounds();
 
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
@@ -325,7 +327,7 @@
 
             if (this.IsMirrored)
             {
-                var absoluteCenter = new Vector3(this.tile.Bounds.center.x + this.position.x, 0, 0);
+                var absoluteCenter = new Vector3(absoluteBounds.center.x, 0, 0);
                 this.activeObject.transform.localScale = new Vector3(1, 1, -1);
                 this.activeObject.transform.RotateAround(absoluteCenter, new Vector3(0, 1, 0), 180);
                 //this.activeObject.transform.Rotate(new Vector3(0, 1, 0), 180);
@@ -344,9 +346,8 @@
 
             if (this.boundaryObject != null)
             {
-                float halfWidth = this.tile.Bounds.size.x / 2;
                 this.boundary = Object.Instantiate(this.boundaryObject);
-                this.boundary.transform.position = new Vector2(bottomLeft.x + halfWidth, bottomLeft.y - Constants.LevelBoundaryDistance);
+                this.boundary.transform.position = new Vector2(absoluteBounds.min.x, absoluteBounds.min.y - Constants.LevelBoundaryDistance);
                 this.boundary.transform.localScale = new Vector3(this.tile.Bounds.size.x + 10, 1, 10);
                 this.boundary.name = this.activeObject.name + "_BOUNDS";
                 //this.boundary.transform.SetParent(this.backgroundRoot.transform);
@@ -358,13 +359,13 @@
             this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
             this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorTR.transform.position = topRight;
+            this.debugActiveSegmentIndicatorTR.transform.position = absoluteBounds.max;
             this.debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
 
             this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
             this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorBL.transform.position = bottomLeft;
+            this.debugActiveSegmentIndicatorBL.transform.position = absoluteBounds.min;
             this.debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
 
             this.eventObjects.Clear();
