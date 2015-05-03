@@ -6,11 +6,9 @@
 
     public abstract class TileEvent : MonoBehaviour
     {
-        public virtual void OnLoad(ILevelSegment segment)
+        public virtual void OnLoad(ILevelSegment segmentData)
         {
-            this.SegmentId = segment.InternalId;
-            this.SegmentBounds = segment.Tile.Bounds;
-            this.LocalBounds = new Bounds(segment.Position, segment.Tile.Bounds.size);
+            this.Segment = segmentData;
         }
 
         public virtual void OnUnload() {}
@@ -24,9 +22,7 @@
         public virtual void OnDeactivate() {}
 
         public virtual void OnMoveInside(Vector2 position) { }
-        
-        protected long SegmentId { get; private set; }
-        protected Bounds SegmentBounds { get; private set; }
-        protected Bounds LocalBounds { get; private set; }
+
+        protected ILevelSegment Segment { get; private set; }
     }
 }

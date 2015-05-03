@@ -11,8 +11,8 @@ public class KeyUnlockEvent : TileEvent
         if (a)
         {
             Debug.Log("in IF");
-            GameState.Instance.SetState(KeyEvent.KeyString + this.SegmentId);
-            EventAggregate.Instance.Notify(KeyEvent.KeyString + this.SegmentId, this);
+            GameState.Instance.SetState(KeyEvent.KeyString + this.Segment.InternalId);
+            EventAggregate.Instance.Notify(KeyEvent.KeyString + this.Segment.InternalId, this);
             Destroy(this.gameObject);
         }
         else
