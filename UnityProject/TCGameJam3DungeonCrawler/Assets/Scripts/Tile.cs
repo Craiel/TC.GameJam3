@@ -17,5 +17,7 @@
         public float rarity;
 
         public bool canTileWithItself;
+
+        public GameObject background;
     }
 }
