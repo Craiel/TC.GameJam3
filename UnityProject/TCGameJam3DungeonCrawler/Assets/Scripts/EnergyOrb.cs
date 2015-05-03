@@ -42,7 +42,7 @@ public class EnergyOrb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(isInitialized)
+        if(this.isInitialized)
         {
             Player player = other.GetComponent<Player>();
             if(player != null)
