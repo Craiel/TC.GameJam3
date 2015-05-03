@@ -1,6 +1,5 @@
 ﻿namespace Assets.Scripts.Level
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -26,6 +25,9 @@
 
         private GameObject debugActiveSegmentIndicatorBL;
         private GameObject debugActiveSegmentIndicatorTR;
+
+        private GameObject debugRoot;
+        private GameObject backgroundRoot;
 
         private Vector2 position;
 
@@ -232,18 +234,25 @@
             this.activeObject = this.tile.GetInstance();
             this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
 
+            this.debugRoot = new GameObject(this.activeObject.name + "_DEBUG");
+            this.backgroundRoot = new GameObject(this.activeObject.name + "_BG");
+
             if (this.IsMirrored)
             {
+                var absoluteCenter = new Vector3(this.tile.Bounds.center.x + this.position.x, 0, 0);
                 this.activeObject.transform.localScale = new Vector3(1, 1, -1);
-                this.activeObject.transform.Rotate(new Vector3(0, 1, 0), 180);
+                this.activeObject.transform.RotateAround(absoluteCenter, new Vector3(0, 1, 0), 180);
+                //this.activeObject.transform.Rotate(new Vector3(0, 1, 0), 180);
             }
 
             foreach (ILevelTileConnection connection in this.tile.Connections)
             {
                 var debugObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                debugObject.name = this.activeObject.name + "_CON_" + connection.Id;
                 debugObject.transform.position = this.Position + connection.Position;
                 debugObject.GetComponent<Renderer>().material.color = Color.red;
                 debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                debugObject.transform.SetParent(this.debugRoot.transform);
                 this.connectorDebugObjects.Add(debugObject);
             }
 
@@ -251,12 +260,16 @@
             this.RebuildBackground();
 
             this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            this.debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
             this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
             this.debugActiveSegmentIndicatorTR.transform.position = new Vector3(this.tile.Bounds.min.x + this.Position.x, this.tile.Bounds.min.y + this.Position.y);
+            this.debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
 
             this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            this.debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
             this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
             this.debugActiveSegmentIndicatorBL.transform.position = new Vector3(this.tile.Bounds.max.x + this.Position.x, this.tile.Bounds.max.y + this.Position.y);
+            this.debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
         }
 
         private void RebuildBackground()
@@ -271,20 +284,22 @@
             GameObject instance = Object.Instantiate(this.tile.TileData.background);
             Bounds backGroundBounds = this.tile.Bounds;
             backGroundBounds.Expand(new Vector3(marginVertical * 2, marginHorizontal * 2));
-            var halfWidth = backGroundBounds.size.x / 2;
+            //var halfWidth = backGroundBounds.size.x / 2;
 
             Bounds instanceBounds = Utils.GetMaxBounds(instance);
             int tileX = 1 + (int)Mathf.Ceil(backGroundBounds.size.x / instanceBounds.size.x);
             int tileY = 1 + (int)Mathf.Ceil(backGroundBounds.size.y / instanceBounds.size.y);
 
-            float xPos = this.position.x - halfWidth - marginVertical;
+            float xPos = this.position.x - marginVertical;
             for (var x = 0; x < tileX; x++)
             {
                 float yPos = this.position.y - marginHorizontal;
                 for (var y = 0; y < tileY; y++)
                 {
                     var backTile = Object.Instantiate(this.tile.TileData.background);
+                    backTile.name = string.Format("bg_{0}x{1}", xPos, yPos);
                     backTile.transform.position = new Vector3(xPos, yPos, 3);
+                    backTile.transform.SetParent(this.backgroundRoot.transform);
                     this.backgroundObjects.Add(backTile);
 
                     yPos += instanceBounds.size.y;
@@ -322,6 +337,9 @@
 
             Object.Destroy(this.debugActiveSegmentIndicatorTR);
             Object.Destroy(this.debugActiveSegmentIndicatorBL);
+
+            Object.Destroy(this.debugRoot);
+            Object.Destroy(this.backgroundRoot);
         }
 
         private LevelSegmentDirection GetActualDirection(LevelSegmentDirection desiredDirection)
