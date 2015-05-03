@@ -50,8 +50,6 @@ public class UIManager : MonoBehaviour
         }
         if (weaponsSelected == 2)
         {
-            Debug.Log("You Picked Everything!");
-            Debug.Log("count of types: " + weaponTypes.Count);
             //GameLoadout a = new GameLoadout();
             gameLoadout.SetPlayerWeapons(weaponTypes);
         }
