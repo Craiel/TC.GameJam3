@@ -22,6 +22,8 @@
 
         public bool canMirror;
 
+        public bool canStart;
+
         public GameObject background;
     }
 }
