@@ -29,7 +29,7 @@
 
         public override void OnActivate()
         {
-            Debug.Log("TileEventDEACT: " + this.name + " in " + this.id);
+            Debug.Log("TileEventACT: " + this.name + " in " + this.id);
         }
 
         public override void OnDeactivate()

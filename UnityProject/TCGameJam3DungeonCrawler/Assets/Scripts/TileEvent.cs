@@ -4,16 +4,21 @@
 
     public abstract class TileEvent : MonoBehaviour
     {
-        public abstract void OnLoad(long segmentId);
+        public virtual void OnLoad(long segmentId)
+        {
+            this.SegmentId = segmentId;
+        }
 
-        public abstract void OnUnload();
+        public virtual void OnUnload() {}
 
-        public abstract void OnEnter();
+        public virtual void OnEnter() {}
 
-        public abstract void OnExit();
+        public virtual void OnExit() {}
 
-        public abstract void OnActivate();
+        public virtual void OnActivate() {}
 
-        public abstract void OnDeactivate();
+        public virtual void OnDeactivate() {}
+
+        protected long SegmentId { get; private set; }
     }
 }
