@@ -35,6 +35,8 @@ public class CharacterMovementController : MonoBehaviour
     [SerializeField]
     private float climbingSpeed;
 
+    public const int zAxis = -1;
+
     private Vector3 currentVelocity;
 
     private CharacterController characterController;
@@ -68,6 +70,7 @@ public class CharacterMovementController : MonoBehaviour
         HandleInput();
 
         this.characterController.Move(this.currentVelocity * Time.deltaTime);
+        this.transform.position = (new Vector3(this.transform.position.x, this.transform.position.y, zAxis));
     }
     
     public void HandleLadderEntry(Ladder ladder)

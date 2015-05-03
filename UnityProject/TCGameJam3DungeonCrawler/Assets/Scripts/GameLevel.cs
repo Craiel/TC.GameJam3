@@ -14,7 +14,7 @@
         private readonly Game game;
 
         private readonly IList<ILevelSegment> segments;
-
+        
         private ILevelSegment rootSegment;
         private ILevelSegment currentSegment;
         private Vector2? currentPosition;
@@ -23,7 +23,7 @@
 
         private GameObject debugActiveSegmentIndicator;
 
-        private float lastExtensionTime;
+        private float lastExtensionTime = float.MinValue;
 
         // -------------------------------------------------------------------
         // Constructor
@@ -65,6 +65,27 @@
         }
 
         public void Update()
+        {
+            if (GameState.Instance.InErrorState)
+            {
+                return;
+            }
+
+            try
+            {
+                this.DoUpdate();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error in GameLevel.update: " + e);
+                GameState.Instance.InErrorState = true;
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // Private
+        // -------------------------------------------------------------------
+        private void DoUpdate()
         {
             if (this.game.player != null)
             {
@@ -119,9 +140,6 @@
             }
         }
 
-        // -------------------------------------------------------------------
-        // Private
-        // -------------------------------------------------------------------
         private ILevelSegment GetCurrentSegment()
         {
             return this.currentSegment;
@@ -254,8 +272,13 @@
 
             if (segment.GetCanExtend(direction))
             {
-                // Todo: do the shift for the connection points
-                ILevelTile tile = LevelTileCache.Instance.PickTile(segment.Tile);
+                var pickCriteria = new LevelTilePickCriteria
+                                       {
+                                           NextTo = segment.Tile,
+                                           IsStart = segment == this.rootSegment
+                                       };
+
+                ILevelTile tile = LevelTileCache.Instance.PickTile(pickCriteria);
                 var newSegment = new LevelSegment(tile);
                 if (tile.TileData.canMirror && UnityEngine.Random.Range(0, 2) == 1)
                 {
