@@ -16,7 +16,11 @@
 
         public float rarity;
 
+        public bool isEnabled;
+
         public bool canTileWithItself;
+
+        public bool canMirror;
 
         public GameObject background;
     }

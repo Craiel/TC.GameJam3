@@ -1,11 +1,14 @@
 ﻿namespace Assets.Scripts.Level
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using Assets.Scripts.Contracts;
 
     using UnityEngine;
+
+    using Object = UnityEngine.Object;
 
     public class LevelSegment : ILevelSegment
     {
@@ -52,6 +55,8 @@
         // Public
         // -------------------------------------------------------------------
         public long InternalId { get; private set; }
+
+        public bool IsMirrored { get; set; }
 
         public bool IsActive
         {
@@ -129,9 +134,10 @@
 
         public ILevelSegment GetNeighbor(LevelSegmentDirection direction)
         {
-            if (this.neighbors.ContainsKey(direction))
+            var actualDirection = this.GetActualDirection(direction);
+            if (this.neighbors.ContainsKey(actualDirection))
             {
-                return this.neighbors[direction];
+                return this.neighbors[actualDirection];
             }
 
             return null;
@@ -139,13 +145,14 @@
 
         public void SetNeighbor(LevelSegmentDirection direction, ILevelSegment segment)
         {
-            if (this.neighbors.ContainsKey(direction))
+            var actualDirection = this.GetActualDirection(direction);
+            if (this.neighbors.ContainsKey(actualDirection))
             {
-                this.neighbors[direction] = segment;
+                this.neighbors[actualDirection] = segment;
             }
             else
             {
-                this.neighbors.Add(direction, segment);
+                this.neighbors.Add(actualDirection, segment);
             }
         }
 
@@ -162,7 +169,8 @@
 
         public IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction)
         {
-            return this.tile.Connections.Where(x => x.Direction == direction).ToList();
+            var actualDirection = this.GetActualDirection(direction);
+            return this.tile.Connections.Where(x => x.Direction == actualDirection).ToList();
         }
 
         public GameObject GetObject()
@@ -223,6 +231,12 @@
             // Todo: Have to load the object's state
             this.activeObject = this.tile.GetInstance();
             this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
+
+            if (this.IsMirrored)
+            {
+                this.activeObject.transform.localScale = new Vector3(1, 1, -1);
+                this.activeObject.transform.Rotate(new Vector3(0, 1, 0), 180);
+            }
 
             foreach (ILevelTileConnection connection in this.tile.Connections)
             {
@@ -308,6 +322,29 @@
 
             Object.Destroy(this.debugActiveSegmentIndicatorTR);
             Object.Destroy(this.debugActiveSegmentIndicatorBL);
+        }
+
+        private LevelSegmentDirection GetActualDirection(LevelSegmentDirection desiredDirection)
+        {
+            var actualDirection = desiredDirection;
+            if (this.IsMirrored)
+            {
+                switch (actualDirection)
+                {
+                    case LevelSegmentDirection.Left:
+                        {
+                            return LevelSegmentDirection.Right;
+                            break;
+                        }
+                    case LevelSegmentDirection.Right:
+                        {
+                            return LevelSegmentDirection.Left;
+                            break;
+                        }
+                }
+            }
+
+            return desiredDirection;
         }
     }
 }

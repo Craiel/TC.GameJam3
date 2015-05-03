@@ -10,6 +10,8 @@
     {
         long InternalId { get; }
 
+        bool IsMirrored { get; set; }
+
         bool IsActive { get; set; }
 
         ILevelTile Tile { get; }
