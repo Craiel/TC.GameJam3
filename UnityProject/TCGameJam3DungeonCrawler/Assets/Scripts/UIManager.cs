@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,13 +16,27 @@ public class UIManager : MonoBehaviour
 
     public Game game;
 
+    public Slider slider;
+
     private int weaponsSelected;
+    private int currentHealth;
 
     private List<Type> weaponTypes = new List<Type>();
 
     void Start()
     {
-        Debug.Log(game.player.HitPoints);
+        currentHealth = game.player.HitPoints;
+        slider.value = 1f;
+    }
+
+    void Update()
+    {
+        if(currentHealth != game.player.HitPoints)
+        {
+
+            slider.value = (float)game.player.HitPoints / game.player.TotalHitPoints;
+            currentHealth = game.player.HitPoints;
+        }
     }
 
     public void WeaponSelect(string trigger)
@@ -53,8 +68,6 @@ public class UIManager : MonoBehaviour
         }
         if (weaponsSelected == 2)
         {
-            Debug.Log("You Picked Everything!");
-            Debug.Log("count of types: " + weaponTypes.Count);
             //GameLoadout a = new GameLoadout();
             gameLoadout.SetPlayerWeapons(weaponTypes);
         }
