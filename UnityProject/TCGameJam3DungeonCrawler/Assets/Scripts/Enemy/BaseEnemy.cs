@@ -102,22 +102,9 @@ public abstract class BaseEnemy : Actor
 
     public override void Die()
     {
-        string prefabOrbName = "";
-        switch(this.color)
-        {
-            case PowerColor.Red: prefabOrbName = "RedEnergyOrb"; break;
-            case PowerColor.Green: prefabOrbName = "GreenEnergyOrb"; break;
-            case PowerColor.Blue: prefabOrbName = "BlueEnergyOrb"; break;
-        }
-        
-        if(!string.IsNullOrEmpty(prefabOrbName))
-        {
-            GameObject orb = Instantiate(Resources.Load("Meshes/" + prefabOrbName)) as GameObject;
-
-            orb.transform.position = this.transform.position;
-        }
-
-        
+        GameObject orb = Instantiate(Resources.Load("Meshes/EnergyOrb")) as GameObject;
+        orb.transform.position = this.transform.position;
+        orb.GetComponent<EnergyOrb>().Init(this.color);
         base.Die();
     }
 }

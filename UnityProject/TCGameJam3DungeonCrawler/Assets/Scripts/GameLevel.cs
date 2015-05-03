@@ -57,9 +57,11 @@
 
             this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
+            GameObject.Destroy(this.debugIndicator.GetComponent<Collider>());
 
             this.debugActiveSegmentIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugActiveSegmentIndicator.GetComponent<Renderer>().material.color = Color.blue;
+            GameObject.Destroy(this.debugActiveSegmentIndicator.GetComponent<Collider>());
         }
 
         public void Update()
