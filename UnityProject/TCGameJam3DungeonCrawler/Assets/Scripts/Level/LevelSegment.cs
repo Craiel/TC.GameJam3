@@ -269,9 +269,9 @@
                 float yPos = this.position.y - marginHorizontal;
                 for (var y = 0; y < tileY; y++)
                 {
-                    var tile = Object.Instantiate(this.tile.TileData.background);
-                    tile.transform.position = new Vector3(xPos, yPos, 3);
-                    this.backgroundObjects.Add(tile);
+                    var backTile = Object.Instantiate(this.tile.TileData.background);
+                    backTile.transform.position = new Vector3(xPos, yPos, 3);
+                    this.backgroundObjects.Add(backTile);
 
                     yPos += instanceBounds.size.y;
                 }
