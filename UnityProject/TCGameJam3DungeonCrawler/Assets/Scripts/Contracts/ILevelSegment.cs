@@ -41,5 +41,7 @@
 
         IList<Spawner> GetSpawners();
         Spawner GetSpawner(string id);
+
+        void UpdateEvents(Vector2 position);
     }
 }

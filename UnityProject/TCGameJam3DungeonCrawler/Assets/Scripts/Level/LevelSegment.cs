@@ -291,6 +291,14 @@
             return null;
         }
 
+        public void UpdateEvents(Vector2 position)
+        {
+            foreach(var eventObject in this.eventObjects) 
+            {
+                eventObject.OnMoveInside(position);
+            }
+        }
+
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
@@ -365,7 +373,7 @@
             foreach (TileEvent eventObject in events)
             {
                 this.eventObjects.Add(eventObject);
-                eventObject.OnLoad(this.InternalId);
+                eventObject.OnLoad(this);
             }
         }
 
