@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Enemy
+namespace Assets.Scripts
 {
     public enum PowerColor
     {

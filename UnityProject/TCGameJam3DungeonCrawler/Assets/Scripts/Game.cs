@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using Assets.Scripts.Contracts;
+    using Assets.Scripts.Spawning;
 
     using UnityEngine;
 
