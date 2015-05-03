@@ -31,12 +31,12 @@ public class EnergyOrb : MonoBehaviour
     {
         switch (powerColor)
         {
-            case PowerColor.Red: this.meshRenderer.materials[0] = this.red; break;
-            case PowerColor.Green: this.meshRenderer.materials[0] = this.green; break;
-            case PowerColor.Blue: this.meshRenderer.materials[0] = this.blue; break;
+            case PowerColor.Red: this.meshRenderer.material = this.red; break;
+            case PowerColor.Green: this.meshRenderer.material = this.green; break;
+            case PowerColor.Blue: this.meshRenderer.material = this.blue; break;
         }
 
-        this.glowLight.color = this.meshRenderer.materials[0].color;
+        this.glowLight.color = this.meshRenderer.material.color;
         this.isInitialized = true;
     }
 
