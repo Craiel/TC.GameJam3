@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 8655384fb92720049b40f781f2da1765
+timeCreated: 1430690230
+licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -54,14 +56,13 @@ ModelImporter:
     400046: UpperLeg.L
     400048: UpperLeg.R
     4300000: Scion.LoPoly
-    7400000: ScionArmature|ScionPoseLib
-    7400002: Idle
-    7400004: Running
-    7400006: Attack
-    7400008: ScionArmature|Attack
-    7400010: ScionArmature|Idle
-    7400012: ScionArmature|Running
-    7400014: ScionArmature|ScionPoses
+    7400000: Idle
+    7400002: Running
+    7400004: Attack
+    7400006: ScionArmature|Attack
+    7400008: ScionArmature|Idle
+    7400010: ScionArmature|Running
+    7400012: ScionArmature|ScionPoses
     9500000: //RootNode
     13700000: Scion.LoPoly
   materials:
@@ -83,7 +84,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
