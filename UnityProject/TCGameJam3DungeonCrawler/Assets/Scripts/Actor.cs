@@ -30,7 +30,7 @@ public abstract class Actor : SpawnedEntity
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         OnActorKilled(this);
         Destroy(this.gameObject);
