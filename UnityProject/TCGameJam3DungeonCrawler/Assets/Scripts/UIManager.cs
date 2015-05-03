@@ -13,12 +13,15 @@ public class UIManager : MonoBehaviour
 
     public GameLoadout gameLoadout;
 
+    public Game game;
+
     private int weaponsSelected;
 
     private List<Type> weaponTypes = new List<Type>();
 
     void Start()
     {
+        Debug.Log(game.player.HitPoints);
     }
 
     public void WeaponSelect(string trigger)
