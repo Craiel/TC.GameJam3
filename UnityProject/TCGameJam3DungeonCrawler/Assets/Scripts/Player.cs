@@ -1,6 +1,7 @@
 ﻿namespace Assets.Scripts
 {
     using Assets.Scripts.Enemy;
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -24,15 +25,10 @@
 
         private Dictionary<PowerColor, int> energyStreams = new Dictionary<PowerColor,int>();
 
-        public void SetWeaponLoadout(Weapon primaryWeapon, Weapon secondaryWeapon)
-        {
-            System.Diagnostics.Trace.Assert(primaryWeapon != secondaryWeapon);
+        public bool HasWeaponLoadout { get { return this.hasWeaponLoadout; } }
 
-            weaponLoadout[0] = primaryWeapon;
-            weaponLoadout[1] = secondaryWeapon;
-            activeWeaponIndex = 0;
-            hasWeaponLoadout = true;
-        }
+        public Weapon PrimaryWeapon { get { return this.weaponLoadout[0]; } }
+        public Weapon SecondaryWeapon { get { return this.weaponLoadout[1]; } }
 
         public void ChargeEnergy(PowerColor powerColor, int quantity)
         {
@@ -53,6 +49,18 @@
             this.energyStreams.Add(PowerColor.Blue, 0);
         }
 
+        private void Start()
+        {
+            if(GameLoadout.Instance != null)
+            {
+                SetWeaponLoadout(GameLoadout.Instance.Weapons[0], GameLoadout.Instance.Weapons[1]);
+            }
+            else
+            {
+                SetWeaponLoadout(typeof(Axe), typeof(Crossbow));
+            }
+        }
+
         private void Update()
         {
             if(!hasWeaponLoadout)
@@ -60,6 +68,7 @@
                 return;
             }
 
+            /*
             Weapon activeWeapon = weaponLoadout[activeWeaponIndex];
             activeWeapon.PointWeapon();
 
@@ -71,6 +80,32 @@
             {
                 activeWeapon.Attack();
             }
+             * */
+        }
+
+        private void SetWeaponLoadout(Type primaryWeaponType, Type secondaryWeaponType)
+        {
+            this.weaponLoadout[0] = GetWeapon(primaryWeaponType);
+            this.weaponLoadout[1] = GetWeapon(secondaryWeaponType);
+            activeWeaponIndex = 0;
+            hasWeaponLoadout = true;
+        }
+
+        private Weapon GetWeapon(Type weaponType)
+        {
+            if(weaponType == typeof(Axe))
+            {
+                return this.axe;
+            }
+            else if (weaponType == typeof(Whip))
+            {
+                return this.whip;
+            }
+            else if (weaponType == typeof(Crossbow))
+            {
+                return this.crossbow;
+            }
+            return null;
         }
     }
 }

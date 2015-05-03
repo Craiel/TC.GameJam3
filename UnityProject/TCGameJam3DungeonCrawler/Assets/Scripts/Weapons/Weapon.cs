@@ -6,7 +6,7 @@ using Assets.Scripts.Enemy;
 
 public abstract class Weapon : MonoBehaviour
 {
-    private const int ENERGY_STREAM_MAX = 100;
+    public const int ENERGY_STREAM_MAX = 100;
 
     [SerializeField]
     private int baseDamage;
@@ -27,6 +27,7 @@ public abstract class Weapon : MonoBehaviour
     private Vector3 pointingDirection;
 
     public bool HasPointingDirection { get { return this.hasPointingDirection; } }
+    public Dictionary<PowerColor, int> EnergyStreams { get { return this.energyStreams; } }
 
     protected abstract void PointWeaponImpl(Vector3 direction);
     protected abstract void AttackImpl(int baseDamage, int redDamage, int greenDamage, int blueDamage, Vector3 direction);
