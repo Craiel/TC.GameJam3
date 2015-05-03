@@ -24,6 +24,8 @@ public abstract class BaseEnemy : Actor
     private float currentAttackCooldown;
 
     protected Player player;
+
+    public PowerColor CurrentColor { get { return this.color; } }
     
     public virtual void Init(Player player)
     {
@@ -39,8 +41,19 @@ public abstract class BaseEnemy : Actor
             }
         }
 
+        if(this.color != PowerColor.None)
+        {
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if(renderer != null)
+            {
+                renderer.material.color = GetColorValue(this.color);
+            }
+        }
+
         this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, CharacterMovementController.zAxis);
     }
+
+
 
     protected abstract void Idle();
     protected abstract void Patrol();
@@ -99,16 +112,30 @@ public abstract class BaseEnemy : Actor
         if (color == PowerColor.Blue)
             totalDamage += blueDamage;
 
-        Debug.Log("TAKE DAMAGE : " + totalDamage);
-
         base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
     }
 
     public override void Die()
     {
-        GameObject orb = Instantiate(Resources.Load("Meshes/EnergyOrb")) as GameObject;
-        orb.transform.position = this.transform.position;
-        orb.GetComponent<EnergyOrb>().Init(this.color);
+        if(this.color != PowerColor.None)
+        {
+            GameObject orb = Instantiate(Resources.Load("Meshes/EnergyOrb")) as GameObject;
+            orb.transform.position = this.transform.position;
+            orb.GetComponent<EnergyOrb>().Init(this.color);
+        }
+
         base.Die();
+    }
+
+
+    private Color GetColorValue(PowerColor color)
+    {
+        switch(color)
+        {
+            case PowerColor.Red: return Color.red;
+            case PowerColor.Blue: return Color.blue;
+            case PowerColor.Green: return Color.green;
+        }
+        return Color.white;
     }
 }
