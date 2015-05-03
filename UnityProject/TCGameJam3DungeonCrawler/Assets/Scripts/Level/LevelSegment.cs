@@ -316,7 +316,11 @@
             this.activeObject = this.tile.GetInstance();
             this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
 
-            this.debugRoot = new GameObject(this.activeObject.name + "_DEBUG");
+            if (Debug.isDebugBuild)
+            {
+                this.debugRoot = new GameObject(this.activeObject.name + "_DEBUG");
+            }
+
             this.backgroundRoot = new GameObject(this.activeObject.name + "_BG");
 
             if (this.IsMirrored)
@@ -327,15 +331,18 @@
                 //this.activeObject.transform.Rotate(new Vector3(0, 1, 0), 180);
             }
 
-            foreach (ILevelTileConnection connection in this.tile.Connections)
+            if (Debug.isDebugBuild)
             {
-                var debugObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                debugObject.name = this.activeObject.name + "_CON_" + connection.Id;
-                debugObject.transform.position = this.Position + connection.Position;
-                debugObject.GetComponent<Renderer>().material.color = Color.red;
-                debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                debugObject.transform.SetParent(this.debugRoot.transform);
-                this.visualChildren.Add(debugObject);
+                foreach (ILevelTileConnection connection in this.tile.Connections)
+                {
+                    var debugObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    debugObject.name = this.activeObject.name + "_CON_" + connection.Id;
+                    debugObject.transform.position = this.Position + connection.Position;
+                    debugObject.GetComponent<Renderer>().material.color = Color.red;
+                    debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    debugObject.transform.SetParent(this.debugRoot.transform);
+                    this.visualChildren.Add(debugObject);
+                }
             }
 
             if (this.boundaryObject != null)
@@ -351,19 +358,22 @@
             // Background
             this.RebuildBackground();
 
-            GameObject debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
-            debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
-            debugActiveSegmentIndicatorTR.transform.position = absoluteBounds.max;
-            debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
-            this.visualChildren.Add(debugActiveSegmentIndicatorTR);
+            if (Debug.isDebugBuild)
+            {
+                GameObject debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                debugActiveSegmentIndicatorTR.name = this.activeObject.name + "_TR";
+                debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
+                debugActiveSegmentIndicatorTR.transform.position = absoluteBounds.max;
+                debugActiveSegmentIndicatorTR.transform.SetParent(this.debugRoot.transform);
+                this.visualChildren.Add(debugActiveSegmentIndicatorTR);
 
-            GameObject debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
-            debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
-            debugActiveSegmentIndicatorBL.transform.position = absoluteBounds.min;
-            debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
-            this.visualChildren.Add(debugActiveSegmentIndicatorBL);
+                GameObject debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                debugActiveSegmentIndicatorBL.name = this.activeObject.name + "_BL";
+                debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
+                debugActiveSegmentIndicatorBL.transform.position = absoluteBounds.min;
+                debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
+                this.visualChildren.Add(debugActiveSegmentIndicatorBL);
+            }
 
             this.eventObjects.Clear();
 
@@ -448,8 +458,12 @@
             // Todo: Have to save the object's state
             Object.Destroy(this.activeObject);
             this.activeObject = null;
-            
-            Object.Destroy(this.debugRoot);
+
+            if (Debug.isDebugBuild)
+            {
+                Object.Destroy(this.debugRoot);
+            }
+
             Object.Destroy(this.backgroundRoot);
         }
 
