@@ -51,7 +51,7 @@
             this.segments.Add(this.rootSegment);
 
             this.activeSegment = this.rootSegment;
-            this.ActivateSegment(this.rootSegment);
+            this.LoadSegment(this.rootSegment);
 
             this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
@@ -174,7 +174,7 @@
 
             if (currentDepth > minDepth)
             {
-                this.DeactivateSegment(segment);
+                this.UnloadSegment(segment);
             }
         }
 
@@ -209,7 +209,7 @@
             if (neighbor != null)
             {
                 // Reactivate the neighbor instead of making a new one
-                this.ActivateSegment(neighbor);
+                this.LoadSegment(neighbor);
                 return;
             }
 
@@ -224,7 +224,7 @@
                 }
 
                 // Important to show the segment before we do positioning!
-                this.ActivateSegment(newSegment);
+                this.LoadSegment(newSegment);
 
                 switch (direction)
                 {
@@ -327,14 +327,14 @@
             this.activeSegment = null;
         }
 
-        private void ActivateSegment(ILevelSegment segment)
+        private void LoadSegment(ILevelSegment segment)
         {
-            if (segment.IsActive)
+            if (segment.IsLoaded)
             {
                 return;
             }
 
-            segment.IsActive = true;
+            segment.IsLoaded = true;
 
             IList<Spawner> spawners = segment.GetSpawners();
             foreach (Spawner spawner in spawners)
@@ -343,9 +343,9 @@
             }
         }
 
-        private void DeactivateSegment(ILevelSegment segment)
+        private void UnloadSegment(ILevelSegment segment)
         {
-            if (!segment.IsActive)
+            if (!segment.IsLoaded)
             {
                 return;
             }
@@ -356,7 +356,7 @@
                 this.game.UnregisterSpawner(segment, spawner);
             }
 
-            segment.IsActive = false;
+            segment.IsLoaded = false;
         }
 
         public Spawner LocateSpawner(string id)
