@@ -97,6 +97,8 @@ public abstract class BaseEnemy : Actor
         if (color == PowerColor.Blue)
             totalDamage += blueDamage;
 
+        Debug.Log("TAKE DAMAGE : " + totalDamage);
+
         base.TakeDamage(totalDamage, redDamage, greenDamage, blueDamage);
     }
 

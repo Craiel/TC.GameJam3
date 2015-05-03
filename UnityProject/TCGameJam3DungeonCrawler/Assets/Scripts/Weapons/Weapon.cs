@@ -50,8 +50,8 @@ public abstract class Weapon : MonoBehaviour
     public void PointWeapon()
     {
         if (this.hasPointingDirection)
-        {
-            Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
+        {            
+            Plane xyPlane = new Plane(Vector3.forward, new Vector3(0, 0, CharacterMovementController.zAxis));
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float distance;
