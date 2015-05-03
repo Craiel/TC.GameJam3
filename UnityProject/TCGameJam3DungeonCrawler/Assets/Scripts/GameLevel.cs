@@ -91,7 +91,7 @@
                 this.CollapseSegment(LevelSegmentDirection.Left, this.activeSegment, Constants.TileCollapseRange);
                 this.CollapseSegment(LevelSegmentDirection.Right, this.activeSegment, Constants.TileCollapseRange);
 
-                // For testing we only extend right for now...
+                // Extend the active segment both ways
                 this.ExtendSegment(LevelSegmentDirection.Right, this.activeSegment);
                 this.ExtendSegment(LevelSegmentDirection.Left, this.activeSegment);
             }
@@ -180,6 +180,11 @@
         private void ExtendSegmentLeft(LevelSegmentDirection direction, ILevelSegment segment, ILevelSegment newSegment)
         {
             LevelConnectionMap closestConnection = this.LocateClosestConnection(segment, direction, newSegment, LevelSegmentDirection.Right);
+            if (closestConnection == null)
+            {
+                throw new InvalidOperationException("No Connection found!");
+            }
+
             this.ApplySegmentConnectionMap(closestConnection, segment, newSegment);
             newSegment.SetNeighbor(LevelSegmentDirection.Right, segment);
         }
@@ -187,6 +192,11 @@
         private void ExtendSegmentRight(LevelSegmentDirection direction, ILevelSegment segment, ILevelSegment newSegment)
         {
             LevelConnectionMap closestConnection = this.LocateClosestConnection(segment, direction, newSegment, LevelSegmentDirection.Left);
+            if (closestConnection == null)
+            {
+                throw new InvalidOperationException("No Connection found!");
+            }
+
             this.ApplySegmentConnectionMap(closestConnection, segment, newSegment);
             newSegment.SetNeighbor(LevelSegmentDirection.Left, segment);
         }
@@ -207,6 +217,10 @@
                 // Todo: do the shift for the connection points
                 ILevelTile tile = LevelTileCache.Instance.PickTile(segment.Tile);
                 var newSegment = new LevelSegment(tile);
+                if (tile.TileData.canMirror && UnityEngine.Random.Range(0, 2) == 1)
+                {
+                    newSegment.IsMirrored = true;
+                }
 
                 // Important to show the segment before we do positioning!
                 this.ActivateSegment(newSegment);
