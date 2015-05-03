@@ -1,40 +1,40 @@
 ﻿namespace Assets.Scripts
 {
+    using Assets.Scripts.Contracts;
     using UnityEngine;
 
     public class TileEventDebug : TileEvent
     {
-        private long id;
-
-        public override void OnLoad(long segmentId)
+        public override void OnLoad(ILevelSegment segment)
         {
-            this.id = segmentId;
-            Debug.Log("TileEventLOAD: " + this.name + " in " + this.id);
+            base.OnLoad(segment);
+
+            Debug.Log("TileEventLOAD: " + this.name + " in " + this.Segment.InternalId);
         }
 
         public override void OnUnload()
         {
-            Debug.Log("TileEventUNLOAD: " + this.name + " in " + this.id);
+            Debug.Log("TileEventUNLOAD: " + this.name + " in " + this.Segment.InternalId);
         }
 
         public override void OnEnter()
         {
-            Debug.Log("TileEventENTER: " + this.name + " in " + this.id);
+            Debug.Log("TileEventENTER: " + this.name + " in " + this.Segment.InternalId);
         }
 
         public override void OnExit()
         {
-            Debug.Log("TileEventEXIT: " + this.name + " in " + this.id);
+            Debug.Log("TileEventEXIT: " + this.name + " in " + this.Segment.InternalId);
         }
 
         public override void OnActivate()
         {
-            Debug.Log("TileEventDEACT: " + this.name + " in " + this.id);
+            Debug.Log("TileEventACT: " + this.name + " in " + this.Segment.InternalId);
         }
 
         public override void OnDeactivate()
         {
-            Debug.Log("TileEventDEACT: " + this.name + " in " + this.id);
+            Debug.Log("TileEventDEACT: " + this.name + " in " + this.Segment.InternalId);
         }
     }
 }

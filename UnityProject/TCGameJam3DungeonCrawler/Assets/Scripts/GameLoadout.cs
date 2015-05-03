@@ -6,17 +6,22 @@
 
     public class GameLoadout : MonoBehaviour
     {
-        public void Update()
+        private static GameLoadout instance;
+        public static GameLoadout Instance { get { return instance; } }
+
+        private bool hasSelectedWeapons;
+
+        public List<Type> Weapons {get; private set;}
+
+        private void Awake()
         {
-            if (Input.GetAxis("Submit") > 0)
-            {
-                Application.LoadLevel("GameplayFirstPass");
-            }
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
 
         public void SetPlayerWeapons(List<Type> weapons)
         {
-            Debug.Log("SetPlayerWeapons handled");
+            Weapons = weapons;
         }
     }
 }

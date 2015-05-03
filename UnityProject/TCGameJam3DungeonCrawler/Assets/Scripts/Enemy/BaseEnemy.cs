@@ -24,6 +24,8 @@ public abstract class BaseEnemy : Actor
     private float currentAttackCooldown;
 
     protected Player player;
+
+    public PowerColor CurrentColor { get { return this.color; } }
     
     public virtual void Init(Player player)
     {
@@ -38,7 +40,20 @@ public abstract class BaseEnemy : Actor
                 case 2: this.color = PowerColor.Blue; break;
             }
         }
+
+        if(this.color != PowerColor.None)
+        {
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if(renderer != null)
+            {
+                renderer.material.color = GetColorValue(this.color);
+            }
+        }
+
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, CharacterMovementController.zAxis);
     }
+
+
 
     protected abstract void Idle();
     protected abstract void Patrol();
@@ -102,22 +117,25 @@ public abstract class BaseEnemy : Actor
 
     public override void Die()
     {
-        string prefabOrbName = "";
-        switch(this.color)
+        if(this.color != PowerColor.None)
         {
-            case PowerColor.Red: prefabOrbName = "RedEnergyOrb"; break;
-            case PowerColor.Green: prefabOrbName = "GreenEnergyOrb"; break;
-            case PowerColor.Blue: prefabOrbName = "BlueEnergyOrb"; break;
-        }
-        
-        if(!string.IsNullOrEmpty(prefabOrbName))
-        {
-            GameObject orb = Instantiate(Resources.Load("Meshes/" + prefabOrbName)) as GameObject;
-
+            GameObject orb = Instantiate(Resources.Load("Meshes/EnergyOrb")) as GameObject;
             orb.transform.position = this.transform.position;
+            orb.GetComponent<EnergyOrb>().Init(this.color);
         }
 
-        
         base.Die();
+    }
+
+
+    private Color GetColorValue(PowerColor color)
+    {
+        switch(color)
+        {
+            case PowerColor.Red: return Color.red;
+            case PowerColor.Blue: return Color.blue;
+            case PowerColor.Green: return Color.green;
+        }
+        return Color.white;
     }
 }

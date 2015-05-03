@@ -2,18 +2,27 @@
 {
     using UnityEngine;
 
+    using Assets.Scripts.Contracts;
+
     public abstract class TileEvent : MonoBehaviour
     {
-        public abstract void OnLoad(long segmentId);
+        public virtual void OnLoad(ILevelSegment segmentData)
+        {
+            this.Segment = segmentData;
+        }
 
-        public abstract void OnUnload();
+        public virtual void OnUnload() {}
 
-        public abstract void OnEnter();
+        public virtual void OnEnter() {}
 
-        public abstract void OnExit();
+        public virtual void OnExit() {}
 
-        public abstract void OnActivate();
+        public virtual void OnActivate() {}
 
-        public abstract void OnDeactivate();
+        public virtual void OnDeactivate() {}
+
+        public virtual void OnMoveInside(Vector2 position) { }
+
+        protected ILevelSegment Segment { get; private set; }
     }
 }

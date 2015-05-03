@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using UnityEngine;
+
     public delegate void EventAggregateCallback(object source);
 
     public class EventAggregate
@@ -39,6 +41,17 @@
             System.Diagnostics.Trace.Assert(!this.subscriptions[key].Contains(callback));
 
             this.subscriptions[key].Add(callback);
+        }
+
+        public void Unsubscribe(string key, EventAggregateCallback callback)
+        {
+            if(!this.subscriptions.ContainsKey(key))
+            {
+                Debug.LogWarning("Unsubscribe called with missing key!");
+                return;
+            }
+
+            this.subscriptions[key].Remove(callback);
         }
 
         public void Notify(string key, object source = null)
