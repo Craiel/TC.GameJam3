@@ -29,6 +29,8 @@ public abstract class Weapon : MonoBehaviour
     public bool HasPointingDirection { get { return this.hasPointingDirection; } }
     public Dictionary<PowerColor, int> EnergyStreams { get { return this.energyStreams; } }
 
+    public bool IsActive { get; set; }
+
     protected abstract void PointWeaponImpl(Vector3 direction);
     protected abstract void AttackImpl(int baseDamage, int redDamage, int greenDamage, int blueDamage, Vector3 direction);
 

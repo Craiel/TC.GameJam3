@@ -30,6 +30,8 @@
         public Weapon PrimaryWeapon { get { return this.weaponLoadout[0]; } }
         public Weapon SecondaryWeapon { get { return this.weaponLoadout[1]; } }
 
+        public Weapon ActiveWeapon { get { return this.weaponLoadout[this.activeWeaponIndex]; } }
+
         public void ChargeEnergy(PowerColor powerColor, int quantity)
         {
             this.energyStreams[powerColor] += quantity;
@@ -74,8 +76,10 @@
             if(Input.GetMouseButtonDown(1))
             {
                 this.weaponLoadout[activeWeaponIndex].gameObject.SetActive(false);
+                this.weaponLoadout[activeWeaponIndex].IsActive = false;
                 activeWeaponIndex = 1 - activeWeaponIndex;
                 this.weaponLoadout[activeWeaponIndex].gameObject.SetActive(true);
+                this.weaponLoadout[activeWeaponIndex].IsActive = true;
             }
             else if (Input.GetMouseButtonDown(0))
             {
@@ -91,6 +95,7 @@
 
             this.weaponLoadout[0].gameObject.SetActive(true);
             this.weaponLoadout[1].gameObject.SetActive(false);
+            this.weaponLoadout[0].IsActive = true;
 
             hasWeaponLoadout = true;
         }
