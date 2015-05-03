@@ -18,8 +18,11 @@ public class Flier : BaseEnemy
 
         if(this.currentVelocity != default(Vector3) || this.currentAcceleration != default(Vector3))
         {
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
+            this.currentAcceleration.z = 0f;
             this.currentAcceleration = ClampMaximum(this.currentAcceleration, this.maxAcceleration);
             this.currentVelocity += this.currentAcceleration * Time.deltaTime;
+            this.currentVelocity.z = 0f;
             this.currentVelocity = ClampMaximum(this.currentVelocity, this.maxSpeed);
             this.characterController.Move(this.currentVelocity * Time.deltaTime);
         }
@@ -35,7 +38,7 @@ public class Flier : BaseEnemy
     {
         this.currentAcceleration += new Vector3(Random.Range(-this.maxAcceleration, this.maxAcceleration),
                                                 Random.Range(-this.maxAcceleration, this.maxAcceleration),
-                                                Random.Range(-this.maxAcceleration, this.maxAcceleration));
+                                                0);
     }
 
     protected override void Chase()

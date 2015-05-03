@@ -2,5 +2,8 @@
 {
     public interface IGameLevel
     {
+        void Start();
+
+        void Update();
     }
 }

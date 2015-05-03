@@ -9,6 +9,8 @@
 
     public class LevelSegment : ILevelSegment
     {
+        private static long nextSegmentId;
+
         private readonly IDictionary<LevelSegmentDirection, bool> canExtend;
         private readonly IDictionary<LevelSegmentDirection, ILevelSegment> neighbors;
 
@@ -17,6 +19,7 @@
         private GameObject activeObject;
 
         private readonly IList<GameObject> connectorDebugObjects;
+        private readonly IList<GameObject> backgroundObjects; 
 
         private GameObject debugActiveSegmentIndicatorBL;
         private GameObject debugActiveSegmentIndicatorTR;
@@ -28,6 +31,8 @@
         // -------------------------------------------------------------------
         public LevelSegment(ILevelTile tile)
         {
+            this.InternalId = nextSegmentId++;
+
             this.tile = tile;
 
             this.Width = tile.Width;
@@ -40,11 +45,33 @@
             this.SetCanExtend(LevelSegmentDirection.Right, true);
 
             this.connectorDebugObjects = new List<GameObject>();
+            this.backgroundObjects = new List<GameObject>();
         }
 
         // -------------------------------------------------------------------
         // Public
         // -------------------------------------------------------------------
+        public long InternalId { get; private set; }
+
+        public bool IsActive
+        {
+            get
+            {
+                return this.activeObject != null;
+            }
+
+            set
+            {
+                if (value && this.activeObject == null)
+                {
+                    this.Activate();
+                } else if (!value && this.activeObject != null)
+                {
+                    this.Deactivate();
+                }
+            }
+        }
+
         public ILevelTile Tile
         {
             get
@@ -65,10 +92,11 @@
                 if (this.position != value)
                 {
                     this.position = value;
-                    if(this.activeObject != null)
+                    if(this.IsActive)
                     {
-                        this.Hide();
-                        this.Show();
+                        // Re-show to update all the debug markers etc
+                        this.Deactivate();
+                        this.Activate();
                     }
                 }
             }
@@ -76,57 +104,6 @@
 
         public float Width { get; private set; }
         public float Height { get; private set; }
-
-        public void Show()
-        {
-            if (this.activeObject != null)
-            {
-                return;
-            }
-
-            // Todo: Have to load the object's state
-            this.activeObject = this.tile.GetInstance();
-            this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
-
-            foreach (ILevelTileConnection connection in this.tile.Connections)
-            {
-                var debugObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                debugObject.transform.position = this.Position + connection.Position;
-                debugObject.GetComponent<Renderer>().material.color = Color.red;
-                debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                this.connectorDebugObjects.Add(debugObject);
-            }
-
-            this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorTR.transform.position = new Vector3(this.tile.Bounds.min.x + this.Position.x, this.tile.Bounds.min.y + this.Position.y);
-
-            this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
-            this.debugActiveSegmentIndicatorBL.transform.position = new Vector3(this.tile.Bounds.max.x + this.Position.x, this.tile.Bounds.max.y + this.Position.y);
-        }
-
-        public void Hide()
-        {
-            if (this.activeObject == null)
-            {
-                return;
-            }
-
-            // Show the connectors for debugging
-            foreach (GameObject debugObject in this.connectorDebugObjects)
-            {
-                Object.Destroy(debugObject);
-            }
-            this.connectorDebugObjects.Clear();
-
-            // Todo: Have to save the object's state
-            Object.Destroy(this.activeObject);
-            this.activeObject = null;
-
-            Object.Destroy(this.debugActiveSegmentIndicatorTR);
-            Object.Destroy(this.debugActiveSegmentIndicatorBL);
-        }
 
         public bool GetCanExtend(LevelSegmentDirection direction)
         {
@@ -193,6 +170,144 @@
             System.Diagnostics.Trace.Assert(this.activeObject != null);
 
             return this.activeObject;
+        }
+
+        public IList<Spawner> GetSpawners()
+        {
+            System.Diagnostics.Trace.Assert(this.activeObject != null);
+
+            IList<Spawner> spawners = this.activeObject.GetComponentsInChildren<Spawner>();
+            foreach (Spawner spawner in spawners)
+            {
+                // Force the spawner group to this tile
+                spawner.AbsoluteId = this.InternalId + "_" + spawner.id;
+                spawner.Group = this.InternalId;
+            }
+
+            return spawners;
+        }
+
+        public Spawner GetSpawner(string id)
+        {
+            if (this.activeObject == null)
+            {
+                return null;
+            }
+
+            IList<Spawner> spawners = this.activeObject.GetComponentsInChildren<Spawner>();
+            foreach (Spawner spawner in spawners)
+            {
+                spawner.AbsoluteId = this.InternalId + "_" + spawner.id;
+                spawner.Group = this.InternalId;
+
+                if (spawner.AbsoluteId == id)
+                {
+                    // Force the spawner group to this tile
+                    return spawner;
+                }
+            }
+
+            return null;
+        }
+
+        // -------------------------------------------------------------------
+        // Private
+        // -------------------------------------------------------------------
+        private void Activate()
+        {
+            if (this.activeObject != null)
+            {
+                return;
+            }
+
+            // Todo: Have to load the object's state
+            this.activeObject = this.tile.GetInstance();
+            this.activeObject.transform.position = new Vector3(this.Position.x, this.Position.y, 0);
+
+            foreach (ILevelTileConnection connection in this.tile.Connections)
+            {
+                var debugObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                debugObject.transform.position = this.Position + connection.Position;
+                debugObject.GetComponent<Renderer>().material.color = Color.red;
+                debugObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                this.connectorDebugObjects.Add(debugObject);
+            }
+
+            // Background
+            this.RebuildBackground();
+
+            this.debugActiveSegmentIndicatorTR = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            this.debugActiveSegmentIndicatorTR.GetComponent<Renderer>().material.color = Color.magenta;
+            this.debugActiveSegmentIndicatorTR.transform.position = new Vector3(this.tile.Bounds.min.x + this.Position.x, this.tile.Bounds.min.y + this.Position.y);
+
+            this.debugActiveSegmentIndicatorBL = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
+            this.debugActiveSegmentIndicatorBL.transform.position = new Vector3(this.tile.Bounds.max.x + this.Position.x, this.tile.Bounds.max.y + this.Position.y);
+        }
+
+        private void RebuildBackground()
+        {
+            if (this.tile.TileData.background == null)
+            {
+                return;
+            }
+
+            float marginHorizontal = 40.0f;
+            float marginVertical = 10.0f;
+            GameObject instance = Object.Instantiate(this.tile.TileData.background);
+            Bounds backGroundBounds = this.tile.Bounds;
+            backGroundBounds.Expand(new Vector3(marginVertical * 2, marginHorizontal * 2));
+            var halfWidth = backGroundBounds.size.x / 2;
+
+            Bounds instanceBounds = Utils.GetMaxBounds(instance);
+            int tileX = 1 + (int)Mathf.Ceil(backGroundBounds.size.x / instanceBounds.size.x);
+            int tileY = 1 + (int)Mathf.Ceil(backGroundBounds.size.y / instanceBounds.size.y);
+
+            float xPos = this.position.x - halfWidth - marginVertical;
+            for (var x = 0; x < tileX; x++)
+            {
+                float yPos = this.position.y - marginHorizontal;
+                for (var y = 0; y < tileY; y++)
+                {
+                    var backTile = Object.Instantiate(this.tile.TileData.background);
+                    backTile.transform.position = new Vector3(xPos, yPos, 3);
+                    this.backgroundObjects.Add(backTile);
+
+                    yPos += instanceBounds.size.y;
+                }
+
+                 xPos += instanceBounds.size.x;
+            }
+
+            Object.Destroy(instance);
+        }
+
+        private void Deactivate()
+        {
+            if (this.activeObject == null)
+            {
+                return;
+            }
+
+            // Show the connectors for debugging
+            foreach (GameObject debugObject in this.connectorDebugObjects)
+            {
+                Object.Destroy(debugObject);
+            }
+            this.connectorDebugObjects.Clear();
+
+            foreach (GameObject backgroundObject in this.backgroundObjects)
+            {
+                Object.Destroy(backgroundObject);
+            }
+            this.backgroundObjects.Clear();
+
+            // Todo: Have to save the object's state
+            Object.Destroy(this.activeObject);
+            this.activeObject = null;
+
+            Object.Destroy(this.debugActiveSegmentIndicatorTR);
+            Object.Destroy(this.debugActiveSegmentIndicatorBL);
         }
     }
 }

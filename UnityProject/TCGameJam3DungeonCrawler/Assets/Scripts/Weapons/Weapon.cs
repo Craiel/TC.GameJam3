@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Enemy;
 
 public abstract class Weapon : MonoBehaviour
 {
+    private const int ENERGY_STREAM_MAX = 100;
+
     [SerializeField]
     private int baseDamage;
 
@@ -15,7 +18,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     private float cooldownTime;
 
-    private int energy;
+    private Dictionary<PowerColor, int> energyStreams = new Dictionary<PowerColor, int>();
 
     private float currentCooldownTime;
 
@@ -24,7 +27,14 @@ public abstract class Weapon : MonoBehaviour
     public bool HasPointingDirection { get { return this.hasPointingDirection; } }
 
     protected abstract void PointWeaponImpl(Vector3 direction);
-    protected abstract void AttackImpl(int totalDamage, Vector3 direction);
+    protected abstract void AttackImpl(int baseDamage, int redDamage, int greenDamage, int blueDamage, Vector3 direction);
+
+    protected virtual void Start()
+    {
+        energyStreams.Add(PowerColor.Red, 0);
+        energyStreams.Add(PowerColor.Green, 0);
+        energyStreams.Add(PowerColor.Blue, 0);
+    }
 
     protected virtual void Update()
     {
@@ -55,25 +65,30 @@ public abstract class Weapon : MonoBehaviour
     {
         if (this.currentCooldownTime <= 0f)
         {
-            int damage = this.baseDamage;
-            if (this.energy > 0)
-            {
-                damage += GetEnergyDamage(this.energy);
-            }
+            AttackImpl(this.baseDamage, 
+                        GetEnergyDamage(this.energyStreams[PowerColor.Red]),
+                        GetEnergyDamage(this.energyStreams[PowerColor.Green]),
+                        GetEnergyDamage(this.energyStreams[PowerColor.Blue]), 
+                        pointingDirection);
 
-            AttackImpl(damage, pointingDirection);
-
-            this.energy -= this.energyConsumedOnAttack;
-            if (this.energy < 0)
-            {
-                this.energy = 0;
-            }
+            this.energyStreams[PowerColor.Red] = Mathf.Max(this.energyStreams[PowerColor.Red] - this.energyConsumedOnAttack, 0);
+            this.energyStreams[PowerColor.Green] = Mathf.Max(this.energyStreams[PowerColor.Green] - this.energyConsumedOnAttack, 0);
+            this.energyStreams[PowerColor.Blue] = Mathf.Max(this.energyStreams[PowerColor.Blue] - this.energyConsumedOnAttack, 0);
     
             this.currentCooldownTime = this.cooldownTime;
         }
     }
 
-    //TODO: Define actual Energy Damage curve
+    public void ChargeEnergy(PowerColor powerColor, int quantity)
+    {
+        this.energyStreams[powerColor] += quantity;
+
+        if(this.energyStreams[powerColor] > ENERGY_STREAM_MAX)
+        {
+            this.energyStreams[powerColor] = ENERGY_STREAM_MAX;
+        }
+    }
+   
     private int GetEnergyDamage(int energy)
     {
         return energy;

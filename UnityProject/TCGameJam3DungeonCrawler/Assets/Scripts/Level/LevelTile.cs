@@ -105,7 +105,7 @@
             try
             {
                 // Update the rest of the shebang
-                this.Bounds = this.GetMaxBounds(tempInstance);
+                this.Bounds = Utils.GetMaxBounds(tempInstance);
                 this.Width = this.Bounds.size.x;
                 this.Height = this.Bounds.size.y;
 
@@ -153,21 +153,6 @@
                 
                 this.connections.Add(connection);
             }
-        }
-
-        private Bounds GetMaxBounds(GameObject source)
-        {
-            var origin = new Vector3(source.transform.position.x, source.transform.position.y, 0);
-            var mutedBounds = new Bounds(origin, Vector3.zero);
-            foreach (Renderer r in source.GetComponentsInChildren<Renderer>())
-            {
-                var mutedChildBounds = new Bounds(
-                    new Vector3(r.bounds.center.x, r.bounds.center.y, 0),
-                    new Vector3(r.bounds.size.x, r.bounds.size.y));
-                mutedBounds.Encapsulate(mutedChildBounds);
-            }
-
-            return mutedBounds;
         }
     }
 }

@@ -8,8 +8,16 @@
 
         public int biome;
 
+        public int spawnInstanceLimitActive;
+
+        public int spawnEnemyLimitTotal;
+
+        public int spawnInstanceLimitTotal;
+
         public float rarity;
 
         public bool canTileWithItself;
+
+        public GameObject background;
     }
 }
