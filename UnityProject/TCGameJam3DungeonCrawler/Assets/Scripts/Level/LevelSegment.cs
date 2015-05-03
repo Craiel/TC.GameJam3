@@ -19,11 +19,14 @@
 
         private readonly ILevelTile tile;
 
-        private GameObject boundaryObject;
-        private GameObject activeObject;
+        private readonly GameObject boundaryObject;
 
         private readonly IList<GameObject> connectorDebugObjects;
         private readonly IList<GameObject> backgroundObjects;
+
+        private readonly IList<TileEvent> eventObjects;
+
+        private GameObject activeObject;
 
         private GameObject boundary;
 
@@ -34,6 +37,10 @@
         private GameObject backgroundRoot;
 
         private Vector2 position;
+
+        private bool isCurrent;
+
+        private bool isActive;
 
         // -------------------------------------------------------------------
         // Constructor
@@ -52,6 +59,8 @@
             this.canExtend = new Dictionary<LevelSegmentDirection, bool>();
             this.neighbors = new Dictionary<LevelSegmentDirection, ILevelSegment>();
 
+            this.eventObjects = new List<TileEvent>();
+
             // Todo: take this from tile connector points
             this.SetCanExtend(LevelSegmentDirection.Right, true);
 
@@ -66,7 +75,68 @@
 
         public bool IsMirrored { get; set; }
 
+        public bool IsCurrent
+        {
+            get
+            {
+                return this.isCurrent;
+            }
+
+            set
+            {
+                if (this.isCurrent != value)
+                {
+                    if (value)
+                    {
+                        foreach (TileEvent eventObject in this.eventObjects)
+                        {
+                            eventObject.OnEnter();
+                        }
+                    }
+                    else
+                    {
+                        foreach (TileEvent eventObject in this.eventObjects)
+                        {
+                            eventObject.OnExit();
+                        }
+                    }
+
+                    this.isCurrent = value;
+                }
+            }
+        }
+
         public bool IsActive
+        {
+            get
+            {
+                return this.isActive;
+            }
+            set
+            {
+                if (this.isActive != value)
+                {
+                    if (value)
+                    {
+                        foreach (TileEvent eventObject in this.eventObjects)
+                        {
+                            eventObject.OnActivate();
+                        }
+                    }
+                    else
+                    {
+                        foreach (TileEvent eventObject in this.eventObjects)
+                        {
+                            eventObject.OnDeactivate();
+                        }
+                    }
+
+                    this.isActive = value;
+                }
+            }
+        }
+
+        public bool IsLoaded
         {
             get
             {
@@ -77,10 +147,10 @@
             {
                 if (value && this.activeObject == null)
                 {
-                    this.Activate();
+                    this.Load();
                 } else if (!value && this.activeObject != null)
                 {
-                    this.Deactivate();
+                    this.Unload();
                 }
             }
         }
@@ -105,11 +175,11 @@
                 if (this.position != value)
                 {
                     this.position = value;
-                    if(this.IsActive)
+                    if(this.IsLoaded)
                     {
                         // Re-show to update all the debug markers etc
-                        this.Deactivate();
-                        this.Activate();
+                        this.Unload();
+                        this.Load();
                     }
                 }
             }
@@ -166,13 +236,8 @@
 
         public bool Contains(Vector2 value)
         {
-            var halfWidth = this.Width / 2;
-            //var halfHeight = this.Height / 2;
-
-            return value.x >= this.Position.x - halfWidth
-                && value.x <= this.Position.x + halfWidth
-                && value.y >= this.Position.y
-                && value.y <= this.Position.y + this.Height;
+            var bounds = new Bounds(this.position, this.tile.Bounds.size);
+            return bounds.Contains(value);
         }
 
         public IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction)
@@ -229,7 +294,7 @@
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
-        private void Activate()
+        private void Load()
         {
             if (this.activeObject != null)
             {
@@ -293,6 +358,15 @@
             this.debugActiveSegmentIndicatorBL.GetComponent<Renderer>().material.color = Color.magenta;
             this.debugActiveSegmentIndicatorBL.transform.position = bottomLeft;
             this.debugActiveSegmentIndicatorBL.transform.SetParent(this.debugRoot.transform);
+
+            this.eventObjects.Clear();
+
+            IList<TileEvent> events = this.activeObject.GetComponentsInChildren<TileEvent>();
+            foreach (TileEvent eventObject in events)
+            {
+                this.eventObjects.Add(eventObject);
+                eventObject.OnLoad(this.InternalId);
+            }
         }
 
         private void RebuildBackground()
@@ -302,21 +376,19 @@
                 return;
             }
 
-            float marginHorizontal = 40.0f;
-            float marginVertical = 10.0f;
             GameObject instance = Object.Instantiate(this.tile.TileData.background);
             Bounds backGroundBounds = this.tile.Bounds;
-            backGroundBounds.Expand(new Vector3(marginVertical * 2, marginHorizontal * 2));
+            backGroundBounds.Expand(new Vector3(Constants.LevelBackgroundMarginVertical * 2, Constants.LevelBackgroundMarginHorizontal * 2));
             //var halfWidth = backGroundBounds.size.x / 2;
 
             Bounds instanceBounds = Utils.GetMaxBounds(instance);
             int tileX = 1 + (int)Mathf.Ceil(backGroundBounds.size.x / instanceBounds.size.x);
             int tileY = 1 + (int)Mathf.Ceil(backGroundBounds.size.y / instanceBounds.size.y);
 
-            float xPos = this.position.x - marginVertical;
+            float xPos = this.position.x - Constants.LevelBackgroundMarginHorizontal;
             for (var x = 0; x < tileX; x++)
             {
-                float yPos = this.position.y - marginHorizontal;
+                float yPos = this.position.y - Constants.LevelBackgroundMarginHorizontal;
                 for (var y = 0; y < tileY; y++)
                 {
                     var backTile = Object.Instantiate(this.tile.TileData.background);
@@ -334,12 +406,20 @@
             Object.Destroy(instance);
         }
 
-        private void Deactivate()
+        private void Unload()
         {
             if (this.activeObject == null)
             {
                 return;
             }
+
+            // Notify that we are unloading this segment
+            foreach (TileEvent eventObject in this.eventObjects)
+            {
+                eventObject.OnUnload();
+            }
+
+            this.eventObjects.Clear();
 
             // Show the connectors for debugging
             foreach (GameObject debugObject in this.connectorDebugObjects)
@@ -380,12 +460,11 @@
                     case LevelSegmentDirection.Left:
                         {
                             return LevelSegmentDirection.Right;
-                            break;
                         }
+
                     case LevelSegmentDirection.Right:
                         {
                             return LevelSegmentDirection.Left;
-                            break;
                         }
                 }
             }

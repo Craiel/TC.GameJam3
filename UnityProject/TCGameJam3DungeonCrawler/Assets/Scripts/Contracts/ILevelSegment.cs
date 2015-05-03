@@ -13,7 +13,12 @@
 
         bool IsMirrored { get; set; }
 
+        // Current = segment the player is in
+        // Active = segment that is within activation range
+        // Loaded = segment is actually present in the world
+        bool IsCurrent { get; set; }
         bool IsActive { get; set; }
+        bool IsLoaded { get; set; }
 
         ILevelTile Tile { get; }
 

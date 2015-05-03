@@ -16,12 +16,14 @@
         private readonly IList<ILevelSegment> segments;
 
         private ILevelSegment rootSegment;
-        private ILevelSegment activeSegment;
+        private ILevelSegment currentSegment;
         private Vector2? currentPosition;
 
         private GameObject debugIndicator;
 
         private GameObject debugActiveSegmentIndicator;
+
+        private float lastExtensionTime;
 
         // -------------------------------------------------------------------
         // Constructor
@@ -50,8 +52,8 @@
             this.rootSegment.SetCanExtend(LevelSegmentDirection.Right, true);
             this.segments.Add(this.rootSegment);
 
-            this.activeSegment = this.rootSegment;
-            this.ActivateSegment(this.rootSegment);
+            this.SetCurrentSegment(this.rootSegment);
+            this.LoadSegment(this.rootSegment);
 
             this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
@@ -64,9 +66,9 @@
 
         public void Update()
         {
-            if (this.game.camera != null)
+            if (this.game.player != null)
             {
-                this.currentPosition = this.game.camera.transform.position;
+                this.currentPosition = this.game.player.transform.position;
             }
 
             if (this.currentPosition == null)
@@ -76,9 +78,10 @@
 
             this.debugIndicator.transform.position = new Vector3(this.currentPosition.Value.x, this.currentPosition.Value.y, 0);
 
-            this.UpdateActiveSegment();
+            this.UpdateCurrentSegment();
 
-            if (this.activeSegment == null)
+            ILevelSegment current = this.GetCurrentSegment();
+            if (current == null)
             {
                 this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = false;
             }
@@ -86,23 +89,39 @@
             {
                 this.debugActiveSegmentIndicator.GetComponent<Renderer>().enabled = true;
                 this.debugActiveSegmentIndicator.transform.position = new Vector3(
-                    this.activeSegment.Position.x,
-                    this.activeSegment.Position.y,
+                    current.Position.x,
+                    current.Position.y,
                     10.0f);
                 this.debugActiveSegmentIndicator.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
 
-                this.CollapseSegment(LevelSegmentDirection.Left, this.activeSegment, Constants.TileCollapseRange);
-                this.CollapseSegment(LevelSegmentDirection.Right, this.activeSegment, Constants.TileCollapseRange);
+                // Activate / Deactivate in both ways
+                this.ActivateSegment(LevelSegmentDirection.Right, current, Constants.TileActivationRange);
+                this.ActivateSegment(LevelSegmentDirection.Left, current, Constants.TileActivationRange);
 
-                // Extend the active segment both ways
-                this.ExtendSegment(LevelSegmentDirection.Right, this.activeSegment);
-                this.ExtendSegment(LevelSegmentDirection.Left, this.activeSegment);
+                // We collapse / expand only every 2 seconds max, theres enough range for this not to matter
+                float time = Time.time;
+                if (time > this.lastExtensionTime + Constants.TileExtensionDelay)
+                {
+                    this.CollapseSegment(LevelSegmentDirection.Left, current, Constants.TileCollapseRange);
+                    this.CollapseSegment(LevelSegmentDirection.Right, current, Constants.TileCollapseRange);
+
+                    // Extend the active segment both ways
+                    this.ExtendSegment(LevelSegmentDirection.Right, current, Constants.TileGenerationRange);
+                    this.ExtendSegment(LevelSegmentDirection.Left, current, Constants.TileGenerationRange);
+
+                    this.lastExtensionTime = time;
+                }
             }
         }
 
         // -------------------------------------------------------------------
         // Private
         // -------------------------------------------------------------------
+        private ILevelSegment GetCurrentSegment()
+        {
+            return this.currentSegment;
+        }
+
         private void ApplySegmentConnectionMap(LevelConnectionMap closestConnection, ILevelSegment segment, ILevelSegment newSegment)
         {
             newSegment.Position = segment.Position + new Vector2(segment.Width, 0);
@@ -149,7 +168,7 @@
             }
         }
 
-        private void ExtendSegment(LevelSegmentDirection direction, ILevelSegment root)
+        private void ExtendSegment(LevelSegmentDirection direction, ILevelSegment root, int range)
         {
             ILevelSegment center = root;
             for (var i = 0; i < Constants.TileGenerationRange; i++)
@@ -176,8 +195,21 @@
 
             if (currentDepth > minDepth)
             {
-                this.DeactivateSegment(segment);
+                this.UnloadSegment(segment);
             }
+        }
+
+        private void ActivateSegment(LevelSegmentDirection direction, ILevelSegment segment, int range, int currentDepth = 0)
+        {
+            ILevelSegment neighbor = segment.GetNeighbor(direction);
+            if (neighbor != null)
+            {
+                currentDepth++;
+                this.ActivateSegment(direction, neighbor, range, currentDepth);
+                currentDepth--;
+            }
+
+            segment.IsActive = currentDepth <= range;
         }
 
         private void ExtendSegmentLeft(LevelSegmentDirection direction, ILevelSegment segment, ILevelSegment newSegment)
@@ -211,7 +243,7 @@
             if (neighbor != null)
             {
                 // Reactivate the neighbor instead of making a new one
-                this.ActivateSegment(neighbor);
+                this.LoadSegment(neighbor);
                 return;
             }
 
@@ -226,7 +258,7 @@
                 }
 
                 // Important to show the segment before we do positioning!
-                this.ActivateSegment(newSegment);
+                this.LoadSegment(newSegment);
 
                 switch (direction)
                 {
@@ -290,19 +322,52 @@
 
             return currentMap;
         }
+
+        private void SetCurrentSegment(ILevelSegment segment)
+        {
+            if (this.currentSegment == segment)
+            {
+                return;
+            }
+
+            // Deactivate the old segment first to get the events updated properly
+            if (this.currentSegment != null)
+            {
+                this.currentSegment.IsCurrent = false;
+            }
+
+            this.currentSegment = segment;
+
+            if (this.currentSegment != null)
+            {
+                this.currentSegment.IsCurrent = true;
+            }
+        }
         
-        private void UpdateActiveSegment()
+        private void UpdateCurrentSegment()
         {
             System.Diagnostics.Trace.Assert(this.currentPosition != null);
 
+            foreach (ILevelSegment segment in this.segments)
+            {
+                if (segment.Contains(this.currentPosition.Value))
+                {
+                    this.SetCurrentSegment(segment);
+                    return;
+                }
+            }
+
+            this.SetCurrentSegment(null);
+
             // If we have no active segment we "fell" out of it, so search in all loaded ones for a match
-            if (this.activeSegment == null)
+            /*ILevelSegment current = this.GetCurrentSegment();
+            if (current == null)
             {
                 foreach (ILevelSegment segment in this.segments)
                 {
                     if (segment.Contains(this.currentPosition.Value))
                     {
-                        this.activeSegment = segment;
+                        this.SetCurrentSegment(segment);
                         return;
                     }
                 }
@@ -311,32 +376,32 @@
             }
 
             // We still are in an active segment so we might just be transitioning
-            if (this.activeSegment.Contains(this.currentPosition.Value))
+            if (current.Contains(this.currentPosition.Value))
             {
                 return;
             }
 
             foreach (LevelSegmentDirection direction in Enum.GetValues(typeof(LevelSegmentDirection)))
             {
-                ILevelSegment segment = this.activeSegment.GetNeighbor(direction);
+                ILevelSegment segment = current.GetNeighbor(direction);
                 if (segment != null && segment.Contains(this.currentPosition.Value))
                 {
-                    this.activeSegment = segment;
+                    this.SetCurrentSegment(segment);
                     return;
                 }
             }
 
-            this.activeSegment = null;
+            this.SetCurrentSegment(null);*/
         }
 
-        private void ActivateSegment(ILevelSegment segment)
+        private void LoadSegment(ILevelSegment segment)
         {
-            if (segment.IsActive)
+            if (segment.IsLoaded)
             {
                 return;
             }
 
-            segment.IsActive = true;
+            segment.IsLoaded = true;
 
             IList<Spawner> spawners = segment.GetSpawners();
             foreach (Spawner spawner in spawners)
@@ -345,9 +410,9 @@
             }
         }
 
-        private void DeactivateSegment(ILevelSegment segment)
+        private void UnloadSegment(ILevelSegment segment)
         {
-            if (!segment.IsActive)
+            if (!segment.IsLoaded)
             {
                 return;
             }
@@ -358,7 +423,7 @@
                 this.game.UnregisterSpawner(segment, spawner);
             }
 
-            segment.IsActive = false;
+            segment.IsLoaded = false;
         }
 
         public Spawner LocateSpawner(string id)
