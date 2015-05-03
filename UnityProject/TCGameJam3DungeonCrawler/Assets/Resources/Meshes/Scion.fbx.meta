@@ -80,7 +80,539 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: 0
+      lastFrame: 41
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Running
+      takeName: Running
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Attack
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ScionArmature|Attack
+      takeName: ScionArmature|Attack
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ScionArmature|Idle
+      takeName: ScionArmature|Idle
+      firstFrame: 0
+      lastFrame: 41
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ScionArmature|Running
+      takeName: ScionArmature|Running
+      firstFrame: 0
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ScionArmature|ScionPoses
+      takeName: ScionArmature|ScionPoses
+      firstFrame: 0
+      lastFrame: 38
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Scion.LoPoly
+        weight: 1
+      - path: ScionArmature
+        weight: 1
+      - path: ScionArmature/ControlBone
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/Head/Head_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.L/LowerArm.L/Hand.L/Hand.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R
+        weight: 1
+      - path: ScionArmature/ControlBone/LowerBack/UpperBack/Torso/UpperArrn.R/LowerArm.R/Hand.R/Hand.R_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.L/LowerLeg.L/Foot.L/Foot.L_end
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R
+        weight: 1
+      - path: ScionArmature/ControlBone/UpperLeg.R/LowerLeg.R/Foot.R/Foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
