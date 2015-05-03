@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+
+using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public abstract class Actor : MonoBehaviour
+public abstract class Actor : SpawnedEntity
 {
     [SerializeField]
     private int totalHitPoints;

@@ -8,8 +8,10 @@
 
     using UnityEngine;
 
-    public class GameLevel : MonoBehaviour, IGameLevel
+    public class GameLevel : IGameLevel
     {
+        private readonly Game game;
+
         private readonly IList<ILevelSegment> segments;
 
         private ILevelSegment rootSegment;
@@ -23,8 +25,9 @@
         // -------------------------------------------------------------------
         // Constructor
         // -------------------------------------------------------------------
-        public GameLevel()
+        public GameLevel(Game game)
         {
+            this.game = game;
             this.segments = new List<ILevelSegment>();
         }
         
@@ -47,7 +50,7 @@
             this.segments.Add(this.rootSegment);
 
             this.activeSegment = this.rootSegment;
-            this.activeSegment.Show();
+            this.ActivateSegment(this.rootSegment);
 
             this.debugIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             this.debugIndicator.GetComponent<Renderer>().material.color = Color.green;
@@ -56,10 +59,7 @@
             this.debugActiveSegmentIndicator.GetComponent<Renderer>().material.color = Color.blue;
         }
 
-        // -------------------------------------------------------------------
-        // Private
-        // -------------------------------------------------------------------
-        private void Update()
+        public void Update()
         {
             if (Camera.current != null)
             {
@@ -97,6 +97,9 @@
             }
         }
 
+        // -------------------------------------------------------------------
+        // Private
+        // -------------------------------------------------------------------
         private void ApplySegmentConnectionMap(LevelConnectionMap closestConnection, ILevelSegment segment, ILevelSegment newSegment)
         {
             newSegment.Position = segment.Position + new Vector2(segment.Width, 0);
@@ -170,7 +173,7 @@
 
             if (currentDepth > minDepth)
             {
-                segment.Hide();
+                this.DeactivateSegment(segment);
             }
         }
 
@@ -195,7 +198,7 @@
             if (neighbor != null)
             {
                 // Reactivate the neighbor instead of making a new one
-                neighbor.Show();
+                this.ActivateSegment(neighbor);
                 return;
             }
 
@@ -206,7 +209,7 @@
                 var newSegment = new LevelSegment(tile);
 
                 // Important to show the segment before we do positioning!
-                newSegment.Show();
+                this.ActivateSegment(newSegment);
 
                 switch (direction)
                 {
@@ -307,6 +310,52 @@
             }
 
             this.activeSegment = null;
+        }
+
+        private void ActivateSegment(ILevelSegment segment)
+        {
+            if (segment.IsActive)
+            {
+                return;
+            }
+
+            segment.IsActive = true;
+
+            IList<Spawner> spawners = segment.GetSpawners();
+            foreach (Spawner spawner in spawners)
+            {
+                this.game.RegisterSpawner(segment, spawner);
+            }
+        }
+
+        private void DeactivateSegment(ILevelSegment segment)
+        {
+            if (!segment.IsActive)
+            {
+                return;
+            }
+
+            IList<Spawner> spawners = segment.GetSpawners();
+            foreach (Spawner spawner in spawners)
+            {
+                this.game.UnregisterSpawner(segment, spawner);
+            }
+
+            segment.IsActive = false;
+        }
+
+        public Spawner LocateSpawner(string id)
+        {
+            foreach (ILevelSegment segment in this.segments)
+            {
+                Spawner spawner = segment.GetSpawner(id);
+                if (spawner != null)
+                {
+                    return spawner;
+                }
+            }
+
+            return null;
         }
     }
 }

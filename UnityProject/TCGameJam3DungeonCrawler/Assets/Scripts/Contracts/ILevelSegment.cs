@@ -8,15 +8,16 @@
 
     public interface ILevelSegment
     {
+        long InternalId { get; }
+
+        bool IsActive { get; set; }
+
         ILevelTile Tile { get; }
 
         Vector2 Position { get; set; }
 
         float Width { get; }
         float Height { get; }
-        
-        void Show();
-        void Hide();
 
         bool GetCanExtend(LevelSegmentDirection direction);
         void SetCanExtend(LevelSegmentDirection direction, bool value);
@@ -29,5 +30,8 @@
         IList<ILevelTileConnection> GetConnections(LevelSegmentDirection direction);
 
         GameObject GetObject();
+
+        IList<Spawner> GetSpawners();
+        Spawner GetSpawner(string id);
     }
 }
