@@ -27,6 +27,8 @@
             }
         }
 
+        public bool InErrorState { get; set; }
+
         public bool GetState(string key)
         {
             if (!this.states.ContainsKey(key))
